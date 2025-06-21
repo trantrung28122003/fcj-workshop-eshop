@@ -1,0 +1,431 @@
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.pageTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0;
+}
+
+.pageSubtitle {
+  color: #718096;
+  font-size: 1rem;
+  margin: 0.5rem 0 0 0;
+}
+
+.addButton {
+  background: linear-gradient(45deg, #06bbcc, #4a90e2);
+  color: white;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(6, 187, 204, 0.25);
+}
+
+.addButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(6, 187, 204, 0.35);
+}
+
+.addButton:active {
+  transform: translateY(0);
+}
+
+.tableContainer {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.table th {
+  background: linear-gradient(45deg, #f7fafc, #edf2f7);
+  color: #2d3748;
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  text-align: left;
+  border-bottom: 2px solid #e2e8f0;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #4a5568;
+  font-size: 0.875rem;
+}
+
+.table tr:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(6, 187, 204, 0.02),
+    rgba(74, 144, 226, 0.02)
+  );
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.idCell {
+  font-family: "Courier New", monospace;
+  font-weight: 600;
+  color: #06bbcc;
+  font-size: 0.8rem;
+}
+
+.nameCell {
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.priceCell {
+  font-weight: 600;
+  color: #38a169;
+}
+
+.stockCell {
+  font-weight: 500;
+}
+
+.stockLow {
+  color: #e53e3e;
+}
+
+.stockMedium {
+  color: #d69e2e;
+}
+
+.stockHigh {
+  color: #38a169;
+}
+
+.categoryCell {
+  background: linear-gradient(45deg, #06bbcc, #4a90e2);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.actionsCell {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.editButton,
+.deleteButton,
+.detailButton {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.75rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: white;
+}
+
+.editButton {
+  background: linear-gradient(45deg, #3182ce, #4a90e2);
+}
+
+.editButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.25);
+}
+
+.deleteButton {
+  background: linear-gradient(45deg, #e53e3e, #f56565);
+}
+
+.deleteButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.25);
+}
+
+.detailButton {
+  background: linear-gradient(45deg, #4a5568, #718096);
+}
+
+.detailButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(74, 85, 104, 0.25);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #718096;
+}
+
+.emptyStateIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.emptyStateTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #4a5568;
+}
+
+.emptyStateText {
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+.loadingState {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #718096;
+}
+
+.loadingSpinner {
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid #06bbcc;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pageHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .tableContainer {
+    overflow-x: auto;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .actionsCell {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .editButton,
+  .deleteButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.modalButton:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+/* Delete Modal Specific Styles */
+.deleteModalContent {
+  text-align: center;
+  padding: 1rem;
+}
+
+.deleteModalIcon {
+  font-size: 4rem;
+  color: #e53e3e; /* Red-500 */
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+.deleteModalText {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.deleteModalProductName {
+  font-weight: 700;
+  color: #2d3748; /* Gray-800 */
+}
+
+.deleteModalWarning {
+  font-size: 0.875rem;
+  color: #718096; /* Gray-600 */
+  margin-top: 1.5rem;
+  border-top: 1px solid #e2e8f0; /* Gray-200 */
+  padding-top: 1rem;
+}
+
+.formGroup {
+  margin-bottom: 1.25rem;
+}
+
+.formLabel {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #4a5568;
+}
+
+.modalButtonSecondary:hover {
+  background-color: #cbd5e0;
+}
+
+.modalButtonDanger {
+  background-color: #e53e3e;
+  color: white;
+  border-color: #e53e3e;
+}
+
+.modalButtonDanger:hover {
+  background-color: #c53030;
+  border-color: #c53030;
+}
+
+.detailImageContainer {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.detailImage {
+  max-width: 100%;
+  max-height: 250px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  border: 1px solid #e2e8f0;
+}
+
+.modalButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid transparent;
+  line-height: 1.5;
+}
+
+.modalButtonSecondary {
+  background-color: #e2e8f0;
+  color: #4a5568;
+  border-color: #cbd5e0;
+}
+
+.modalButtonSecondary:hover {
+  background-color: #cbd5e0;
+}
+
+.modalButtonDanger {
+  background-color: #e53e3e;
+  color: white;
+}
+
+.modalButtonDanger:hover {
+  background-color: #c53030;
+}
+
+/* New Detail Modal Styles */
+.detailContainer {
+  padding: 0.5rem;
+}
+
+.detailHeader {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.detailProductName {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-top: 1rem;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.detailItem {
+  background-color: #f8fafc;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+.detailLabel {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.detailValue {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.detailValue.price {
+  color: #16a34a; /* Green-600 */
+}
+
+.detailValue.stock-low {
+  color: #dc2626; /* Red-600 */
+}
+
+.detailValue.stock-medium {
+  color: #d97706; /* Amber-600 */
+}
+
+.detailDescription {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+  color: #475569;
+  line-height: 1.6;
+}
