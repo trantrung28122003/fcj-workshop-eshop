@@ -4,6 +4,7 @@ import type { Category } from "../../../../model/Category";
 import styles from "./ProductForm.module.css";
 import { DoCallAPIWithOutToken } from "../../../../services/HttpService";
 import { GET_ALL_CATEGORY } from "../../../../constants/API";
+import { getPresignedUrl, UploadFileToS3Buket } from "../../../../services/ProductService";
 
 interface ProductFormProps {
   product?: Product;
@@ -18,14 +19,20 @@ const ProductForm: React.FC<ProductFormProps> = ({
   onCancel,
   isLoading = false,
 }) => {
-  const [formData, setFormData] = useState({
-    name: product?.name || "",
-    price: product?.price || 0,
-    stockCount: product?.stockCount || 0,
-    categoryId: product?.categoryId || "1",
-  });
+  const [file, setFile] = useState<File | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+
+   const [formData, setFormData] = useState({
+    name:        product?.name || "",
+    price:       product?.price || 0,
+    description: product?.description || "",
+    stockCount:  product?.stockCount || 0,
+    categoryId:  product?.categoryId?.toString() || "",
+    key:         product?.imageUrl?.split("/").pop() || null,
+  });
+
 
   useEffect(() => {
     fetchCategories();
@@ -57,18 +64,53 @@ const ProductForm: React.FC<ProductFormProps> = ({
     if (!formData.categoryId) {
       newErrors.categoryId = "Vui lòng chọn danh mục";
     }
+    if (!product && !file) newErrors.file = "Vui lòng chọn ảnh sản phẩm";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (validateForm()) {
-      onSubmit(formData);
-    }
+   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFile(e.target.files?.[0] || null);
+    if (errors.file) setErrors(prev => ({ ...prev, file: "" }));
   };
+
+   async function uploadImageAndGetKey(file: File): Promise<string> {
+  
+    const { data } = await getPresignedUrl(file.name, file.type);
+
+    const { uploadUrl, key } = data;
+    if (!uploadUrl) throw new Error("Không lấy được URL upload");
+    await UploadFileToS3Buket(uploadUrl, file);
+    return key;
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+  e.preventDefault();
+  if (!validateForm()) return;
+
+  try {
+    let imageKey = formData.key; 
+    
+    if (file) {
+      imageKey = await uploadImageAndGetKey(file);
+    }
+    const payload: Omit<Product, "id"> = {
+      name:        formData.name,
+      price:       formData.price,
+      stockCount:  formData.stockCount,
+      description: formData.description ,
+      categoryId:  formData.categoryId,
+      key:         imageKey,
+    };
+
+    onSubmit(payload);
+  } catch (err: any) {
+    console.error("Lỗi khi upload hoặc tạo product:", err);
+    alert(err.message || "Có lỗi, thử lại nhé");
+  }
+}
+
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -175,6 +217,22 @@ const ProductForm: React.FC<ProductFormProps> = ({
         </select>
         {errors.categoryId && (
           <div className={styles.errorMessage}>{errors.categoryId}</div>
+        )}
+      </div>
+
+      <div className={styles.formGroup}>
+        <label htmlFor="file" className={styles.formLabel}>
+          Ảnh sản phẩm {product ? "(tùy chọn)" : "*"}
+        </label>
+        <input
+          type="file"
+          id="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          disabled={isLoading}
+        />
+        {errors.file && (
+          <div className={styles.errorMessage}>{errors.file}</div>
         )}
       </div>
 

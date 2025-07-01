@@ -49,14 +49,32 @@ const STATUS_LIKE_BLOG = BASE_URL +"/customer/status"
  * home
  */
 
+
+
+/**
+ * product
+ */
+const PRESIGNED_URL = "https://2m7zvd8zdb.execute-api.ap-southeast-1.amazonaws.com/easyshop/upload-file/presigned-url";
+/**
+ * product
+ */
+
+
+
 /**
  * product
  */
 const BASE_URL_PRODUCT = BASE_URL + "/products";
-const GET_ALL_PRODUCT = BASE_URL_PRODUCT + "/";
-const ADD_PRODUCT = BASE_URL_PRODUCT + "/";
-const UPDATE_PRODUCT = BASE_URL_PRODUCT + "/";
-const DELETE_PRODUCT = BASE_URL_PRODUCT + "/";
+// const GET_ALL_PRODUCT = BASE_URL_PRODUCT + "/";
+// const ADD_PRODUCT = BASE_URL_PRODUCT + "/";
+// const UPDATE_PRODUCT = BASE_URL_PRODUCT + "/";
+// const DELETE_PRODUCT = BASE_URL_PRODUCT + "/";
+
+
+const GET_ALL_PRODUCT = "https://2m7zvd8zdb.execute-api.ap-southeast-1.amazonaws.com/easyshop/products";
+const ADD_PRODUCT = "https://2m7zvd8zdb.execute-api.ap-southeast-1.amazonaws.com/easyshop/products"
+const UPDATE_PRODUCT = "https://2m7zvd8zdb.execute-api.ap-southeast-1.amazonaws.com/easyshop/products/"
+const DELETE_PRODUCT = "https://2m7zvd8zdb.execute-api.ap-southeast-1.amazonaws.com/easyshop/products/"
 /**
  * product
  */
@@ -102,5 +120,6 @@ export {
   GET_ALL_CATEGORY,
   ADD_CATEGORY,
   UPDATE_CATEGORY,
-  DELETE_CATEGORY
+  DELETE_CATEGORY,
+  PRESIGNED_URL
 };

@@ -20,7 +20,6 @@ const Products = () => {
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -41,7 +40,6 @@ const Products = () => {
       ]);
 
       setProducts(productsResponse.data);
-
       const newCategoryMap = new Map<string, string>();
       categoriesResponse.data.forEach((cat: Category) => {
         newCategoryMap.set(cat.id, cat.name);
@@ -58,10 +56,12 @@ const Products = () => {
 
   const handleCreateProduct = (productData: Omit<Product, "id">) => {
     setFormLoading(true);
+    console.log("Creating product with data:", productData);
     createProduct(productData)
       .then(() => {
         setShowCreateModal(false);
-        fetchData(); // Refresh all data
+        console.log("Product created successfully", productData);
+        fetchData();
       })
       .catch((error) => {
         console.error("Error creating product:", error);
@@ -75,11 +75,11 @@ const Products = () => {
   const handleUpdateProduct = (productData: Omit<Product, "id">) => {
     if (!selectedProduct) return;
     setFormLoading(true);
-    updateProduct(selectedProduct.id, productData)
+      updateProduct(selectedProduct.id, productData)
       .then(() => {
         setShowUpdateModal(false);
         setSelectedProduct(null);
-        fetchData(); // Refresh all data
+        fetchData();
       })
       .catch((error) => {
         console.error("Error updating product:", error);
@@ -97,7 +97,7 @@ const Products = () => {
       .then(() => {
         setShowDeleteModal(false);
         setSelectedProduct(null);
-        fetchData(); // Refresh all data
+        fetchData();
       })
       .catch((error) => {
         console.error("Error deleting product:", error);
@@ -405,19 +405,16 @@ const Products = () => {
                     {selectedProduct.stockCount}
                   </p>
                 </div>
+                {selectedProduct.description && (
+                  <div className={styles.detailItem}>
+                    <span
+                      className={styles.detailLabe}>
+                      Mô tả sản phẩm
+                    </span>
+                    <p>{selectedProduct.description}</p>
+                  </div>
+                )}
               </div>
-
-              {selectedProduct.description && (
-                <div className={styles.detailDescription}>
-                  <h5
-                    className={styles.detailLabel}
-                    style={{ fontSize: "0.9rem", marginBottom: "0.5rem" }}
-                  >
-                    Mô tả sản phẩm
-                  </h5>
-                  <p>{selectedProduct.description}</p>
-                </div>
-              )}
             </div>
           )}
         </Modal>
