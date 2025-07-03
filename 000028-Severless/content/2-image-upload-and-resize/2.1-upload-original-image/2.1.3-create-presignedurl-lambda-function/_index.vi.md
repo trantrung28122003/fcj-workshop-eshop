@@ -1,19 +1,17 @@
 ---
-title : "Hàm Lambda xoá dữ liệu sản phẩm"
-date :  "`r Sys.Date()`"
+title : "Tạo hàm Lambda GetPresignedUrl"
+date :  "`r Sys.Date()`" 
 weight : 3
 chapter : false
-pre : " <b> 4.3. </b> "
+pre : " <b> 2.1.3. </b> "
 ---
 
 #### Tổng quan
 
-Trong bước này, chúng ta sẽ triển khai hàm Lambda có tên **delete-product** – dùng để **xoá một sản phẩm khỏi DynamoDB**.  
-Hàm này được viết bằng **Node.js 22.x** và sử dụng quyền truy cập DynamoDB thông qua một **IAM Role** đã tạo sẵn.
+Trong bước này, bạn sẽ triển khai hàm Lambda có tên **get-presigned-url**, với mục tiêu là tạo ra một **Presigned URL** để frontend có thể upload ảnh trực tiếp lên S3 bucket ảnh gốc.  
+Hàm này được viết bằng **Node.js 22.x** và sử dụng quyền truy cập S3 thông qua một **IAM Role** đã tạo từ bước trước.
 
----
-
-#### Tạo hàm Lambda delete-product trên AWS Console
+#### Tạo hàm Lambda get-presigned-url trên AWS Console
 
 1. Truy cập [AWS Lambda Console](https://console.aws.amazon.com/lambda/home), chọn **Functions**, sau đó bấm **Create function**.
 
@@ -23,7 +21,7 @@ Hàm này được viết bằng **Node.js 22.x** và sử dụng quyền truy c
 
 3. Trong phần **Basic information**, nhập các thông tin:
 
-   - **Function name**: `delete-product`
+   - **Function name**: `get-presigned-url`
    - **Runtime**: `Node.js 22.x`
    - **Architecture**: `x86_64`
 
@@ -37,17 +35,17 @@ Trong hướng dẫn này, ta sử dụng **Node.js 22.x** – phiên bản mớ
 4. Ở phần **Change default execution role**:
 
    - Chọn: `Use an existing role`
-   - Sau đó chọn IAM Role bạn đã tạo, ví dụ: `lambda-dynamodb-role`
+   - Sau đó chọn IAM Role bạn đã tạo, ví dụ: `lambda-upload-original-role`
 
    ![Ảnh minh họa: chọn IAM Role](images/lambda-select-role.png)
 
 ---
 
-#### Triển khai mã nguồn cho Lambda delete-product
+#### Triển khai mã nguồn cho Lambda get-presigned-url
 
 Sau khi nhấn **Create function**, Lambda sẽ chuyển sang giao diện chỉnh sửa mã.
 
-{{% notice warning %}}
+{{% notice info %}}
 Hiện tại **Lambda chưa hỗ trợ trực tiếp trình soạn thảo ESM (import/export) cho Node.js 22.x**.  
 Do đó, bạn cần chuẩn bị mã nguồn và thư viện **trên máy local**, sau đó **nén và upload thủ công**.
 {{% /notice %}}
@@ -65,3 +63,26 @@ Do đó, bạn cần chuẩn bị mã nguồn và thư viện **trên máy local
 
 ```bash
 npm install @aws-sdk/client-dynamodb uuid
+```
+
+8. Nén mã nguồn để upload lên Lambda
+- Truy cập vào thư mục **get-presigned-url-lambda**
+
+- Chọn tất cả các tệp và thư mục bên trong: **index.mjs**,  **package.json**, **node_modules/**
+
+- Giải nén chúng ra một tệp có tên `get-presigned-url-lambda.zip`
+
+9. Sau khi nén xong tệp xong
+
+- Vào **AWS Lambda**,  chọn hàm **get-presigned-url**
+
+- ở phần trang **Code**, bấm **Upload from**, sau đó chọn **.zip file**
+
+- Chọn **`get-presigned-url-lambda.zip`** vừa tạo.
+
+Xác nhận lại handler của lambda: index.handler 
+{{% notice tip %}}
+Handler của Lambda có dạng: <TÊN_FILE>.<TÊN_HÀM>
+{{% /notice %}}
+
+

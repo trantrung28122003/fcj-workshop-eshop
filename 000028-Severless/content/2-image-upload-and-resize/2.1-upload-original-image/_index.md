@@ -20,6 +20,6 @@ At this stage, **resizing or metadata processing is not handled** – the goal i
 
 #### Main Steps
 
-1. [Create PresignedURL Lambda Function](2.1.1-create-presignedurl-lambda-function/)
-2. [Create S3 Buckets](2.1.1-create-presignedURL-lambda-function/)
-3. [Create IAM Role](2.1.3-create-iam-role/)
+1. [Create S3 Buckets](2.1.1-create-presignedURL-lambda-function/)
+2. [Create IAM Role](2.1.3-create-iam-role/)
+3. [Create PresignedURL Lambda Function](2.1.1-create-presignedurl-lambda-function/)

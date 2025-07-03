@@ -23,7 +23,7 @@ Tạo các bảng DynamoDB cho `Product` và `Category` để lưu trữ dữ li
 
 ---
 
-### Tạo bảng Product trong DynamoDB
+#### **Tạo bảng Product trong DynamoDB**
 
 1. Truy cập vào [DynamoDB Console](https://console.aws.amazon.com/dynamodb/home) và chọn **Create Table** từ ngăn điều hướng.
 
@@ -49,9 +49,8 @@ Nếu bạn chỉ muốn tạo bảng nhanh chóng, có thể giữ nguyên các
 
 4. Cuối cùng, kéo xuống và nhấn **Create table** để hoàn tất.
 
----
 
-### Tạo bảng Category trong DynamoDB
+#### **Tạo bảng Category trong DynamoDB**
 
 Cách tạo bảng `Category` cũng hoàn toàn tương tự như `Product`. Bạn chỉ cần:
 
@@ -73,3 +72,7 @@ Cách tạo bảng `Category` cũng hoàn toàn tương tự như `Product`. B�
 **Partition key** là **bắt buộc** khi tạo bảng và **không thể thay đổi** sau này.  
 Bạn có thể **thêm các chỉ mục phụ** (*Global Secondary Index*) **sau khi bảng đã được tạo**.
 {{% /notice %}}
+
+#### Kết quả
+
+Sau khi tạo xong hai bảng **Product** và **Category**, bạn sẽ thấy chúng hiển thị trong danh sách bảng tại DynamoDB Console:

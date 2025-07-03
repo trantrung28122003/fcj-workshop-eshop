@@ -1,9 +1,9 @@
 ---
-title : "Create S3 Bucket"
+title : "Create Resize Lamdba Function"
 date : "`r Sys.Date()`"
-weight : 1
+weight : 3
 chapter : false
-pre : " <b> 2.2.2. </b> "
+pre : " <b> 2.2.3. </b> "
 ---
 
 

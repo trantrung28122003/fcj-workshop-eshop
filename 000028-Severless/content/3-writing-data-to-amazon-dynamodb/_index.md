@@ -23,7 +23,7 @@ Create DynamoDB tables for `Product` and `Category` to store application data.
 
 ---
 
-### Creating the Product Table in DynamoDB
+#### **Creating the Product Table in DynamoDB**
 
 1. Go to the [DynamoDB Console](https://console.aws.amazon.com/dynamodb/home) and select **Create Table** from the left navigation panel.
 
@@ -49,9 +49,8 @@ If you simply want to create a table quickly, you can keep the default settings 
 
 4. Scroll down and click **Create table** to finish.
 
----
 
-### Creating the Category Table in DynamoDB
+#### **Creating the Category Table in DynamoDB**
 
 The steps to create the **Category** table are similar to the **Product** table:
 
@@ -73,3 +72,7 @@ The steps to create the **Category** table are similar to the **Product** table:
 The **Partition key** is **required** and **cannot be changed** after the table is created.  
 You can **add Global Secondary Indexes (GSI)** after the table has been created.
 {{% /notice %}}
+
+#### Results
+
+Once the `Product` and `Category` tables have been successfully created, they will appear in the DynamoDB Console under the list of available tables.

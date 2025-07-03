@@ -1,9 +1,9 @@
 ---
 title : "Create IAM Role"
 date : "`r Sys.Date()`"
-weight : 3
+weight : 2
 chapter : false
-pre : " <b> 2.2.3. </b> "
+pre : " <b> 2.2.2. </b> "
 ---
 
 #### Create Private Subnet
