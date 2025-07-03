@@ -1,56 +1,37 @@
 ---
-title : "Create IAM Role for Lambda Function"
-date :  "`r Sys.Date()`"
-weight : 1
-chapter : false
-pre : " <b> 4.1. </b> "
+title: "Create IAM Role for Lambda Function"
+date: "`r Sys.Date()`"
+weight: 1
+chapter: false
+pre: " <b> 4.1. </b> "
 ---
 
-### Tổng quan
+### Overview
 
-Trong bước này, chúng ta sẽ triển khai hàm Lambda có tên **Create_Book** – dùng để tạo hoặc cập nhật dữ liệu vào DynamoDB.
+Before deploying any Lambda function, you need to create an **IAM Role** that grants the Lambda function permission to access other AWS services, such as **reading/writing data in DynamoDB**. In this guide, we will assign the necessary permissions for Lambda to interact with DynamoDB.
 
-Hàm này được viết bằng **Node.js** và sử dụng quyền truy cập DynamoDB thông qua một IAM Role phù hợp.
+IAM (Identity and Access Management) acts as an authorization layer, allowing Lambda to operate securely within your AWS environment.
 
----
+### Steps to Create an IAM Role
 
+1. Navigate to the [IAM Console](https://console.aws.amazon.com/iam/home) and select **Roles** in the left-hand menu.  
+2. Click **Create role**.  
+3. Under **Trusted entity type**, choose **AWS service**.  
+4. Under **Use case**, select **Lambda**.  
+5. Click **Next**.  
+6. In the **Permissions policies** section, search for and attach **AmazonDynamoDBFullAccess**.  
+   *(You can also create a custom policy if you want to enforce stricter, more granular permissions.)*  
+7. Click **Next**, then enter a name for your role, for example: `lambda-dynamodb-role`.  
+8. Click **Create role** to finalize.
 
+### Reusability
 
-### Bước 2: Tạo Lambda Function
+This IAM Role can be reused for multiple Lambda functions that interact with DynamoDB, such as:
 
-1. Truy cập vào [AWS Lambda Console](https://console.aws.amazon.com/lambda/home) và chọn **Functions** từ thanh điều hướng trái, sau đó nhấn **Create function**.
+- Creating or updating data  
+- Deleting items  
+- Querying items by ID or listing items  
 
-   ![Ảnh minh họa: nút Create function](images/lambda-create-button.png)
-
-2. Ở phần **Create function**, chọn tab **Author from scratch**.
-
-3. Trong mục **Basic information**, nhập:
-
-   - **Function name**: `Create_Book`
-   - **Runtime**: `Node.js 22.x`
-   - **Architecture**: `x86_64`
-
-   ![Ảnh minh họa: cấu hình cơ bản](images/lambda-basic-info.png)
-
-{{% notice note %}}
-Hiện tại AWS Lambda hỗ trợ nhiều ngôn ngữ như **Java**, **.NET**, **Python**, **Node.js**,... Trong hướng dẫn này, ta sử dụng **Node.js 22.x** – phiên bản mới và tối ưu hơn so với Node.js 18.x.
+{{% notice tip %}}
+In production environments, follow the principle of least privilege by creating a custom IAM policy that grants only the specific permissions needed (e.g., `PutItem`, `GetItem`, `DeleteItem`) instead of using the full-access policy.
 {{% /notice %}}
-
----
-
-### Bước 3: Gán IAM Role cho Lambda
-
-Trong phần **Change default execution role**:
-
-- Chọn **Use an existing role**
-- Sau đó chọn IAM Role đã tạo ở bước trước, ví dụ: `lambda-dynamodb-role`
-
-![Ảnh minh họa: chọn IAM role cho Lambda](images/lambda-select-role.png)
-
----
-
-Sau khi hoàn tất, nhấn **Create function** để khởi tạo. Lambda sẽ chuyển sang giao diện chỉnh sửa code để bạn bắt đầu lập trình logic xử lý.
-
----
-
-👉 Bạn cần mình viết tiếp phần code xử lý lưu dữ liệu vào DynamoDB bên trong Lambda không? Mình có thể thêm chi tiết cấu trúc bảng, cách dùng `PutItemCommand`, v.v.
