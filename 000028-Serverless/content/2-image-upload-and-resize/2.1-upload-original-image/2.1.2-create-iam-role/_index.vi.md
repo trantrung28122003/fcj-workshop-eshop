@@ -20,29 +20,41 @@ Hàm Lambda này sẽ sinh ra **Presigned URL** để **upload ảnh gốc vào 
 
 1. Truy cập vào [IAM Console](https://console.aws.amazon.com/iam/home). Sau đó ,chọn **Policies** ở menu bên trái.
 
-2. Chọn **Create policy** → chuyển sang tab **JSON**
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/005.png)
 
-3. Dán đoạn sau vào, và **thay `<your-bucket-name>` bằng tên bucket thực tế của bạn**, ví dụ: `upload-originals-fcj` vừa tạo bucket nãy.
+2. Chọn **Create policy** 
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": "s3:PutObject",
-      "Resource": "arn:aws:s3:::<your-bucket-name>/*"
-    }
-  ]
-}
-```
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/006.png)
+
+3. Trong giao diện **Create policy**, chuyển sang tab **JSON** dán đoạn sau vào, và **thay `<your-bucket-name>` bằng tên bucket thực tế của bạn**
+- ví dụ: `upload-originals-fcj` vừa tạo bucket nãy.
+
+  ```json
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": "s3:PutObject",
+        "Resource": "arn:aws:s3:::<your-bucket-name>/*"
+      }
+    ]
+  }
+  ```
+
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/007.png)
+
 4. Nhấn Next , và trong phần **Policy details**  nhập thông tin
 
 - **Policy name** : `S3PutOriginalImagePolicy`
 - **Description - optional** :`S3PutOriginalImagePolicy `
 
+
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/008.png)
+
 5. Cuối cùng cuộn xuống và nhấn **Create policy** để hoàn tất.
 
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/011.png)
 
 ### Các bước tạo IAM Role
 

@@ -111,6 +111,9 @@ Thực hiện tương tự cho các phương thức và tài nguyên khác tươ
 | `/categories`        | `{id}`            | DELETE | Xóa danh mục theo ID           | `create-category`        |
 | `/`                  | `upload-image`    | POST   | Tạo URL upload ảnh             | `get-presigned-url`      |
 
----
+
+{{% notice warning %}}
+Bạn cần thực hiện lại các bước trên để tạo từng tài nguyên với các phương thức tưng ứng còn lại theo bảng trên nếu muốn frontend gọi được API đó!
+{{% /notice %}}
 
 

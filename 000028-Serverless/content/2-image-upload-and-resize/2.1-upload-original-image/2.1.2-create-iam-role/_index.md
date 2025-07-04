@@ -20,6 +20,8 @@ To follow the **Principle of Least Privilege**, we’ll create a **custom IAM Po
 
 1. Go to the [IAM Console](https://console.aws.amazon.com/iam/home) and select **Policies** from the left-hand menu.
 
+
+
 2. Click **Create policy** → then switch to the **JSON** tab.
 
 3. Paste the following policy and **replace `<your-bucket-name>` with your actual bucket name** (e.g., `upload-originals-fcj`):

@@ -16,7 +16,7 @@ Trong bước này, bạn sẽ tạo một **S3 Bucket** để lưu trữ ảnh 
 
 1. Truy cập vào [AWS S3 Console](https://s3.console.aws.amazon.com/s3/) và nhấn nút **Create bucket**.
 
-   ![Ảnh minh họa: Tạo S3 bucket](images/s3-create-bucket-button.png)
+![Ảnh minh họa: Tạo S3 bucket](/images/2-image-upload-and-resize/2.1-upload-original-image/001.png)
 
 2. Tại phần **General configuration**, nhập các thông tin sau:
 
@@ -25,6 +25,8 @@ Trong bước này, bạn sẽ tạo một **S3 Bucket** để lưu trữ ảnh 
 - **Bucket type**: General purpose (mặc định)
 
 - **Bucket name**: `upload-originals-fcj`
+
+![Ảnh minh họa: Tạo S3 bucket](/images/2-image-upload-and-resize/2.1-upload-original-image/001.png)
 
 {{% notice info %}}
   **Lưu ý**: Tên bucket phải là **duy nhất trên toàn cầu** và **không chứa khoảng trắng hoặc ký tự đặc biệt**.
@@ -36,7 +38,13 @@ Trong bước này, bạn sẽ tạo một **S3 Bucket** để lưu trữ ảnh 
 
 4. Cuối cùng, cuộn xuống và nhấn **Create bucket** để hoàn tất.
 
+![Ảnh minh họa: Tạo S3 bucket](/images/2-image-upload-and-resize/2.1-upload-original-image/003.png)
+
+---
 
 #### Kết quả
 
 Sau khi hoàn tất, bạn sẽ thấy bucket **upload-originals-fcj** xuất hiện trong danh sách. Bucket này sẽ được sử dụng trong các Lambda function để tạo Presigned URL và xử lý ảnh.
+
+![Ảnh minh họa: Tạo S3 bucket](/images/2-image-upload-and-resize/2.1-upload-original-image/004.png)
+

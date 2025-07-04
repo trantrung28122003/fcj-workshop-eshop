@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.99.1" />
+    <meta name="generator" content="Hugo 0.91.2" />
     <meta name="description" content="">
 <meta name="author" content="journeyoftheaverageguy@gmail.com">
 
@@ -12,21 +12,21 @@
     <title>Setting up an AWS account :: Create a new AWS account.</title>
 
     
-    <link href="/css/nucleus.css?1704686315" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1704686315" rel="stylesheet">
-    <link href="/css/hybrid.css?1704686315" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1704686315" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1704686315" rel="stylesheet">
-    <link href="/css/auto-complete.css?1704686315" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1704686315" rel="stylesheet">
-    <link href="/css/theme.css?1704686315" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1704686315" rel="stylesheet">
+    <link href="/css/nucleus.css?1751622019" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1751622019" rel="stylesheet">
+    <link href="/css/hybrid.css?1751622019" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1751622019" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1751622019" rel="stylesheet">
+    <link href="/css/auto-complete.css?1751622019" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1751622020" rel="stylesheet">
+    <link href="/css/theme.css?1751622020" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1751622020" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1704686315" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1751622020" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1704686315"></script>
+    <script src="/js/jquery-3.3.1.min.js?1751622020"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1704686315"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1704686315"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1751622020"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1751622020"></script>
 <script type="text/javascript">
     
         var baseurl = "";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1704686315"></script>
+<script type="text/javascript" src="/js/search.js?1751622020"></script>
 
     
   </div>
@@ -82,13 +82,39 @@
  
   
     
-    <li data-nav-id="/1-create-new-aws-account/" title="Create new AWS account" class="dd-item 
+    <li data-nav-id="/1-introduce/" title="Introduction" class="dd-item 
         
         
         
         ">
-      <a href="/1-create-new-aws-account/">
-           <b> 1. </b> Create new AWS account
+      <a href="/1-introduce/">
+           <b> 1. </b>Introduction
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-image-upload-and-resize/" title="Image Upload And Resize" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-image-upload-and-resize/">
+           <b> 2. </b> Image Upload And Resize
           
             <i class="fas fa-check read-icon"></i>
           
@@ -113,13 +139,44 @@
  
   
     
-    <li data-nav-id="/1-create-new-aws-account/1.1-find-account-id/" title="View AWS account identifiers" class="dd-item 
+    <li data-nav-id="/2-image-upload-and-resize/2.1-upload-original-image/" title="Upload Original Image" class="dd-item 
         
         
         
         ">
-      <a href="/1-create-new-aws-account/1.1-find-account-id/">
-           <b> 1.1 </b> View AWS account identifiers
+      <a href="/2-image-upload-and-resize/2.1-upload-original-image/">
+           <b> 2.1. </b> Upload Original Image
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-image-upload-and-resize/2.1-upload-original-image/2.1.1-create-s3-bucket/" title="Create S3 Bucket" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-image-upload-and-resize/2.1-upload-original-image/2.1.1-create-s3-bucket/">
+           <b> 2.1.1. </b> Create S3 Bucket
           
             <i class="fas fa-check read-icon"></i>
           
@@ -141,13 +198,13 @@
  
   
     
-    <li data-nav-id="/1-create-new-aws-account/1.2-update-account/" title="Update the AWS account" class="dd-item 
+    <li data-nav-id="/2-image-upload-and-resize/2.1-upload-original-image/2.1.2-create-iam-role/" title="Create IAM Role for Lambda GetPresignedUrl" class="dd-item 
         
         
         
         ">
-      <a href="/1-create-new-aws-account/1.2-update-account/">
-           <b> 1.2 </b> Update the AWS account
+      <a href="/2-image-upload-and-resize/2.1-upload-original-image/2.1.2-create-iam-role/">
+           <b> 2.1.1. </b> Create IAM Role for Lambda GetPresignedUrl
           
             <i class="fas fa-check read-icon"></i>
           
@@ -169,13 +226,81 @@
  
   
     
-    <li data-nav-id="/1-create-new-aws-account/1.3-aws-account-alias/" title="Create or update your AWS account alias" class="dd-item 
+    <li data-nav-id="/2-image-upload-and-resize/2.1-upload-original-image/2.1.3-create-presignedurl-lambda-function/" title="Create GetPresigned Url Lamdba Function" class="dd-item 
         
         
         
         ">
-      <a href="/1-create-new-aws-account/1.3-aws-account-alias/">
-           <b> 1.3 </b> Create or update your AWS account alias
+      <a href="/2-image-upload-and-resize/2.1-upload-original-image/2.1.3-create-presignedurl-lambda-function/">
+           <b> 2.1.3. </b> Create GetPresigned Url Lamdba Function
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-image-upload-and-resize/2.2-resize-image/" title="Resize Image" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-image-upload-and-resize/2.2-resize-image/">
+           <b> 2.2. </b> Resize Image
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-image-upload-and-resize/2.2-resize-image/2.2.1-create-s3-buckets/" title="Create S3 Bucket" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-image-upload-and-resize/2.2-resize-image/2.2.1-create-s3-buckets/">
+           <b> 2.2.1. </b> Create S3 Bucket
           
             <i class="fas fa-check read-icon"></i>
           
@@ -197,13 +322,172 @@
  
   
     
-    <li data-nav-id="/1-create-new-aws-account/1.4-close-account/" title="Close a standalone AWS account" class="dd-item 
+    <li data-nav-id="/2-image-upload-and-resize/2.2-resize-image/2.2.2-create-iam-role/" title="Create IAM Role" class="dd-item 
         
         
         
         ">
-      <a href="/1-create-new-aws-account/1.4-close-account/">
-           <b> 1.4 </b> Close a standalone AWS account
+      <a href="/2-image-upload-and-resize/2.2-resize-image/2.2.2-create-iam-role/">
+           <b> 2.2.2. </b> Create IAM Role
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-image-upload-and-resize/2.2-resize-image/2.2.3-create-resize-lambda-function/" title="Create Resize Lamdba Function" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-image-upload-and-resize/2.2-resize-image/2.2.3-create-resize-lambda-function/">
+           <b> 2.2.3. </b> Create Resize Lamdba Function
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-config-api-gateway/" title="Config API Gateway" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/5-config-api-gateway/">
+           <b> 5.3 </b> Config API Gateway
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-config-api-gateway/5.1-create-resource-and-method/" title="Create Methods" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/5-config-api-gateway/5.1-create-resource-and-method/">
+           <b> 5.1. </b> Create Methods
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-config-api-gateway/5.2-enable-cros-and-deloy/" title="Enable CROS" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/5-config-api-gateway/5.2-enable-cros-and-deloy/">
+           <b> 5.2. </b> Enable CROS
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-config-api-gateway/5.3-test-apis-with-postman/" title="Test APIs With Postman" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/5-config-api-gateway/5.3-test-apis-with-postman/">
+           <b> 5.3. </b> Test APIs With Postman
           
             <i class="fas fa-check read-icon"></i>
           
@@ -232,13 +516,39 @@
  
   
     
-    <li data-nav-id="/2-mfa-setup-for-aws-user-root/" title="MFA for AWS Accounts" class="dd-item 
+    <li data-nav-id="/3-writing-data-to-amazon-dynamodb/" title="Writing Data to Amazon DynamoDB" class="dd-item 
         
         
         
         ">
-      <a href="/2-mfa-setup-for-aws-user-root/">
-           <b> 2. </b> MFA for AWS Accounts
+      <a href="/3-writing-data-to-amazon-dynamodb/">
+           <b> 3. </b> Writing Data to Amazon DynamoDB
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4-deploy-lambda-function/" title="Deloy Lambda Functions" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/4-deploy-lambda-function/">
+           <b> 4. </b> Deloy Lambda Functions
           
             <i class="fas fa-check read-icon"></i>
           
@@ -263,13 +573,13 @@
  
   
     
-    <li data-nav-id="/2-mfa-setup-for-aws-user-root/1-virtual-mfa-device/" title="Virtual MFA Device" class="dd-item 
+    <li data-nav-id="/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/" title="Create IAM Role for Lambda Function" class="dd-item 
         
         
         
         ">
-      <a href="/2-mfa-setup-for-aws-user-root/1-virtual-mfa-device/">
-           <b> 2.1 </b> Virtual MFA Device
+      <a href="/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/">
+           <b> 4.1. </b> Create IAM Role for Lambda Function
           
             <i class="fas fa-check read-icon"></i>
           
@@ -291,13 +601,13 @@
  
   
     
-    <li data-nav-id="/2-mfa-setup-for-aws-user-root/2-u2f-security-key/" title="U2F Security Key" class="dd-item 
+    <li data-nav-id="/4-deploy-lambda-function/4.2-create-or-update-lambda-function/" title="Hàm Lambda tạo hoặc cập nhập dữ liệu" class="dd-item 
         
         
         
         ">
-      <a href="/2-mfa-setup-for-aws-user-root/2-u2f-security-key/">
-           <b> 2.2 </b> U2F Security Key
+      <a href="/4-deploy-lambda-function/4.2-create-or-update-lambda-function/">
+           <b> 4.2. </b> Hàm Lambda tạo hoặc cập nhập dữ liệu
           
             <i class="fas fa-check read-icon"></i>
           
@@ -319,13 +629,41 @@
  
   
     
-    <li data-nav-id="/2-mfa-setup-for-aws-user-root/3-other-hardware-mfa-device/" title="Hard MFA Device" class="dd-item 
+    <li data-nav-id="/4-deploy-lambda-function/4.3-delete-lambda-function/" title="Delete Lambda Function" class="dd-item 
         
         
         
         ">
-      <a href="/2-mfa-setup-for-aws-user-root/3-other-hardware-mfa-device/">
-           <b> 2.3 </b> Hard MFA Device
+      <a href="/4-deploy-lambda-function/4.3-delete-lambda-function/">
+           <b> 4.3. </b> Delete Lambda Function
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4-deploy-lambda-function/4.4-get-lambda-function/" title="Get Lambda Function" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/4-deploy-lambda-function/4.4-get-lambda-function/">
+           <b> 4.4. </b> Get Lambda Function
           
             <i class="fas fa-check read-icon"></i>
           
@@ -354,13 +692,201 @@
  
   
     
-    <li data-nav-id="/3-create-admin-user-and-group/" title="Create Admin Group and Admin User" class="dd-item 
+    <li data-nav-id="/6-setup-cognito-userpool/" title="Setup Cognito UserPool" class="dd-item 
         
         
         
         ">
-      <a href="/3-create-admin-user-and-group/">
-           <b> 3. </b> Create Admin Group and Admin User
+      <a href="/6-setup-cognito-userpool/">
+           <b> 6. </b> Setup Cognito UserPool
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/6-setup-cognito-userpool/6.1-create-user-pool/" title="Create UserPool" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/6-setup-cognito-userpool/6.1-create-user-pool/">
+           <b> 6.1. </b> Create UserPool
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/6-setup-cognito-userpool/6.2-test-apis-with-postman/" title="Test APIs With Postman" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/6-setup-cognito-userpool/6.2-test-apis-with-postman/">
+           <b> 6.2. </b> Test APIs With Postman
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/7-authentication-and-authorization/" title="Authentication And Authorization" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/7-authentication-and-authorization/">
+           <b> 7. </b> Authentication And Authorization
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/7-authentication-and-authorization/7.1-authenticate-with-cognito-api-gateway/" title="Configure Cognito Authentication in API Gateway" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/7-authentication-and-authorization/7.1-authenticate-with-cognito-api-gateway/">
+           <b> 7.1. </b> Configure Cognito Authentication in API Gateway
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/7-authentication-and-authorization/7.2-authorization-with-cognito-groups/" title="Test APIs With Postman" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/7-authentication-and-authorization/7.2-authorization-with-cognito-groups/">
+           <b> 7.2. </b> Test APIs With Postman
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/8-deploy-frontend/" title="Deloy Frontend" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/8-deploy-frontend/">
+           <b> 8. </b> Deloy Frontend
           
             <i class="fas fa-check read-icon"></i>
           
@@ -380,13 +906,13 @@
  
   
     
-    <li data-nav-id="/4-verify-new-account/" title="Account Authentication Support" class="dd-item 
+    <li data-nav-id="/9-clean-up-resources/" title="Clean Up Resource" class="dd-item 
         
         
         
         ">
-      <a href="/4-verify-new-account/">
-           <b> 4. </b> Account Authentication Support
+      <a href="/9-clean-up-resources/">
+           <b> 9. </b> Clean Up Resource
           
             <i class="fas fa-check read-icon"></i>
           
@@ -598,6 +1124,254 @@ Please note that an IAM user with administrator permissions is not the same thin
 
                     
                     
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
                         
                     
                     
@@ -700,6 +1474,40 @@ Please note that an IAM user with administrator permissions is not the same thin
                     
             
         
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
                     
                         
             
@@ -778,7 +1586,7 @@ Please note that an IAM user with administrator permissions is not the same thin
 	 
 		
 		
-			<a class="nav nav-next" href="/1-create-new-aws-account/" title="Create new AWS account" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/1-introduce/" title="Introduction" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -788,19 +1596,19 @@ Please note that an IAM user with administrator permissions is not the same thin
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1704686315"></script>
-    <script src="/js/perfect-scrollbar.min.js?1704686315"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1704686315"></script>
-    <script src="/js/jquery.sticky.js?1704686315"></script>
-    <script src="/js/featherlight.min.js?1704686315"></script>
-    <script src="/js/highlight.pack.js?1704686315"></script>
+    <script src="/js/clipboard.min.js?1751622020"></script>
+    <script src="/js/perfect-scrollbar.min.js?1751622020"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1751622020"></script>
+    <script src="/js/jquery.sticky.js?1751622020"></script>
+    <script src="/js/featherlight.min.js?1751622020"></script>
+    <script src="/js/highlight.pack.js?1751622020"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1704686315"></script>
-    <script src="/js/learn.js?1704686315"></script>
-    <script src="/js/hugo-learn.js?1704686315"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1751622020"></script>
+    <script src="/js/learn.js?1751622020"></script>
+    <script src="/js/hugo-learn.js?1751622020"></script>
 
-    <link href="/mermaid/mermaid.css?1704686315" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1704686315"></script>
+    <link href="/mermaid/mermaid.css?1751622020" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1751622020"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

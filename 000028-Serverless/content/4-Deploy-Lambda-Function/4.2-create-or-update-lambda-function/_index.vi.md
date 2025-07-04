@@ -8,8 +8,14 @@ pre : " <b> 4.2. </b> "
 
 #### Tổng quan
 
-Trong bước này, chúng ta sẽ triển khai hàm hai Lambda có tên **create-product** và **update-product** – dùng để **tạo hoặc cập nhật dữ liệu** sản phẩm vào DynamoDB.  
+Trong bước này, chúng ta sẽ triển khai hàm các: 
+- Hai Lambda có tên **create-product**, **update-product** – dùng để **tạo hoặc cập nhật dữ liệu** sản phẩm vào DynamoDB.  
+
+- Hai Lambda có tên **create-category**, **update-category** – dùng để **tạo hoặc cập nhật danh mục** vào DynamoDB.
+
 Hàm này được viết bằng **Node.js 22.x** và sử dụng quyền truy cập DynamoDB thông qua một **IAM Role** đã tạo sẵn.
+
+---
 
 #### Tạo hàm Lambda create-product trên AWS Console
 
@@ -41,8 +47,6 @@ Trong hướng dẫn này, ta sử dụng **Node.js 22.x** – phiên bản mớ
 
 
 
-#### Triển khai mã nguồn cho Lambda create-product
-
 Sau khi nhấn **Create function**, Lambda sẽ chuyển sang giao diện chỉnh sửa mã.
 
 {{% notice warning %}}
@@ -52,7 +56,9 @@ Do đó, bạn cần chuẩn bị mã nguồn và thư viện **trên máy local
 
 **Chuẩn bị mã nguồn và thư viện**
 
-5. Tải mã nguồn mẫu tại đây: **[Tải file tại đây](#)** *(link cần thay thế bằng link thực tế)*
+5. Tải mã nguồn mẫu tại đây: 
+
+- Tải mã nguồn tại đây [resize-image-lambda.zip](/attachments/resize-image-lambda.zip)
 
 6. Sau khi giải nén, bạn sẽ thấy các file sau:
 
@@ -142,3 +148,42 @@ Xác nhận lại handler của lambda: index.handler
 {{% notice tip %}}
 Handler của Lambda có dạng: <TÊN_FILE>.<TÊN_HÀM>
 {{% /notice %}}
+
+#### Tạo hàm Lambda create-category trên AWS Console
+
+**Thực hiện tương tự như các bước trên khi tạo các hàm cho product**
+1. Với các thông tin hàm lambda:
+   - **Function name**: `create-category`
+   - **Runtime**: `Node.js 22.x`
+   - **Architecture**: `x86_64`
+   - **Use an existing role**: `lambda-dynamodb-role`
+
+2. Với mã nguồn được chuẩn bị ở đây:
+
+- Tải mã nguồn tại đây [create-category-lambda.zip](/attachments/resize-image-lambda.zip) và chạy lệnh:
+
+```bash
+npm install @aws-sdk/client-dynamodb uuid
+```
+
+3. Sau khi nén xong tệp xong, đẩy file `zip` lên hàm lambda **create-category**
+
+#### Tạo hàm Lambda update-category trên AWS Console
+**Thực hiện tương tự như các bước trên khi tạo các hàm cho product**
+1. Với các thông tin hàm lambda:
+   - **Function name**: `update-category`
+   - **Runtime**: `Node.js 22.x`
+   - **Architecture**: `x86_64`
+   - **Use an existing role**: `lambda-dynamodb-role`
+
+2. Với mã nguồn được chuẩn bị ở đây:
+
+- Tải mã nguồn tại đây [update-category-lambda.zip](/attachments/resize-image-lambda.zip) và chạy lệnh:
+
+```bash
+npm install @aws-sdk/client-dynamodb uuid
+```
+
+3. Sau khi nén xong tệp xong, đẩy file `zip` lên hàm lambda **update-category**
+
+

@@ -8,13 +8,7 @@ pre : " <b> 5. </b> "
 
 #### Tổng quan
 
-**Amazon API Gateway** đóng vai trò như một **cổng vào** cho các client (frontend, Postman, ứng dụng mobile...) giao tiếp với hệ thống Lambda – giúp chúng ta xây dựng một hệ thống **RESTful API Serverless** hoàn chỉnh, dễ mở rộng, dễ quản lý và tiết kiệm chi phí.
 
-Trong phần này, bạn sẽ cấu hình **API Gateway** để kết nối với các hàm Lambda đã triển khai như:
-
-- Upload **sản phẩm**
-- Upload **danh mục**
-- Và các API khác trong hệ thống **quản lý ảnh**
 
 ---
 

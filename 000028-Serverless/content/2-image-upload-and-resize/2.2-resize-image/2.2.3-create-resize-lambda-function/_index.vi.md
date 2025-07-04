@@ -60,16 +60,28 @@ Do đó, bạn cần chuẩn bị mã nguồn và thư viện **trên máy local
    - `index.mjs`: chứa logic xử lý của Lambda
    - `package.json`: khai báo thư viện cần thiết
 
+**Lưu ý**
+Trong WS này sử dụng **sharp** để xử lý ảnh :
+- Là một native module nên sẽ được biên dịch theo hệ điều hành.
+
+- Lambda sử dụng môi trường Amazon Linux 2, khác hoàn toàn với Windows/macOS.
+
+- Nếu bạn cài sharp trên máy cá nhân (Windows), khi deploy lên Lambda sẽ gặp lỗi như ``Error: Cannot find module 'sharp'``
+{{% notice warning %}}
+Để đảm bảo sharp hoạt động đúng, bạn phải sử dụng Docker với image Lambda chính thức của AWS để cài đặt các dependencies.
+{{% /notice %}}
+
 7. Mở Terminal hoặc Command Prompt tại thư mục chứa các file này và chạy lệnh:
 
 ```bash
-npm install @aws-sdk/client-dynamodb uuid
+docker run --rm -v "${PWD}:/app" -w /app node:22 bash -c "npm instal sharp"
 ```
 
 8. Nén mã nguồn để upload lên Lambda
 - Truy cập vào thư mục resize-image-lambda
 
 - Chọn tất cả các tệp và thư mục bên trong: **index.mjs**,  **package.json**, **node_modules/**
+
 
 - Giải nén chúng ra một tệp có tên `resize-image-lambda.zip`
 
