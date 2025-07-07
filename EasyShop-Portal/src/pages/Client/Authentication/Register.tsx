@@ -29,6 +29,10 @@ const Register: React.FC = () => {
       .string()
       .email("Địa chỉ email phải hợp lệ")
       .required("Địa chỉ email là bắt buộc"),
+    userName: yup
+      .string()
+      .required("Tên tài khoản là bắt buộc")
+      .max(50, "Tên tài khoản không được vượt quá 50 ký tự"),
     fullName: yup
       .string()
       .required("Họ và tên là bắt buộc")
@@ -48,11 +52,10 @@ const Register: React.FC = () => {
 
   const doRegister = (account: APIRegisterRequest) => {
     const formData = new FormData();
-    if (account.file) {
-      formData.append("file", account.file);
-    }
+   
 
     formData.append("email", account.email);
+    formData.append("userName", account.email);
     formData.append("fullName", account.fullName);
     formData.append("password", account.password);
 
@@ -94,7 +97,7 @@ const Register: React.FC = () => {
         </div>
       )}
       <AuthenticationShared
-        title="Tạo tài khoản mới ✨"
+        title="Tạo tài khoản mới "
         subtitle="Đăng ký để bắt đầu chia sẻ những bài viết của bạn"
       >
         <DataLoader isLoading={isLoading} />
@@ -102,11 +105,11 @@ const Register: React.FC = () => {
         <Formik
           initialValues={{
             email: "",
+            userName: "",
             fullName: "",
             imageName: "",
             password: "",
             confirmPassword: "",
-            file: null,
             termAndConditions: false,
           }}
           validationSchema={schema}
@@ -119,9 +122,10 @@ const Register: React.FC = () => {
             }
             const requestPayload: APIRegisterRequest = {
               email: values.email,
+              userName: values.userName,
               fullName: values.fullName,
               password: values.password,
-              file: values.file,
+              
             };
             setRegisterError(null);
             doRegister(requestPayload);
@@ -136,6 +140,7 @@ const Register: React.FC = () => {
                   {registerError || errors.termAndConditions}
                 </div>
               )}
+
               <div className={styles.form_group}>
                 <Field
                   type="text"
@@ -150,6 +155,23 @@ const Register: React.FC = () => {
                 </label>
                 {errors.fullName && touched.fullName && (
                   <div className={styles.error_message}>{errors.fullName}</div>
+                )}
+              </div>
+
+              <div className={styles.form_group}>
+                <Field
+                  type="text"
+                  id="userName"
+                  name="userName"
+                  className={styles.form_control}
+                  placeholder="Nhập tên tài khoản"
+                  autoComplete="name"
+                />
+                <label htmlFor="userName" className={styles.form_label}>
+                  Tên tài khoản
+                </label>
+                {errors.userName && touched.userName && (
+                  <div className={styles.error_message}>{errors.userName}</div>
                 )}
               </div>
 
@@ -206,7 +228,7 @@ const Register: React.FC = () => {
                 )}
               </div>
 
-              <div className={styles.form_group}>
+              {/* <div className={styles.form_group}>
                 <input
                   type="file"
                   id="imageName"
@@ -227,7 +249,7 @@ const Register: React.FC = () => {
                 {errors.imageName && touched.imageName && (
                   <div className={styles.error_message}>{errors.imageName}</div>
                 )}
-              </div>
+              </div> */}
 
               <div className={styles.form_group}>
                 <label className={styles.checkbox_label}>

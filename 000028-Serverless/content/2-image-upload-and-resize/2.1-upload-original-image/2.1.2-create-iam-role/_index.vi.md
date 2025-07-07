@@ -22,7 +22,7 @@ Hàm Lambda này sẽ sinh ra **Presigned URL** để **upload ảnh gốc vào 
 
 ![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.1-upload-original-image/05.png)
 
-3. Trong giao diện **Create policy**, chuyển sang tab **JSON** dán đoạn sau vào, và **thay `<your-bucket-name>` bằng tên bucket thực tế của bạn**
+2. Trong giao diện **Create policy**, chuyển sang tab **JSON** dán đoạn sau vào, và **thay `<your-bucket-name>` bằng tên bucket thực tế của bạn**
 - ví dụ: `upload-originals-fcj` vừa tạo bucket nãy.
 
   ```json
@@ -40,7 +40,7 @@ Hàm Lambda này sẽ sinh ra **Presigned URL** để **upload ảnh gốc vào 
 
 ![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.1-upload-original-image/06.png)
 
-4. Chọn **Next** , và trong phần **Policy details**  nhập thông tin
+3. Chọn **Next** , và trong phần **Policy details**  nhập thông tin
 
 - **Policy name** : `S3PutOriginalImagePolicy`
 - **Description - optional** :`S3PutOriginalImagePolicy `
@@ -48,7 +48,7 @@ Hàm Lambda này sẽ sinh ra **Presigned URL** để **upload ảnh gốc vào 
 
 ![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.1-upload-original-image/07.png)
 
-5. Cuối cùng cuộn xuống và nhấn **Create policy** để hoàn tất.
+4. Cuối cùng cuộn xuống và nhấn **Create policy** để hoàn tất.
 
 ![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.1-upload-original-image/08.png)
 

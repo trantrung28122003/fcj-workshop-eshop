@@ -10,8 +10,8 @@ export interface LoginResponse {
 
 export interface APIRegisterRequest {
   email: string;
+  userName: string;
   fullName: string;
-  file: File | null;
   password: string;
 }
 

@@ -21,9 +21,6 @@ const ApplicationRoutes = () => {
           ) : (
             <Route path={route.path} element={route.component} key={index} />
           );
-          // return (
-          //   <Route path={route.path} element={route.component} key={index} />
-          // );
         })}
       </Routes>
     </>
