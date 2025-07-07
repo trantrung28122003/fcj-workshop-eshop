@@ -6,32 +6,28 @@ chapter : false
 pre : " <b> 5. </b> "
 ---
 
-#### Tổng quan
+#### **Tổng quan**
 
+Để các Lambda function có thể được gọi từ frontend (hoặc Postman, curl...), chúng ta cần thiết lập một lớp API trung gian — đó chính là **Amazon API Gateway**.
 
+**API Gateway** đóng vai trò như "cửa ngõ" giúp client (người dùng) tương tác với backend Lambda một cách **bảo mật**, **rõ ràng** và có **tổ chức**.
 
----
+Trong phần này, chúng ta sẽ:
 
-#### Tạo API Gateway
+- **Tạo REST API** mới có tên `eshop-fcj`
+- Gắn từng **resource** (ví dụ: `/products`, `/products/{id}`) vào Lambda tương ứng
+- Thiết lập các **method** như `GET`, `POST`, `PUT`, `DELETE`
+- Kích hoạt **CORS** để frontend có thể gọi được từ trình duyệt
+- Kiểm thử **API** với Postman
 
-Chúng ta sẽ thiết lập **API Gateway** để tương tác với các Lambda function đã tạo ở phần trước:
-
-1. Mở bảng điều khiển [Amazon API Gateway](https://console.aws.amazon.com/apigateway/home) và chọn **Create an API**
-
-2. Trong phần **Choose an API type**, cuộn xuống dưới và chọn **REST API**, sau đó bấm **Build**
-
-3. Trong mục **API details**, nhập các thông tin sau:
-
-    - **Chọn**: `New API`
-    - **API name**: `eshop-fcj`
-    - **Description (tuỳ chọn)**: `eshop-fcj`
-    - **API endpoint type**: `Regional`
-    - **IP address type**: `IPv4`
+Khi hoàn tất, bạn sẽ có một **hệ thống API hoàn chỉnh** có thể dùng để triển khai một frontend gọi đến chúng.
 
 ---
+
 
 #### Các bước chính
 
-1. [Tạo tài nguyên và phương thức](5.1-create-resource-and-method/)
-2. [Kích hoạt CORS](5.2-enable-cros/)
-3. [Kiểm tra các API bằng Postman](5.3-test-apis-with-postman/)
+1. [Tạo API Gateway](5.1-create-api-gateway/)
+2. [Tạo tài nguyên và phương thức](5.2-create-resource-and-method/)
+3. [Kích hoạt CORS](5.3-enable-cros/)
+4. [Kiểm tra các API bằng Postman](5.4-test-apis-with-postman/)

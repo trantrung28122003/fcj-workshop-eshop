@@ -25,33 +25,30 @@ Nghĩa là chỉ cần một Lambda cho cả hai loại truy vấn.
 
 #### Tạo hàm Lambda get-product trên AWS Console
 
-1. Truy cập [AWS Lambda Console](https://console.aws.amazon.com/lambda/home), chọn **Functions**, sau đó bấm **Create function**.
+1. Truy cập [AWS Lambda Console](https://console.aws.amazon.com/lambda/home), chọn **Create function**.
 
-   ![Ảnh minh họa: Create function](images/lambda-create-button.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.4-get-lambda-function/01.png)
 
-2. Ở màn hình **Create function**, chọn **Author from scratch**.
-
-3. Trong phần **Basic information**, nhập các thông tin:
+2. Ở màn hình **Create function**, chọn **Author from scratch**. và trong phần **Basic information**, nhập các thông tin:
 
    - **Function name**: `get-product`
    - **Runtime**: `Node.js 22.x`
    - **Architecture**: `x86_64`
 
-   ![Ảnh minh họa: cấu hình cơ bản Lambda](images/lambda-basic-info.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.4-get-lambda-function/02.png)
 
 {{% notice note %}}
 Hiện tại AWS Lambda hỗ trợ nhiều ngôn ngữ như **Java**, **.NET**, **Python**, **Node.js**,...  
 Trong hướng dẫn này, ta sử dụng **Node.js 22.x** – phiên bản mới nhất, hiệu năng cao và hỗ trợ cú pháp hiện đại hơn so với Node.js 18.x.
 {{% /notice %}}
 
-4. Ở phần **Change default execution role**:
+3. Ở phần **Change default execution role**:
 
    - Chọn: `Use an existing role`
-   - Sau đó chọn IAM Role bạn đã tạo, ví dụ: `lambda-dynamodb-role`
+   - Sau đó chọn **IAM Role** bạn đã tạo, ví dụ: `lambda-dynamodb-role`
+   - Cuối cùng chọn **Create function**
 
-   ![Ảnh minh họa: chọn IAM Role](images/lambda-select-role.png)
-
-
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.4-get-lambda-function/03.png)
 
 Sau khi nhấn **Create function**, Lambda sẽ chuyển sang giao diện chỉnh sửa mã.
 
@@ -62,92 +59,149 @@ Do đó, bạn cần chuẩn bị mã nguồn và thư viện **trên máy local
 
 **Chuẩn bị mã nguồn và thư viện**
 
-5. Tải mã nguồn mẫu tại đây: 
+Bạn có thể chọn **một trong hai cách sau** để triển khai Lambda:
 
-- Tải mã nguồn tại đây [get-product-lambda.zip](/attachments/resize-image-lambda.zip)
+##### **Cách 1: Dùng tệp đã build sẵn (nhanh, tiện lợi)**
+> Khuyên dùng nếu bạn muốn triển khai nhanh mà không cần cài đặt gì thêm. tại này WS đã build sẵn
 
-6. Sau khi giải nén, bạn sẽ thấy các file sau:
+1. Tải file `.zip` đã **build** sẵn tại đây: [**get-product-lambda.zip**](/attachments/4-deploy-lambda-function/4.4-get-lambda-function/get-product-lambda.zip)
 
-   - `index.mjs`: chứa logic xử lý của Lambda
-   - `package.json`: khai báo thư viện cần thiết
-
-7. Mở Terminal hoặc Command Prompt tại thư mục chứa các file này và chạy lệnh:
-
-```bash
-npm install @aws-sdk/client-dynamodb uuid
-```
-
-9. Sau khi nén xong tệp xong
+2. Sau khi tải tệp đã build xong, thực hiện các bước sau :
 
 - Vào **AWS Lambda**,  chọn hàm **get-product**
 
 - ở phần trang **Code**, bấm **Upload from**, sau đó chọn **.zip file**
 
-- Chọn **`get-product-lambda.zip`p** vừa tạo
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.4-get-lambda-function/04.png)
 
-Xác nhận lại handler của lambda: index.handler 
-{{% notice tip %}}
-Handler của Lambda có dạng: <TÊN_FILE>.<TÊN_HÀM>
+- sau đó chọn **`get-product-lambda.zip`** vừa tạo. Và chọn **save**
+
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.4-get-lambda-function/05.png)
+
+3. Sau khi tải tệp lên xong , thì chọn **deloy**
+
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.4-get-lambda-function/06.png)
+
+
+Sau khi deploy tệp .zip, bạn cần **kiểm tra và cập nhật** lại các biến môi trường (Environment Variables) trong phần cấu hình Lambda:
+
+**REGION**: vùng AWS mà bạn đã tạo tài nguyên
+
+**TABLE_NAME**: tên bảng DynamoDB đã tạo trước đó
+
+**ORGINAL_BUCKET**: tên bucket chứa ảnh gốc
+
+**RESIZED_BUCKET**: tên bucket chứa ảnh đã resize
+
+Hãy chắc chắn rằng các **giá trị này khớp với những gì bạn đã cấu hình trong các bước trước** , nếu không Lambda sẽ không hoạt động chính xác.
+
+{{% notice note %}}
+Khi bạn chỉnh sửa code ngay trong giao diện **AWS Lambda** thì nhớ **deloy** sau khi sửa xong
+{{% /notice %}}
+
+
+##### **Cách 2: Tự chuẩn bị mã nguồn và thư viện**
+>  Dành cho bạn nào muốn tự tay build hoặc học thêm.
+
+1. Tải mã nguồn mẫu tại đây: [**get-product-source.zip**](/attachments/4-deploy-lambda-function/4.4-get-lambda-function/get-product-source.zip)
+
+2. Sau đó, bạn có thể xem hướng dẫn build và cài đặt thư viện tại:
+[Tạo hàm Lambda GetPresignedUrl](2.1.1-create-presignedurl-lambda-function/)
+
+{{% notice info %}}
+Trong phần tạo hàm Lambda GetPresignedUrl có chỉ rõ từng phần để triển khai build thư viện ở local
 {{% /notice %}}
 
 ---
 
 #### Tạo hàm Lambda get-category trên AWS Console
 
-1. Truy cập [AWS Lambda Console](https://console.aws.amazon.com/lambda/home), chọn **Functions**, sau đó bấm **Create function**.
+1. Truy cập [AWS Lambda Console](https://console.aws.amazon.com/lambda/home), chọn **Create function**.
 
-   ![Ảnh minh họa: Create function](images/lambda-create-button.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.4-get-lambda-function/01.png)
 
-2. Ở màn hình **Create function**, chọn **Author from scratch**.
-
-3. Trong phần **Basic information**, nhập các thông tin:
+2. Ở màn hình **Create function**, chọn **Author from scratch**. và trong phần **Basic information**, nhập các thông tin:
 
    - **Function name**: `get-category`
    - **Runtime**: `Node.js 22.x`
    - **Architecture**: `x86_64`
 
-   ![Ảnh minh họa: cấu hình cơ bản Lambda](images/lambda-basic-info.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.4-get-lambda-function/07.png)
 
-4. Ở phần **Change default execution role**:
+{{% notice note %}}
+Hiện tại AWS Lambda hỗ trợ nhiều ngôn ngữ như **Java**, **.NET**, **Python**, **Node.js**,...  
+Trong hướng dẫn này, ta sử dụng **Node.js 22.x** – phiên bản mới nhất, hiệu năng cao và hỗ trợ cú pháp hiện đại hơn so với Node.js 18.x.
+{{% /notice %}}
+
+3. Ở phần **Change default execution role**:
 
    - Chọn: `Use an existing role`
-   - Sau đó chọn IAM Role bạn đã tạo, ví dụ: `lambda-dynamodb-role`
+   - Sau đó chọn **IAM Role** bạn đã tạo, ví dụ: `lambda-dynamodb-role`
+   - Cuối cùng chọn **Create function**
 
-   ![Ảnh minh họa: chọn IAM Role](images/lambda-select-role.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.4-get-lambda-function/08.png)
 
+Sau khi nhấn **Create function**, Lambda sẽ chuyển sang giao diện chỉnh sửa mã.
+
+{{% notice warning %}}
+Hiện tại **Lambda chưa hỗ trợ trực tiếp trình soạn thảo ESM (import/export) cho Node.js 22.x**.  
+Do đó, bạn cần chuẩn bị mã nguồn và thư viện **trên máy local**, sau đó **nén và upload thủ công**.
+{{% /notice %}}
 
 **Chuẩn bị mã nguồn và thư viện**
 
-5. Tải mã nguồn mẫu tại đây: **[Tải file tại đây](#)** *(link cần thay thế bằng link thực tế)*
+Bạn có thể chọn **một trong hai cách sau** để triển khai Lambda:
 
-6. Sau khi giải nén, bạn sẽ thấy các file sau:
+##### **Cách 1: Dùng tệp đã build sẵn (nhanh, tiện lợi)**
+> Khuyên dùng nếu bạn muốn triển khai nhanh mà không cần cài đặt gì thêm. tại này WS đã build sẵn
 
-   - `index.mjs`: chứa logic xử lý của Lambda
-   - `package.json`: khai báo thư viện cần thiết
+1. Tải file `.zip` đã **build** sẵn tại đây: [**get-category-lambda.zip**](/attachments/4-deploy-lambda-function/4.4-get-lambda-function/get-category-lambda.zip)
 
-7. Mở Terminal hoặc Command Prompt tại thư mục chứa các file này và chạy lệnh:
-
-```bash
-npm install @aws-sdk/client-dynamodb uuid
-```
-
-8. Nén mã nguồn để upload lên Lambda
-- Truy cập vào thư mục **get-category-lambda**
-
-- Chọn tất cả các tệp và thư mục bên trong: **index.mjs**,  **package.json**, **node_modules/**
-
-- Giải nén chúng ra một tệp có tên `get-category-lambda.zip`
-
-9. Sau khi nén xong tệp xong
+2. Sau khi tải tệp đã build xong, thực hiện các bước sau :
 
 - Vào **AWS Lambda**,  chọn hàm **get-category**
 
 - ở phần trang **Code**, bấm **Upload from**, sau đó chọn **.zip file**
 
-- Chọn **`get-category-lambda.zip`** vừa tạo
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.4-get-lambda-function/09.png)
 
-Xác nhận lại handler của lambda: index.handler 
-{{% notice tip %}}
-Handler của Lambda có dạng: <TÊN_FILE>.<TÊN_HÀM>
+- sau đó chọn **`get-category-lambda.zip`** vừa tạo. Và chọn **save**
+
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.4-get-lambda-function/10.png)
+
+3. Sau khi tải tệp lên xong , thì chọn **deloy**
+
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.4-get-lambda-function/11.png)
+
+
+Sau khi deploy tệp .zip, bạn cần **kiểm tra và cập nhật** lại các biến môi trường (Environment Variables) trong phần cấu hình Lambda:
+
+**REGION**: vùng AWS mà bạn đã tạo tài nguyên
+
+**TABLE_NAME**: tên bảng DynamoDB đã tạo trước đó
+
+**ORGINAL_BUCKET**: tên bucket chứa ảnh gốc
+
+**RESIZED_BUCKET**: tên bucket chứa ảnh đã resize
+
+Hãy chắc chắn rằng các **giá trị này khớp với những gì bạn đã cấu hình trong các bước trước** , nếu không Lambda sẽ không hoạt động chính xác.
+
+{{% notice note %}}
+Khi bạn chỉnh sửa code ngay trong giao diện **AWS Lambda** thì nhớ **deloy** sau khi sửa xong
 {{% /notice %}}
+
+
+##### **Cách 2: Tự chuẩn bị mã nguồn và thư viện**
+>  Dành cho bạn nào muốn tự tay build hoặc học thêm.
+
+1. Tải mã nguồn mẫu tại đây: [**get-category-source.zip**](/attachments/4-deploy-lambda-function/4.4-get-lambda-function/get-category-source.zip)
+
+2. Sau đó, bạn có thể xem hướng dẫn build và cài đặt thư viện tại:
+[Tạo hàm Lambda GetPresignedUrl](2.1.1-create-presignedurl-lambda-function/)
+
+{{% notice info %}}
+Trong phần tạo hàm Lambda GetPresignedUrl có chỉ rõ từng phần để triển khai build thư viện ở local
+{{% /notice %}}
+
+---
 

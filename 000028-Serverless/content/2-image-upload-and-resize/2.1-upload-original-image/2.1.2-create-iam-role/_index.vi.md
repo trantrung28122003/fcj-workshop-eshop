@@ -18,13 +18,9 @@ Hàm Lambda này sẽ sinh ra **Presigned URL** để **upload ảnh gốc vào 
 
 #### Các bước tạo IAM Policy CHo IAM Role (Custom)
 
-1. Truy cập vào [IAM Console](https://console.aws.amazon.com/iam/home). Sau đó ,chọn **Policies** ở menu bên trái.
+1. Truy cập vào [IAM Console](https://console.aws.amazon.com/iam/home). Chọn **Policies** ở menu bên trái. Sau đó chọn **Create policy**
 
-![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/005.png)
-
-2. Chọn **Create policy** 
-
-![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/006.png)
+![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.1-upload-original-image/05.png)
 
 3. Trong giao diện **Create policy**, chuyển sang tab **JSON** dán đoạn sau vào, và **thay `<your-bucket-name>` bằng tên bucket thực tế của bạn**
 - ví dụ: `upload-originals-fcj` vừa tạo bucket nãy.
@@ -42,37 +38,42 @@ Hàm Lambda này sẽ sinh ra **Presigned URL** để **upload ảnh gốc vào 
   }
   ```
 
-![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/007.png)
+![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.1-upload-original-image/06.png)
 
-4. Nhấn Next , và trong phần **Policy details**  nhập thông tin
+4. Chọn **Next** , và trong phần **Policy details**  nhập thông tin
 
 - **Policy name** : `S3PutOriginalImagePolicy`
 - **Description - optional** :`S3PutOriginalImagePolicy `
 
 
-![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/008.png)
+![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.1-upload-original-image/07.png)
 
 5. Cuối cùng cuộn xuống và nhấn **Create policy** để hoàn tất.
 
-![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/011.png)
+![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.1-upload-original-image/08.png)
 
 ### Các bước tạo IAM Role
 
-1. Tiếp theo,  Truy cập vào [IAM Console](https://console.aws.amazon.com/iam/home). Sau đó ,chọn **Roles** ở menu bên trái.
+1. Tiếp theo,  Truy cập vào [IAM Console](https://console.aws.amazon.com/iam/home). Chọn **Roles** ở menu bên trái và sau đó Chọn **Create role**. 
 
-2. Chọn **Create role**.
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/09.png)
 
-3. Trong phần **Trusted entity type**, chọn `AWS service`
 
-4. Ở phần **Use case**, chọn `Lambda`
+2. Trong phần **Trusted entity type** chọn `AWS service` và  phần **Use case**  chọn `Lambda`
 
-5. Bấm **Next**.
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/10.png)
 
-6. Trong phần **Permissions policies**, tìm và gán quyền `S3PutOriginalImagePolicy`  
-  
-7. Bấm **Next**, đặt tên cho role, ví dụ: `lambda-upload-original-role`
+3. Trong phần **Permissions policies**, tìm và gán quyền `S3PutOriginalImagePolicy` và chọn **Next**
 
-8. Bấm **Create role** để hoàn tất.
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/11.png)
+
+4. Trong phần **"Name, review, and create"** đặt tên cho role, ví dụ: `lambda-upload-original-role`
+
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/12.png)
+
+5. Bấm **Create role** để hoàn tất.
+
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.1-upload-original-image/13.png)
 
 #### Kết quả
 

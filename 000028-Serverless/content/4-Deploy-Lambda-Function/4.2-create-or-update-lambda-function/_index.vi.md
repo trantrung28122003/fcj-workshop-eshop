@@ -9,6 +9,7 @@ pre : " <b> 4.2. </b> "
 #### Tổng quan
 
 Trong bước này, chúng ta sẽ triển khai hàm các: 
+
 - Hai Lambda có tên **create-product**, **update-product** – dùng để **tạo hoặc cập nhật dữ liệu** sản phẩm vào DynamoDB.  
 
 - Hai Lambda có tên **create-category**, **update-category** – dùng để **tạo hoặc cập nhật danh mục** vào DynamoDB.
@@ -19,33 +20,30 @@ Hàm này được viết bằng **Node.js 22.x** và sử dụng quyền truy c
 
 #### Tạo hàm Lambda create-product trên AWS Console
 
-1. Truy cập [AWS Lambda Console](https://console.aws.amazon.com/lambda/home), chọn **Functions**, sau đó bấm **Create function**.
+1. Truy cập [AWS Lambda Console](https://console.aws.amazon.com/lambda/home), chọn **Create function**.
 
-   ![Ảnh minh họa: Create function](images/lambda-create-button.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/01.png)
 
-2. Ở màn hình **Create function**, chọn **Author from scratch**.
-
-3. Trong phần **Basic information**, nhập các thông tin:
+2. Ở màn hình **Create function**, chọn **Author from scratch**. và trong phần **Basic information**, nhập các thông tin:
 
    - **Function name**: `create-product`
    - **Runtime**: `Node.js 22.x`
    - **Architecture**: `x86_64`
 
-   ![Ảnh minh họa: cấu hình cơ bản Lambda](images/lambda-basic-info.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/02.png)
 
 {{% notice note %}}
 Hiện tại AWS Lambda hỗ trợ nhiều ngôn ngữ như **Java**, **.NET**, **Python**, **Node.js**,...  
 Trong hướng dẫn này, ta sử dụng **Node.js 22.x** – phiên bản mới nhất, hiệu năng cao và hỗ trợ cú pháp hiện đại hơn so với Node.js 18.x.
 {{% /notice %}}
 
-4. Ở phần **Change default execution role**:
+3. Ở phần **Change default execution role**:
 
    - Chọn: `Use an existing role`
-   - Sau đó chọn IAM Role bạn đã tạo, ví dụ: `lambda-dynamodb-role`
+   - Sau đó chọn **IAM Role** bạn đã tạo, ví dụ: `lambda-dynamodb-role`
+   - Cuối cùng chọn **Create function**
 
-   ![Ảnh minh họa: chọn IAM Role](images/lambda-select-role.png)
-
-
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/03.png)
 
 Sau khi nhấn **Create function**, Lambda sẽ chuyển sang giao diện chỉnh sửa mã.
 
@@ -56,98 +54,138 @@ Do đó, bạn cần chuẩn bị mã nguồn và thư viện **trên máy local
 
 **Chuẩn bị mã nguồn và thư viện**
 
-5. Tải mã nguồn mẫu tại đây: 
+Bạn có thể chọn **một trong hai cách sau** để triển khai Lambda:
 
-- Tải mã nguồn tại đây [resize-image-lambda.zip](/attachments/resize-image-lambda.zip)
+##### **Cách 1: Dùng tệp đã build sẵn (nhanh, tiện lợi)**
+> Khuyên dùng nếu bạn muốn triển khai nhanh mà không cần cài đặt gì thêm. tại này WS đã build sẵn
 
-6. Sau khi giải nén, bạn sẽ thấy các file sau:
+1. Tải file `.zip` đã **build** sẵn tại đây: [**create-product-lambda.zip**](/attachments/4-deploy-lambda-function/4.2-create-or-update-lambda-function/create-product-lambda.zip)
 
-   - `index.mjs`: chứa logic xử lý của Lambda
-   - `package.json`: khai báo thư viện cần thiết
-
-7. Mở Terminal hoặc Command Prompt tại thư mục chứa các file này và chạy lệnh:
-
-```bash
-npm install @aws-sdk/client-dynamodb uuid
-```
-
-9. Sau khi nén xong tệp xong
+2. Sau khi tải tệp đã build xong, thực hiện các bước sau :
 
 - Vào **AWS Lambda**,  chọn hàm **create-product**
 
 - ở phần trang **Code**, bấm **Upload from**, sau đó chọn **.zip file**
 
-- Chọn **`get-presigned-url-lambda.zip`** vừa tạo.
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/04.png)
 
-- Chọn **create-product-lambda.zip** vừa tạo
+- sau đó chọn **`create-product-lambda.zip`** vừa tạo.
 
-Xác nhận lại handler của lambda: index.handler 
-{{% notice tip %}}
-Handler của Lambda có dạng: <TÊN_FILE>.<TÊN_HÀM>
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/05.png)
+
+3. Sau khi tải tệp lên xong , thì chọn **deloy**
+
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/06.png)
+
+
+Sau khi deploy tệp .zip, bạn cần **kiểm tra và cập nhật** lại các biến môi trường (Environment Variables) trong phần cấu hình Lambda:
+
+**REGION**: vùng AWS mà bạn đã tạo tài nguyên
+
+**TABLE_NAME**: tên bảng DynamoDB đã tạo trước đó
+
+**RESIZED_BUCKET**: tên bucket chứa ảnh đã resize
+
+Hãy chắc chắn rằng các **giá trị này khớp với những gì bạn đã cấu hình trong các bước trước** , nếu không Lambda sẽ không hoạt động chính xác.
+
+{{% notice note %}}
+Khi bạn chỉnh sửa code ngay trong giao diện **AWS Lambda** thì nhớ **deloy** sau khi sửa xong
+{{% /notice %}}
+
+
+##### **Cách 2: Tự chuẩn bị mã nguồn và thư viện**
+>  Dành cho bạn nào muốn tự tay build hoặc học thêm.
+
+1. Tải mã nguồn mẫu tại đây: [**create-product-source.zip**](/attachments/4-deploy-lambda-function/4.2-create-or-update-lambda-function/create-product-source.zip)
+
+2. Sau đó, bạn có thể xem hướng dẫn build và cài đặt thư viện tại:
+[Tạo hàm Lambda GetPresignedUrl](2.1.1-create-presignedurl-lambda-function/)
+
+{{% notice info %}}
+Trong phần tạo hàm Lambda GetPresignedUrl có chỉ rõ từng phần để triển khai build thư viện ở local
 {{% /notice %}}
 
 ---
 
 #### Tạo hàm Lambda update-product trên AWS Console
 
-1. Truy cập [AWS Lambda Console](https://console.aws.amazon.com/lambda/home), chọn **Functions**, sau đó bấm **Create function**.
+1. Truy cập [AWS Lambda Console](https://console.aws.amazon.com/lambda/home), chọn **Create function**.
 
-   ![Ảnh minh họa: Create function](images/lambda-create-button.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/01.png)
 
-2. Ở màn hình **Create function**, chọn **Author from scratch**.
+2. Ở màn hình **Create function**, chọn **Author from scratch**. và trong phần **Basic information**, nhập các thông tin:
 
-3. Trong phần **Basic information**, nhập các thông tin:
-
-   - **Function name**: `udpate-product`
+   - **Function name**: `update-product`
    - **Runtime**: `Node.js 22.x`
    - **Architecture**: `x86_64`
 
-   ![Ảnh minh họa: cấu hình cơ bản Lambda](images/lambda-basic-info.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/08.png)
 
-4. Ở phần **Change default execution role**:
+3. Ở phần **Change default execution role**:
 
    - Chọn: `Use an existing role`
-   - Sau đó chọn IAM Role bạn đã tạo, ví dụ: `lambda-dynamodb-role`
+   - Sau đó chọn **IAM Role** bạn đã tạo, ví dụ: `lambda-dynamodb-role`
+   - Cuối cùng chọn **Create function**
 
-   ![Ảnh minh họa: chọn IAM Role](images/lambda-select-role.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/09.png)
 
+Sau khi nhấn **Create function**, Lambda sẽ chuyển sang giao diện chỉnh sửa mã.
 
 **Chuẩn bị mã nguồn và thư viện**
 
-5. Tải mã nguồn mẫu tại đây: **[Tải file tại đây](#)** *(link cần thay thế bằng link thực tế)*
+Bạn có thể chọn **một trong hai cách sau** để triển khai Lambda:
 
-6. Sau khi giải nén, bạn sẽ thấy các file sau:
 
-   - `index.mjs`: chứa logic xử lý của Lambda
-   - `package.json`: khai báo thư viện cần thiết
+##### **Cách 1: Dùng tệp đã build sẵn (nhanh, tiện lợi)**
+> Khuyên dùng nếu bạn muốn triển khai nhanh mà không cần cài đặt gì thêm. tại này WS đã build sẵn
 
-7. Mở Terminal hoặc Command Prompt tại thư mục chứa các file này và chạy lệnh:
+1. Tải tệp `.zip` đã **build** sẵn tại đây: [**update-product-lambda.zip**](/attachments/4-deploy-lambda-function/4.2-create-or-update-lambda-function/update-product-lambda.zip)
 
-```bash
-npm install @aws-sdk/client-dynamodb uuid
-```
-
-8. Nén mã nguồn để upload lên Lambda
-- Truy cập vào thư mục **update-product-lambda**
-
-- Chọn tất cả các tệp và thư mục bên trong: **index.mjs**,  **package.json**, **node_modules/**
-
-- Giải nén chúng ra một tệp có tên `update-product-lambda.zip`
-
-9. Sau khi nén xong tệp xong
+2. Sau khi tải tệp đã build xong, thực hiện các bước sau :
 
 - Vào **AWS Lambda**,  chọn hàm **update-product**
 
 - ở phần trang **Code**, bấm **Upload from**, sau đó chọn **.zip file**
 
-- Chọn **`get-presigned-url-lambda.zip`** vừa tạo.
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/10.png)
 
-- Chọn **update-product-lambda.zip** vừa tạo
+- sau đó chọn **`update-product-lambda.zip`** vừa tạo. Và chọn **save**
 
-Xác nhận lại handler của lambda: index.handler 
-{{% notice tip %}}
-Handler của Lambda có dạng: <TÊN_FILE>.<TÊN_HÀM>
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/11.png)
+
+3. Sau khi tải tệp lên xong , thì chọn **deloy**
+
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/12.png)
+
+
+Sau khi deploy tệp .zip, bạn cần **kiểm tra và cập nhật** lại các biến môi trường (Environment Variables) trong phần cấu hình Lambda:
+
+**REGION**: vùng AWS mà bạn đã tạo tài nguyên
+
+**TABLE_NAME**: tên bảng DynamoDB đã tạo trước đó
+
+**RESIZED_BUCKET**: tên bucket chứa ảnh đã resize
+
+Hãy chắc chắn rằng các **giá trị này khớp với những gì bạn đã cấu hình trong các bước trước** , nếu không Lambda sẽ không hoạt động chính xác.
+
+{{% notice note %}}
+Khi bạn chỉnh sửa code ngay trong giao diện **AWS Lambda** thì nhớ **deloy** sau khi sửa xong
 {{% /notice %}}
+
+
+##### **Cách 2: Tự chuẩn bị mã nguồn và thư viện**
+>  Dành cho bạn nào muốn tự tay build hoặc học thêm.
+
+1. Tải mã nguồn mẫu tại đây: [**update-product-source.zip**](/attachments/4-deploy-lambda-function/4.2-create-or-update-lambda-function/update-product-source.zip)
+
+2. Sau đó, bạn có thể xem hướng dẫn build và cài đặt thư viện tại:
+[Tạo hàm Lambda GetPresignedUrl](2.1.1-create-presignedurl-lambda-function/)
+
+{{% notice info %}}
+Trong phần tạo hàm Lambda GetPresignedUrl có chỉ rõ từng phần để triển khai build thư viện ở local
+{{% /notice %}}
+
+---
 
 #### Tạo hàm Lambda create-category trên AWS Console
 
@@ -158,17 +196,28 @@ Handler của Lambda có dạng: <TÊN_FILE>.<TÊN_HÀM>
    - **Architecture**: `x86_64`
    - **Use an existing role**: `lambda-dynamodb-role`
 
-2. Với mã nguồn được chuẩn bị ở đây:
+2. Tải tệp `.zip` đã **build** sẵn tại đây: [**create-category-lambda.zip**](/attachments/4-deploy-lambda-function/4.2-create-or-update-lambda-function/create-category-lambda.zip).
 
-- Tải mã nguồn tại đây [create-category-lambda.zip](/attachments/resize-image-lambda.zip) và chạy lệnh:
+3. Tải file `zip` mới tải lên về lên hàm lambda **create-category** trong **AWS Console**
+ 
 
-```bash
-npm install @aws-sdk/client-dynamodb uuid
-```
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/13.png)
 
-3. Sau khi nén xong tệp xong, đẩy file `zip` lên hàm lambda **create-category**
+Sau khi deploy tệp .zip, bạn cần **kiểm tra và cập nhật** lại các biến môi trường (Environment Variables) trong phần cấu hình Lambda:
 
+**REGION**: vùng AWS mà bạn đã tạo tài nguyên
+
+**TABLE_NAME**: tên bảng DynamoDB đã tạo trước đó
+
+Hãy chắc chắn rằng các **giá trị này khớp với những gì bạn đã cấu hình trong các bước trước** , nếu không Lambda sẽ không hoạt động chính xác.
+
+
+4. Nếu tự build mã nguồn thì tải mã nguồn ở đây : [**create-category-source.zip**](/attachments/4-deploy-lambda-function/4.2-create-or-update-lambda-function/create-category-source.zip)
+
+   và sau đó, bạn có thể xem hướng dẫn build và cài đặt thư viện tại:
+[Tạo hàm Lambda GetPresignedUrl](2.1.1-create-presignedurl-lambda-function/)
 #### Tạo hàm Lambda update-category trên AWS Console
+
 **Thực hiện tương tự như các bước trên khi tạo các hàm cho product**
 1. Với các thông tin hàm lambda:
    - **Function name**: `update-category`
@@ -176,14 +225,22 @@ npm install @aws-sdk/client-dynamodb uuid
    - **Architecture**: `x86_64`
    - **Use an existing role**: `lambda-dynamodb-role`
 
-2. Với mã nguồn được chuẩn bị ở đây:
+2. Tải tệp `.zip` đã **build** sẵn tại đây: [**update-category-lambda.zip**](/attachments/4-deploy-lambda-function/4.2-create-or-update-lambda-function/update-category-lambda.zip)**.
 
-- Tải mã nguồn tại đây [update-category-lambda.zip](/attachments/resize-image-lambda.zip) và chạy lệnh:
+3. Tải file `zip` mới tải lên về lên hàm lambda **create-category** trong **AWS Console**
 
-```bash
-npm install @aws-sdk/client-dynamodb uuid
-```
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/14.png)
 
-3. Sau khi nén xong tệp xong, đẩy file `zip` lên hàm lambda **update-category**
+Sau khi deploy tệp .zip, bạn cần **kiểm tra và cập nhật** lại các biến môi trường (Environment Variables) trong phần cấu hình Lambda:
 
+**REGION**: vùng AWS mà bạn đã tạo tài nguyên
+
+**TABLE_NAME**: tên bảng DynamoDB đã tạo trước đó
+
+Hãy chắc chắn rằng các **giá trị này khớp với những gì bạn đã cấu hình trong các bước trước** , nếu không Lambda sẽ không hoạt động chính xác.
+
+4. Nếu tự build mã nguồn thì tải mã nguồn ở đây : **[update-category-source.zip](/attachments/4-deploy-lambda-function/4.2-create-or-update-lambda-function/update-category-source.zip)** 
+
+   và sau đó, bạn có thể xem hướng dẫn build và cài đặt thư viện tại:
+[Tạo hàm Lambda GetPresignedUrl](2.1.1-create-presignedurl-lambda-function/)
 

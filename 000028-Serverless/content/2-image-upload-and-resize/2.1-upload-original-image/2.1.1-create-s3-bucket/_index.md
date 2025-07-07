@@ -16,7 +16,7 @@ In this step, you will create an **S3 Bucket** to store the original images uplo
 
 1. Go to the [AWS S3 Console](https://s3.console.aws.amazon.com/s3/) and click the **Create bucket** button.
 
-   ![Illustration: Create S3 bucket](/images/2-image-upload-and-resize/2.1-upload-original-image/001.png)
+   ![Illustration: Create S3 bucket](/images/2-image-upload-and-resize/2.1-upload-original-image/01.png)
 
 2. In the **General configuration** section, enter the following details:
 

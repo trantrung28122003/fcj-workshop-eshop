@@ -20,10 +20,12 @@ Hàm này sẽ thực hiện các thao tác sau:
 
 #### Tạo IAM Policy tùy chỉnh cho Lambda Resize
 
-1. Truy cập vào [IAM Console](https://console.aws.amazon.com/iam/home)  
-   → Chọn **Policies** ở menu bên trái
+#### Các bước tạo IAM Policy CHo IAM Role (Custom)
 
-2. Nhấn nút **Create policy**
+1. Truy cập vào [IAM Console](https://console.aws.amazon.com/iam/home). Chọn **Policies** ở menu bên trái. Sau đó chọn **Create policy**
+
+![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.2-resize-image/07.png)
+
 
 3. Chuyển sang tab **JSON**, dán đoạn cấu hình sau vào:
 
@@ -34,41 +36,57 @@ Hàm này sẽ thực hiện các thao tác sau:
     {
       "Effect": "Allow",
       "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::upload-originals-fcj/*"
+      "Resource": "arn:aws:s3:::<your-original-bucket-name>/*"
     },
     {
       "Effect": "Allow",
       "Action": "s3:PutObject",
-      "Resource": "arn:aws:s3:::resize-image-fcj/*"
+      "Resource": "arn:aws:s3:::<your-resized-bucket-name>/*"
     }
   ]
 }
+
 ```
+
+![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.2-resize-image/08.png)
+
+{{% notice info %}}
+Lưu ý: **your-original-bucket-name** là bucket dùng để lưu ảnh gốc, còn **your-resized-bucket-name** là bucket để lưu ảnh đã được resize.
+{{% /notice %}}
+
 
 4. Nhấn Next , và trong phần **Policy details**  nhập thông tin
 
 - **Policy name** : `ResizeImageLambdaS3Policy`
 - **Description - optional** :`ResizeImageLambdaS3Policy `
 
+![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.2-resize-image/09.png)
+
 5. Cuối cùng cuộn xuống và nhấn **Create policy** để hoàn tất.
+
+![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.2-resize-image/10.png)
 
 ### Các bước tạo IAM Role
 
-1. Tiếp theo,  Truy cập vào [IAM Console](https://console.aws.amazon.com/iam/home). Sau đó ,chọn Roles ở menu bên trái.
+1. Tiếp theo,  Truy cập vào [IAM Console](https://console.aws.amazon.com/iam/home). Chọn **Policies** ở menu bên trái. Sau đó chọn **Create policy**
 
-2. Chọn **Create role**.
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.2-resize-image/11.png)
 
-3. Trong phần **Trusted entity type**, chọn `AWS service`
+3. Trong phần **Permissions policies**, tìm và gán quyền `S3PutOriginalImagePolicy` và chọn **Next**
 
-4. Ở phần **Use case**, chọn `Lambda`
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.2-resize-image/12.png)
 
-5. Bấm **Next**.
+6. Trong phần **Permissions policies**, tìm và gán quyền `ResizeImageLambdaS3Policy` và sau đso
 
-6. Trong phần **Permissions policies**, tìm và gán quyền `ResizeImageLambdaS3Policy`  
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.2-resize-image/13.png) 
   
-7. Bấm **Next**, đặt tên cho role, ví dụ: `lambda-resize-image-role`
+4. Trong phần **"Name, review, and create"** đặt tên cho role, ví dụ: `lambda-upload-original-role`
+
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.2-resize-image/14.png)
 
 8. Bấm **Create role** để hoàn tất.
+
+![Ảnh minh họa: Tạo IAM Role](/images/2-image-upload-and-resize/2.2-resize-image/15.png)
 
 #### Kết quả
 

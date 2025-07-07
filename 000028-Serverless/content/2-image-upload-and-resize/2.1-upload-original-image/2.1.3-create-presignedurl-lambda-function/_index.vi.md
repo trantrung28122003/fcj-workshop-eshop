@@ -15,29 +15,30 @@ Hàm này được viết bằng **Node.js 22.x** và sử dụng quyền truy c
 
 1. Truy cập [AWS Lambda Console](https://console.aws.amazon.com/lambda/home), chọn **Functions**, sau đó bấm **Create function**.
 
-   ![Ảnh minh họa: Create function](images/lambda-create-button.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/14.png)
 
-2. Ở màn hình **Create function**, chọn **Author from scratch**.
+2. Ở màn hình **Create function**, chọn **Author from scratch**. Và trong phần **Basic information**, nhập các thông tin:
 
-3. Trong phần **Basic information**, nhập các thông tin:
+- **Function name**: `get-presigned-url`
+- **Runtime**: `Node.js 22.x`
+- **Architecture**: `x86_64`
 
-   - **Function name**: `get-presigned-url`
-   - **Runtime**: `Node.js 22.x`
-   - **Architecture**: `x86_64`
-
-   ![Ảnh minh họa: cấu hình cơ bản Lambda](images/lambda-basic-info.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/16.png)
 
 {{% notice note %}}
 Hiện tại AWS Lambda hỗ trợ nhiều ngôn ngữ như **Java**, **.NET**, **Python**, **Node.js**,...  
 Trong hướng dẫn này, ta sử dụng **Node.js 22.x** – phiên bản mới nhất, hiệu năng cao và hỗ trợ cú pháp hiện đại hơn so với Node.js 18.x.
 {{% /notice %}}
 
-4. Ở phần **Change default execution role**:
+3. Ở phần **Change default execution role**:
 
-   - Chọn: `Use an existing role`
-   - Sau đó chọn IAM Role bạn đã tạo, ví dụ: `lambda-upload-original-role`
+- Chọn: `Use an existing role`
+- Sau đó chọn **IAM Role** bạn đã tạo, ví dụ: `lambda-upload-original-role`
+- Cuối cùng chọn **Create function**
 
-   ![Ảnh minh họa: chọn IAM Role](images/lambda-select-role.png)
+Sau khi nhấn **Create function**, Lambda sẽ chuyển sang giao diện chỉnh sửa mã.
+
+![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/17.png)
 
 ---
 
@@ -52,37 +53,82 @@ Do đó, bạn cần chuẩn bị mã nguồn và thư viện **trên máy local
 
 **Chuẩn bị mã nguồn và thư viện**
 
-5. Tải mã nguồn mẫu tại đây: **[Tải file tại đây](#)** *(link cần thay thế bằng link thực tế)*
+Bạn có thể chọn **một trong hai cách sau** để triển khai Lambda:
 
-6. Sau khi giải nén, bạn sẽ thấy các file sau:
+##### **Cách 1: Dùng tệp đã build sẵn (nhanh, tiện lợi)**
+> Khuyên dùng nếu bạn muốn triển khai nhanh mà không cần cài đặt gì thêm. tại này WS đã build sẵn
 
-   - `index.mjs`: chứa logic xử lý của Lambda
-   - `package.json`: khai báo thư viện cần thiết
+1. Tải tệp `.zip` đã **build** sẵn tại đây: [**get-presigned-url-lambda.zip**](/attachments/2-image-upload-and-resize/2.1-upload-original-image/get-presigned-url-lambda.zip)
 
-7. Mở Terminal hoặc Command Prompt tại thư mục chứa các file này và chạy lệnh:
-
-```bash
-npm install @aws-sdk/client-dynamodb uuid
-```
-
-8. Nén mã nguồn để upload lên Lambda
-- Truy cập vào thư mục **get-presigned-url-lambda**
-
-- Chọn tất cả các tệp và thư mục bên trong: **index.mjs**,  **package.json**, **node_modules/**
-
-- Giải nén chúng ra một tệp có tên `get-presigned-url-lambda.zip`
-
-9. Sau khi nén xong tệp xong
+2. Sau khi tải tệp đã build xong, thực hiện các bước sau :
 
 - Vào **AWS Lambda**,  chọn hàm **get-presigned-url**
 
 - ở phần trang **Code**, bấm **Upload from**, sau đó chọn **.zip file**
 
-- Chọn **`get-presigned-url-lambda.zip`** vừa tạo.
+![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/22.png)
 
-Xác nhận lại handler của lambda: index.handler 
+- sau đó chọn **`get-presigned-url-lambda.zip`** vừa tạo.
+
+![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/24.png)
+
+3. Sau khi tải tệp lên xong , thì chọn **deloy**
+
+![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/25.png)
+
+##### **Cách 2: Tự chuẩn bị mã nguồn và thư viện**
+>  Dành cho bạn nào muốn tự tay build hoặc học thêm.
+
+1. Tải mã nguồn mẫu tại đây: [**get-presigned-url-source.zip**](/attachments/2-image-upload-and-resize/2.1-upload-original-image/get-presigned-url-source.zip)
+
+2. Sau khi giải nén, bạn sẽ thấy các tệp sau:
+
+   - `index.mjs`: chứa logic xử lý của Lambda
+   - `package.json`: khai báo thư viện cần thiết
+
+![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/18.png)
+
+3. Mở Terminal hoặc Command Prompt tại thư mục chứa các tệp này và chạy lệnh:
+
+```bash
+npm install 
+```
+![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/19.png)
+
+
+4. Nén mã nguồn để upload lên Lambda
+
+- Truy cập vào thư mục **get-presigned-url-source**
+
+- Chọn tất cả các tệp và thư mục bên trong: **index.mjs**,  **package.json**, **node_modules/**
+
+- Giải nén chúng ra một tệp có tên `get-presigned-url-lambda.zip`
+
+![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/20.png)
+
+5. Sau khi nén xong tệp xong
+
+- Vào **AWS Lambda**,  chọn hàm **get-presigned-url**
+
+- ở phần trang **Code**, bấm **Upload from**, sau đó chọn **.zip file**
+
+![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/22.png)
+
+- sau đó chọn **`get-presigned-url-lambda.zip`** vừa tạo.
+
+![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/24.png)
+
+7. Sau khi tải tệp lên xong , thì chọn **deloy**
+
+![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/25.png)
+
+##### **Xác nhận lại handler của lambda: index.handler **
 {{% notice tip %}}
 Handler của Lambda có dạng: <TÊN_FILE>.<TÊN_HÀM>
 {{% /notice %}}
+
+![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/26.png)
+
+
 
 

@@ -1,9 +1,9 @@
 ---
 title : "Config API Gateway"
 date : "`r Sys.Date()`"
-weight : 3
+weight : 5
 chapter : false
-pre : " <b> 5.3 </b> "
+pre : " <b> 5. </b> "
 ---
 
 **Content:**
