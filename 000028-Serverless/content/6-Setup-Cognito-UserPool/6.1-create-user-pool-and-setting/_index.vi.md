@@ -15,21 +15,28 @@ pre : " <b> 6.1. </b> "
 
 1. Truy cập [Amazon Cognito Console](https://console.aws.amazon.com/cognito/home). Chọn **User pools** ở menu bên trái. Sau đó nhấn **Create user pool**.
 
+![Ảnh minh họa: Tạo UserPool](/images/6-setup-cognito-userpool/6.1-create-user-pool-and-setting/01.png)
+
 2. Ở màn hình **Set up resources for your application**, trong phần **Define your application**, điền các thông tin:
 
 - **Application type**: `Single-page application (SPA)`
 
 - **Name your application**: `eshop-client-no-secret`
 
+![Ảnh minh họa: Tạo UserPool](/images/6-setup-cognito-userpool/6.1-create-user-pool-and-setting/02.png)
+
 {{% notice info %}}
 Trong workshop này, frontend sẽ gọi trực tiếp đến Cognito để xác thực, vì vậy nên chọn loại `Single-page application (SPA)` để **KHÔNG tạo client secret**, giúp đơn giản hóa khi tích hợp từ frontend hoặc Postman.
 {{% /notice %}}
+
 
 3. Cuộn xuống phần **Configure options**, thiết lập như sau:
 
 - **Sign-in options**: Chọn `Email` để người dùng đăng nhập bằng email.
 
 - Sau đó nhấn **Create user directory** để tạo User Pool.
+
+![Ảnh minh họa: Tạo UserPool](/images/6-setup-cognito-userpool/6.1-create-user-pool-and-setting/03.png)
 
 {{% notice note %}}
 Bạn có thể bật thêm xác minh `email`, `phone number` nếu cần.  
@@ -38,10 +45,13 @@ Ngoài ra, tại phần **Required attributes for sign-up**, bạn có thể th�
 
 4. Sau khi tạo **User Pool** xong, quay lại trang **Cognito**, chọn **User Pool** bạn vừa tạo và vào **App clients** trong **Applications** bạn sẽ tahsya App Client vừa tạo 
 
+![Ảnh minh họa: Tạo UserPool](/images/6-setup-cognito-userpool/6.1-create-user-pool-and-setting/04.png)
 
 6. vào chi tiết App Client vừa tạo và chọn **Edit**.
 
-Trong phần **Authentication flows**, bật:
+![Ảnh minh họa: Tạo UserPool](/images/6-setup-cognito-userpool/6.1-create-user-pool-and-setting/05.png)
+
+7. Trong phần **Authentication flows**, bật:
 
 - **ALLOW_USER_AUTH**:Cho phép chọn nhiều loại flow xác thực.
 
@@ -49,29 +59,38 @@ Trong phần **Authentication flows**, bật:
 
 - **ALLOW_REFRESH_TOKEN_AUTH**:Cho phép lấy refresh_token để gia hạn phiên làm việc.
 
+![Ảnh minh họa: Tạo UserPool](/images/6-setup-cognito-userpool/6.1-create-user-pool-and-setting/06.png)
 
-7. Cuối cùng, cuộn xuống và nhấn **Save changes** để hoàn tất cấu hình.
+8. Cuối cùng, cuộn xuống và nhấn **Save changes** để hoàn tất cấu hình.
 
+![Ảnh minh họa: Tạo UserPool](/images/6-setup-cognito-userpool/6.1-create-user-pool-and-setting/07.png)
 
-8. Thiết lập xác minh người dùng thông qua email, Trong userpool đã tạo ở menu trái, chọn vào mục **Sign-up** , Sau đó nhấn nút **Edit** tại phần **Attribute verification and user account confirmation**
+9. Thiết lập xác minh người dùng thông qua email, Trong userpool đã tạo ở menu trái, chọn vào mục **Sign-up** , Sau đó nhấn nút **Edit** tại phần **Attribute verification and user account confirmation**
 
-9. Trong phần **Edit attribute verification and user account confirmation**, chọn các mục sau:
+![Ảnh minh họa: Tạo UserPool](/images/6-setup-cognito-userpool/6.1-create-user-pool-and-setting/08.png)
 
-- **Allow Cognito to automatically send messages to verify and confirm**
-- **Send email message, verify email address**
-- **Keep original attribute value active when an update is pending – Recommended**
+10. Trong phần **Edit attribute verification and user account confirmation**, chọn các mục sau:
 
-10. Sau đó cuộn xuống và chọn **Save changes**
+- `Allow Cognito to automatically send messages to verify and confirm - Recommended`
+
+- `Send email message, verify email address`
+
+- `Keep original attribute value active when an update is pending – Recommended`
+
+- Sau đó chọn **Save changes**
+
+![Ảnh minh họa: Tạo UserPool](/images/6-setup-cognito-userpool/6.1-create-user-pool-and-setting/09.png)
 
 
 11. Trong userpool đã tạo ở menu trái, chọn **Message templates** và ở bảng **Message templates**, chọn `Verification message` → nhấn **Edit**
+
+![Ảnh minh họa: Tạo UserPool](/images/6-setup-cognito-userpool/6.1-create-user-pool-and-setting/10.png)
 
 12. Trong phần **Edit verification message** cấu hình như sau:
 
 - **Verification type**: `Code`
 - **Email subject**: `Mã xác minh đăng ký tài khoản`
 - **Email message**:
-
 ```html
 <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f0f2f5; padding: 40px 0;">
     <tr>
@@ -208,5 +227,6 @@ Trong phần **Authentication flows**, bật:
       </td>
     </tr>
   </table>
-
 ```
+
+![Ảnh minh họa: Tạo UserPool](/images/6-setup-cognito-userpool/6.1-create-user-pool-and-setting/11.png)

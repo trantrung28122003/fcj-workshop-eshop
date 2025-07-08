@@ -2,12 +2,13 @@
 import type { User, UserProfile } from "../model/User";
 
 const isUserLogin = (): boolean => {
+  debugger
   const storedAuth = localStorage.getItem("authentication");
   if (!storedAuth) return false;
 
   try {
-    const authData: { token: string } = JSON.parse(storedAuth);
-    return !!authData.token; 
+    const authData: { IdToken: string } = JSON.parse(storedAuth);
+    return !!authData.IdToken; 
   } catch (error) {
     console.error("Lỗi parse JSON:", error);
     return false;

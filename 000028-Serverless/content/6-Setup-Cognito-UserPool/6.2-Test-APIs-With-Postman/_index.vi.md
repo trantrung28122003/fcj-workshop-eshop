@@ -24,6 +24,10 @@ Amazon Cognito sử dụng endpoint chung theo vùng: `https://cognito-idp.<regi
 
 Tất cả **request** gửi tới **Cognito** đều cần phân biệt thông qua `ClientId`, đây là **mã định danh duy nhất cho từng App Client** thuộc **User Pool** của bạn.
 
+##### **Cách lấy ClientID**
+
+![Ảnh minh họa: Lấy clientID](/images/6-setup-cognito-userpool/6.2-test-apis-with-postman/01.png)
+
 **Cấu hình chung khi gọi API Cognito với HEADER bắt buộc** 
 
 | Key                      | Value                                              |
@@ -36,9 +40,11 @@ Nếu thiếu `X-Amz-Target` hoặc ghi sai → Cognito sẽ trả về lỗi `U
 {{% /notice %}}
 
 
+
+
 #### **Đăng ký người dùng (SignUp)**
 
-1. Trong giao diện **postman** nhập các thông tin sau
+1. Trong giao diện **postman** nhập các thông tin sau: 
 
 - chọn **Create new requets**,  dấu + trên màn hình 
 
@@ -51,7 +57,9 @@ Nếu thiếu `X-Amz-Target` hoặc ghi sai → Cognito sẽ trả về lỗi `U
 
     - **X-Amz-Target**: `AWSCognitoIdentityProviderService.SignUp`
 
-- Tiếp theo chuyển sang mục **body**, sau đó chọn **raw** và sao chép đoạn dưới đây bỏ vào:
+![Ảnh minh họa: Kiểm tra đăng kí](/images/6-setup-cognito-userpool/6.2-test-apis-with-postman/02.png)
+
+2. Tiếp theo chuyển sang mục **body**, sau đó chọn **raw** và sao chép đoạn dưới đây bỏ vào:
 ```json
 {
   "ClientId": "YOUR_APP_CLIENT_ID",
@@ -69,9 +77,20 @@ Nếu thiếu `X-Amz-Target` hoặc ghi sai → Cognito sẽ trả về lỗi `U
   ]
 }
 ```
-- Đợi kết quả trả về ở phần **body** dạng **JSON**.
+
+![Ảnh minh họa: Kiểm tra đăng kí](/images/6-setup-cognito-userpool/6.2-test-apis-with-postman/03.png)
+
+3. Đợi kết quả trả về ở phần **body** dạng **JSON**.
+
+![Ảnh minh họa: Kiểm tra đăng kí](/images/6-setup-cognito-userpool/6.2-test-apis-with-postman/04.png)
+
+4. Kiểm tra tài khoản đã được thêm vào trong **users**.
+
+![Ảnh minh họa: Kiểm tra đăng kí](/images/6-setup-cognito-userpool/6.2-test-apis-with-postman/06.png)
 
 - Kiểm tra email mà bạn đã đăng ký. Bạn sẽ nhận được **mã xác minh** (OTP) từ Cognito để tiếp tục xác thực tài khoản ở bước kế tiếp.
+
+
 
 #### **Xác minh người dùng (ConfirmSignUp)**
 
@@ -88,7 +107,11 @@ Nếu thiếu `X-Amz-Target` hoặc ghi sai → Cognito sẽ trả về lỗi `U
 
     - **X-Amz-Target**: `AWSCognitoIdentityProviderService.ConfirmSignUp`
 
-- Tiếp theo chuyển sang mục **body**, sau đó chọn **raw** và sao chép đoạn dưới đây bỏ vào:
+![Ảnh minh họa: Kiểm tra đăng kí](/images/6-setup-cognito-userpool/6.2-test-apis-with-postman/07.png)
+
+
+
+2. Tiếp theo chuyển sang mục **body**, sau đó chọn **raw** và sao chép đoạn dưới đây bỏ vào:
 ```json
 {
   "ClientId": "YOUR_APP_CLIENT_ID",
@@ -96,9 +119,16 @@ Nếu thiếu `X-Amz-Target` hoặc ghi sai → Cognito sẽ trả về lỗi `U
   "ConfirmationCode": "YOUR_CODE"
 }
 ```
-- Đợi kết quả trả về ở phần **body** dạng **JSON** và kết quả trả về kèm theo một **SESSION**
 
+![Ảnh minh họa: Kiểm tra đăng kí](/images/6-setup-cognito-userpool/6.2-test-apis-with-postman/08.png)
 
+3. Đợi kết quả trả về ở phần **body** dạng **JSON** và kết quả trả về kèm theo một **SESSION**
+
+![Ảnh minh họa: Kiểm tra đăng kí](/images/6-setup-cognito-userpool/6.2-test-apis-with-postman/09.png)
+
+4. **Kiểm tra tải khoản** đã được **xác thực** hay chưa.
+
+![Ảnh minh họa: Kiểm tra đăng kí](/images/6-setup-cognito-userpool/6.2-test-apis-with-postman/10.png)
 
 #### **Xác minh người dùng (InitiateAuth)**
 
@@ -115,7 +145,10 @@ Nếu thiếu `X-Amz-Target` hoặc ghi sai → Cognito sẽ trả về lỗi `U
 
     - **X-Amz-Target**: `AWSCognitoIdentityProviderService.InitiateAuth`
 
-- Tiếp theo chuyển sang mục **body**, sau đó chọn **raw** và sao chép đoạn dưới đây bỏ vào:
+![Ảnh minh họa: Kiểm tra đăng kí](/images/6-setup-cognito-userpool/6.2-test-apis-with-postman/11.png)
+
+
+2. Tiếp theo chuyển sang mục **body**, sau đó chọn **raw** và sao chép đoạn dưới đây bỏ vào:
 ```json
 {
     "ClientId": "YOUR_APP_CLIENT_ID",
@@ -126,4 +159,9 @@ Nếu thiếu `X-Amz-Target` hoặc ghi sai → Cognito sẽ trả về lỗi `U
     }
 }
 ```
-- Đợi kết quả trả về ở phần **body** dạng **JSON** chứa các thông tin như: **AccessToken**, **IdToken**, **ExpiresIn**, **RefreshToken**, **TokenType**
+
+![Ảnh minh họa: Kiểm tra đăng kí](/images/6-setup-cognito-userpool/6.2-test-apis-with-postman/12.png)
+
+3. Đợi kết quả trả về ở phần **body** dạng **JSON** chứa các thông tin như: **AccessToken**, **IdToken**, **ExpiresIn**, **RefreshToken**, **TokenType**
+
+![Ảnh minh họa: Kiểm tra đăng kí](/images/6-setup-cognito-userpool/6.2-test-apis-with-postman/13.png)

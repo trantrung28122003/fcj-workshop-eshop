@@ -3,12 +3,11 @@ import { DoCallCognitoAPI } from "./HttpService";
 const clientId = import.meta.env.VITE_COGNITO_CLIENT_ID;
 
 export interface EmailVerificationRequest {
-  email: string;
   userName: string;
 }
 
 export interface VerifyCodeRequest {
-  email: string;
+  userName: string;
   code: string;
 }
 
@@ -21,9 +20,10 @@ export const resendVerificationCode = async (request: EmailVerificationRequest) 
 };
 
 export const verifyEmailCode = async (request: VerifyCodeRequest) => {
+  debugger
   const body = {
     ClientId: clientId,
-    Username: request.email,
+    Username: request.userName,
     ConfirmationCode: request.code,
   };
   return DoCallCognitoAPI("AWSCognitoIdentityProviderService.ConfirmSignUp", body);

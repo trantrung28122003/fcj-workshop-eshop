@@ -1,4 +1,4 @@
-import type { APISignInRequest } from "../model/Authentication";
+import type { APISignInRequest, LoginRequest } from "../model/Authentication";
 import { DoCallCognitoAPI } from "./HttpService";
 
 const clientId = import.meta.env.VITE_COGNITO_CLIENT_ID;
@@ -16,24 +16,23 @@ export const signUp = async (request: APISignInRequest) => {
   return DoCallCognitoAPI("AWSCognitoIdentityProviderService.SignUp", body);
 };
 
-
-export const confirmSignUp = async (email: string, code: string) => {
+export const confirmSignUp = async (userName: string, code: string) => {
   const body = {
     ClientId: clientId,
-    Username: email,
+    Username: userName,
     ConfirmationCode: code,
   };
   return DoCallCognitoAPI("AWSCognitoIdentityProviderService.ConfirmSignUp", body);
 };
 
 
-export const signIn = async (email: string, password: string) => {
+export const signIn = async (request: LoginRequest) => {
   const body = {
     AuthFlow: "USER_PASSWORD_AUTH",
     ClientId: clientId,
     AuthParameters: {
-      USERNAME: email,
-      PASSWORD: password,
+      USERNAME: request.userName,
+      PASSWORD: request.password,
     },
   };
   return DoCallCognitoAPI("AWSCognitoIdentityProviderService.InitiateAuth", body);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { Field, Form, Formik } from "formik";
 import { HTTP_OK } from "../../../constants/HTTPCode";
@@ -10,14 +10,9 @@ import {
   resendVerificationCode,
 } from "../../../services/EmailVerificationService";
 
-interface LocationState {
-  email: string;
-  userName: string;
-}
 
 const EmailVerification: React.FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const [verificationError, setVerificationError] = useState<string | null>(
     null
   );
@@ -26,19 +21,42 @@ const EmailVerification: React.FC = () => {
   const [resendLoading, setResendLoading] = useState(false);
   const [countdown, setCountdown] = useState(0);
 
-  const state = location.state as LocationState;
-  const email = state?.email;
-  const userName = state?.userName;
+  const userName = localStorage.getItem("lastSignUpUsername") ?? "";
 
   useEffect(() => {
-    if (!email || !userName) {
+    if (!userName) {
       navigate("/register");
       return;
     }
-
-    // Bắt đầu countdown 60 giây cho việc gửi lại mã
     setCountdown(60);
-  }, [email, userName, navigate]);
+
+    const isLogin = localStorage.getItem("isLogin");
+
+    if (isLogin === "true") {
+      resendVerificationCode({ userName })
+        .then((res) => {
+          if (res.status === HTTP_OK) {
+            setCountdown(60);
+          }
+        })
+        .catch(() => {
+          setVerificationError("Không thể gửi mã xác thực. Vui lòng thử lại.");
+        })
+        .finally(() => {
+          localStorage.removeItem("isLogin");
+        });
+    } else {
+      setCountdown(60);
+    }
+  }, [userName, navigate]);
+
+  const isVerified = localStorage.getItem("isVerified");
+  if (isVerified === "true") {
+    navigate("/login");
+    return;
+  }
+
+
 
   useEffect(() => {
     if (countdown > 0) {
@@ -52,6 +70,7 @@ const EmailVerification: React.FC = () => {
     navigate("/login");
   };
 
+
   const handleResendCode = async () => {
     if (countdown > 0) return;
 
@@ -59,8 +78,9 @@ const EmailVerification: React.FC = () => {
     setVerificationError(null);
 
     try {
-      const response = await resendVerificationCode({ email, userName });
+      const response = await resendVerificationCode({ userName });
       if (response.status === HTTP_OK) {
+
         setCountdown(60);
       }
     } catch (error) {
@@ -80,11 +100,15 @@ const EmailVerification: React.FC = () => {
   const handleVerifyCode = async (code: string) => {
     setIsLoading(true);
     setVerificationError(null);
-
+    debugger
     try {
-      const response = await verifyEmailCode({ email, code });
+      const response = await verifyEmailCode({ userName, code });
+      
       if (response.status === HTTP_OK) {
         setVerificationSuccess(true);
+        localStorage.removeItem("lastSignUpUsername");
+        localStorage.removeItem("lastSignUpEmail");
+        localStorage.setItem("isVerified", "true");
       }
     } catch (error: any) {
       const errorType = error?.response?.data?.__type;
@@ -102,10 +126,6 @@ const EmailVerification: React.FC = () => {
       setIsLoading(false);
     }
   };
-
-  if (!email || !userName) {
-    return null;
-  }
 
   return (
     <>
@@ -133,7 +153,7 @@ const EmailVerification: React.FC = () => {
           <div className={styles.auth_header}>
             <h2 className={styles.auth_title}>Xác thực Email</h2>
             <p className={styles.auth_subtitle}>
-              Chúng tôi đã gửi mã xác thực đến <strong>{email}</strong>
+              Chúng tôi đã gửi mã xác thực đến email của bạn
             </p>
           </div>
 
@@ -213,8 +233,8 @@ const EmailVerification: React.FC = () => {
                       {resendLoading
                         ? "Đang gửi..."
                         : countdown > 0
-                        ? `Gửi lại (${countdown}s)`
-                        : "Gửi lại mã"}
+                          ? `Gửi lại (${countdown}s)`
+                          : "Gửi lại mã"}
                     </button>
                   </p>
                 </div>

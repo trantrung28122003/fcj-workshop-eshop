@@ -60,13 +60,8 @@ const Register: React.FC = () => {
     signUp(request)
       .then((response) => {
         if (response.status === HTTP_OK) {
-          // Chuyển hướng đến trang xác thực email thay vì hiển thị thông báo thành công
-          navigate("/email-verification", {
-            state: {
-              email: account.email,
-              userName: account.userName,
-            },
-          });
+          localStorage.setItem("lastSignUpUsername", account.userName);
+          navigate("/email-verification");
         }
       })
       .catch((error) => {
