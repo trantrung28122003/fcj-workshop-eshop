@@ -72,12 +72,141 @@ Trong phần **Authentication flows**, bật:
 - **Email subject**: `Mã xác minh đăng ký tài khoản`
 - **Email message**:
 
-```txt
-Chào mừng bạn đến với eSHOP-FCJ
+```html
+<table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f0f2f5; padding: 40px 0;">
+    <tr>
+      <td align="center">
+        <table width="100%" style="max-width:600px; background-color:#ffffff; border-radius:8px; overflow:hidden; font-family:Arial,sans-serif; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          
+          <!-- Logo & Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #06bbcc 0%, #2E86C1 100%); padding: 30px; text-align:center;">
+              <h1 style="margin:0; color:#ffffff; font-size:24px; font-weight:normal;">
+                Chào mừng đến với <strong>eSHOP-FCJ</strong>
+              </h1>
+            </td>
+          </tr>
 
-Mã xác minh của bạn là: {{####}}  
-Mã này sẽ hết hạn trong vòng 5 phút.
+          <!-- Nội dung chính -->
+          <tr>
+            <td style="padding: 30px; color: #333333; font-size: 16px; line-height:1.6;">
+              <p>Xin chào <strong>Bạn!</strong>,</p>
+              <p>
+                Để hoàn tất đăng ký tài khoản, vui lòng nhập mã xác minh bên dưới:
+              </p>
 
-Trân trọng,
-eShop-FCJ
+              <!-- Button-like code box -->
+              <p style="text-align:center; margin: 30px 0;">
+                <span style="
+                  display:inline-block;
+                  background-color:#06bbcc;
+                  color:#ffffff;
+                  font-size:28px;
+                  font-weight:bold;
+                  padding:15px 30px;
+                  border-radius:6px;
+                  border:2px solid #06bbcc;
+                  letter-spacing:4px;
+                ">
+                  {{####}}
+                </span>
+              </p>
+
+              <p style="color:#7f8c8d; font-size:14px; text-align:center;">
+                Mã này sẽ <strong>hết hạn sau 5 phút</strong>.
+              </p>
+
+           
+              <p style="margin-top:30px;">
+                Chúng tôi luôn cam kết bảo vệ thông tin và quyền riêng tư của bạn.
+              </p>
+
+              <p style="margin-top:30px;">
+                Trân trọng,<br>
+                <em>Đội ngũ eSHOP-FCJ</em>
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color:#f0f2f5; padding:20px 30px; text-align:center; font-size:12px; color:#95a5a6;">
+              © 2024 eSHOP-FCJ.  
+              <a href="https://your-domain.com" style="color:#06bbcc; text-decoration:none;">Visit our site</a> |
+              <a href="mailto:support@your-domain.com" style="color:#06bbcc; text-decoration:none;">support@eshopfcj.com</a>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table><table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f0f2f5; padding: 40px 0;">
+    <tr>
+      <td align="center">
+        <table width="100%" style="max-width:600px; background-color:#ffffff; border-radius:8px; overflow:hidden; font-family:Arial,sans-serif; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          
+          <!-- Logo & Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #06bbcc 0%, #2E86C1 100%); padding: 30px; text-align:center;">
+              <h1 style="margin:0; color:#ffffff; font-size:24px; font-weight:normal;">
+                Chào mừng đến với <strong>eSHOP-FCJ</strong>
+              </h1>
+            </td>
+          </tr>
+
+          <!-- Nội dung chính -->
+          <tr>
+            <td style="padding: 30px; color: #333333; font-size: 16px; line-height:1.6;">
+              <p>Xin chào <strong>Bạn!</strong>,</p>
+              <p>
+                Để hoàn tất đăng ký tài khoản, vui lòng nhập mã xác minh bên dưới:
+              </p>
+
+              <!-- Button-like code box -->
+              <p style="text-align:center; margin: 30px 0;">
+                <span style="
+                  display:inline-block;
+                  background-color:#06bbcc;
+                  color:#ffffff;
+                  font-size:28px;
+                  font-weight:bold;
+                  padding:15px 30px;
+                  border-radius:6px;
+                  border:2px solid #06bbcc;
+                  letter-spacing:4px;
+                ">
+                  {{####}}
+                </span>
+              </p>
+
+              <p style="color:#7f8c8d; font-size:14px; text-align:center;">
+                Mã này sẽ <strong>hết hạn sau 5 phút</strong>.
+              </p>
+
+           
+              <p style="margin-top:30px;">
+                Chúng tôi luôn cam kết bảo vệ thông tin và quyền riêng tư của bạn.
+              </p>
+
+              <p style="margin-top:30px;">
+                Trân trọng,<br>
+                <em>Đội ngũ eSHOP-FCJ</em>
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color:#f0f2f5; padding:20px 30px; text-align:center; font-size:12px; color:#95a5a6;">
+              © 2024 eSHOP-FCJ.  
+              <a href="https://your-domain.com" style="color:#06bbcc; text-decoration:none;">Visit our site</a> |
+              <a href="mailto:support@your-domain.com" style="color:#06bbcc; text-decoration:none;">support@eshopfcj.com</a>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
 ```

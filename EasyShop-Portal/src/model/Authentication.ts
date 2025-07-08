@@ -8,14 +8,14 @@ export interface LoginResponse {
   token: string;
 }
 
-export interface APIRegisterRequest {
+export interface APISignInRequest {
   email: string;
   userName: string;
   fullName: string;
   password: string;
 }
 
-export interface RegisterRequest extends APIRegisterRequest {
+export interface SignInRequest extends APISignInRequest {
   imageName: string | null;
   confirmPassword: string;
   termAndConditions: boolean;

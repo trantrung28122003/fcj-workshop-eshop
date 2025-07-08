@@ -1,5 +1,5 @@
 ---
-title : "Thiết lập Cognito UserPool"
+title : "Thiết lập cấu hình Cognito UserPool"
 date :  "`r Sys.Date()`" 
 weight : 6
 chapter : false

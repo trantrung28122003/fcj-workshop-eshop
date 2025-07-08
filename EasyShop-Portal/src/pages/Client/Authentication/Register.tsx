@@ -3,22 +3,20 @@ import AuthenticationShared from "./Shared/AuthenticationShared";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import type {
-  APIRegisterRequest,
-  RegisterRequest,
+  APISignInRequest,
+  SignInRequest,
 } from "../../../model/Authentication";
 import { Field, Form, Formik } from "formik";
-import { DoCallAPIWithOutToken } from "../../../services/HttpService";
-import { REGISTER_URL } from "../../../constants/API";
 import { HTTP_OK } from "../../../constants/HTTPCode";
 import DataLoader from "../../../components/lazyLoadComponent/DataLoader";
 import styles from "./Shared/AuthenticationShared.module.css";
 import { Link } from "react-router-dom";
+import { signUp } from "../../../services/CognitoService";
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
   const [registerError, setRegisterError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [registerSuccess, setRegisterSuccess] = useState(false);
   const handleLogin = () => {
     localStorage.clear();
     navigate("/login");
@@ -50,52 +48,47 @@ const Register: React.FC = () => {
       .oneOf([true], "Bạn phải chấp nhận các điều khoản và điều kiện"),
   });
 
-  const doRegister = (account: APIRegisterRequest) => {
-    const formData = new FormData();
-   
-
-    formData.append("email", account.email);
-    formData.append("userName", account.email);
-    formData.append("fullName", account.fullName);
-    formData.append("password", account.password);
+  const doSignUp = (account: APISignInRequest) => {
+    const request: APISignInRequest = {
+      email: account.email,
+      userName: account.userName,
+      fullName: account.fullName,
+      password: account.password,
+    };
 
     setIsLoading(true);
-    DoCallAPIWithOutToken<APIRegisterRequest>(REGISTER_URL, "POST", formData)
-      .then((res) => {
-        if (res.status === HTTP_OK) {
-          setRegisterSuccess(true);
+    signUp(request)
+      .then((response) => {
+        if (response.status === HTTP_OK) {
+          // Chuyển hướng đến trang xác thực email thay vì hiển thị thông báo thành công
+          navigate("/email-verification", {
+            state: {
+              email: account.email,
+              userName: account.userName,
+            },
+          });
         }
       })
-      .catch((err) => {
-        if (err.response && err.response.status === 400) {
-          setRegisterError("Email đã được sử dụng.");
+      .catch((error) => {
+        const errorType = error?.response?.data?.__type;
+
+        if (errorType === "UsernameExistsException") {
+          setRegisterError("Email đã được sử dụng. Vui lòng chọn email khác.");
+        } else if (errorType === "InvalidPasswordException") {
+          setRegisterError(
+            "Mật khẩu phải chứa chữ thường, chữ in hoa, chữ số và ký tự đặc biệt."
+          );
         } else {
           setRegisterError("Đăng ký thất bại. Vui lòng thử lại sau.");
         }
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
     <>
-      {registerSuccess && (
-        <div className={styles.modal_overlay}>
-          <div className={styles.success_modal}>
-            <div className={styles.success_icon}>✅</div>
-            <h3 className={styles.success_title}>Đăng ký thành công!</h3>
-            <p className={styles.success_message}>
-              Chúc mừng bạn đã đăng ký tài khoản thành công. Hãy đăng nhập để
-              bắt đầu trải nghiệm!
-            </p>
-            <button
-              onClick={handleLogin}
-              className={`${styles.btn} ${styles.btn_primary}`}
-            >
-              Đăng nhập ngay
-            </button>
-          </div>
-        </div>
-      )}
       <AuthenticationShared
         title="Tạo tài khoản mới "
         subtitle="Đăng ký để bắt đầu chia sẻ những bài viết của bạn"
@@ -113,26 +106,25 @@ const Register: React.FC = () => {
             termAndConditions: false,
           }}
           validationSchema={schema}
-          onSubmit={(values: RegisterRequest) => {
+          onSubmit={(values: SignInRequest) => {
             if (!values.termAndConditions) {
               setRegisterError(
                 "Bạn phải chấp nhận các điều khoản và điều kiện"
               );
               return;
             }
-            const requestPayload: APIRegisterRequest = {
+            const requestPayload: APISignInRequest = {
               email: values.email,
               userName: values.userName,
               fullName: values.fullName,
               password: values.password,
-              
             };
             setRegisterError(null);
-            doRegister(requestPayload);
+            doSignUp(requestPayload);
           }}
           validateOnChange
         >
-          {({ touched, errors, setFieldValue, handleChange }) => (
+          {({ touched, errors, handleChange }) => (
             <Form className={styles.auth_form}>
               {(registerError ||
                 (errors.termAndConditions && touched.termAndConditions)) && (

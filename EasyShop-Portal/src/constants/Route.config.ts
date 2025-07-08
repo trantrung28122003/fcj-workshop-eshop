@@ -36,6 +36,14 @@ export const RoutesConfig: ApplicationRoute[] = [
     isProtected: false,
     isAdmin: false,
   },
+  {
+    path: "/email-verification",
+    component: LazyLoadComponent(
+      import("../pages/Client/Authentication/EmailVerification")
+    ),
+    isProtected: false,
+    isAdmin: false,
+  },
 
 
   {

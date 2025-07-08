@@ -63,8 +63,8 @@ Nếu thiếu `X-Amz-Target` hoặc ghi sai → Cognito sẽ trả về lỗi `U
       "Value": "YOUR_EMAIL"
     },
     {
-      "Name": "phone_number",
-      "Value": "YOUR_PHONE_NUMBER"
+      "Name": "name",
+      "Value": "YOUR_FULL_NAME"
     }
   ]
 }
