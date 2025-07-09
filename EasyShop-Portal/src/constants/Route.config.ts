@@ -56,8 +56,8 @@ export const RoutesConfig: ApplicationRoute[] = [
   {
     path: "/admin",
     component: LazyLoadComponent(import("../pages/Admin/Dashboard/index")),
-    isProtected: false,
-    isAdmin: false,
+    isProtected: true,
+    isAdmin: true,
   },
 
   {

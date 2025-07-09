@@ -1,7 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate  } from "react-router-dom";
 import styles from "./Navbar.module.css";
+import { isUserLogin } from "../../hooks/useLogin";
 
 const Navbar = () => {
+  const isLoggedIn = isUserLogin();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
   return (
     <nav className={`${styles.navbar} sticky-top`}>
       <div className={styles.navContainer}>
@@ -37,12 +44,15 @@ const Navbar = () => {
           </li>
         </ul>
 
-        <NavLink
-          to="/login"
-          className={`${styles.ctaButton} d-none d-lg-block`}
-        >
-          Đăng Nhập
-        </NavLink>
+       {isLoggedIn ? (
+          <button onClick={handleLogout} className={`${styles.ctaButton} d-none d-lg-block`}>
+            Đăng Xuất
+          </button>
+        ) : (
+          <NavLink to="/login" className={`${styles.ctaButton} d-none d-lg-block`}>
+            Đăng Nhập
+          </NavLink>
+        )}
 
         <button
           className="navbar-toggler d-lg-none"

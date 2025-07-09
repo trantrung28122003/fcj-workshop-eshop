@@ -6,10 +6,10 @@ import {
   PRESIGNED_URL,
 } from "../constants/API";
 import type { Product } from "../model/Product";
-import { DoCallAPIWithOutToken, DoCallAPIWithToken } from "./HttpService";
+import {  DoCallAPIWithToken } from "./HttpService";
 
 export function getPresignedUrl(fileName: string, fileType: string) {
-  return DoCallAPIWithOutToken(
+  return DoCallAPIWithToken(
     PRESIGNED_URL,
     "POST",
     { fileName, fileType }
@@ -31,7 +31,7 @@ export async function UploadFileToS3Buket(uploadUrl: string, file: File) {
 }
 
 export const getAllProducts = () => {
-  return DoCallAPIWithOutToken(GET_ALL_PRODUCT, "GET", null);
+  return DoCallAPIWithToken(GET_ALL_PRODUCT, "GET", null);
 };
 
 export const createProduct = (productData: Omit<Product, "id">) => {

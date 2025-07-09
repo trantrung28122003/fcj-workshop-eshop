@@ -56,8 +56,6 @@ const EmailVerification: React.FC = () => {
     return;
   }
 
-
-
   useEffect(() => {
     if (countdown > 0) {
       const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
@@ -100,7 +98,6 @@ const EmailVerification: React.FC = () => {
   const handleVerifyCode = async (code: string) => {
     setIsLoading(true);
     setVerificationError(null);
-    debugger
     try {
       const response = await verifyEmailCode({ userName, code });
       

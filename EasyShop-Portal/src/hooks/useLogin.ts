@@ -1,8 +1,7 @@
 
-import type { User, UserProfile } from "../model/User";
+import { jwtDecode } from 'jwt-decode';
 
 const isUserLogin = (): boolean => {
-  debugger
   const storedAuth = localStorage.getItem("authentication");
   if (!storedAuth) return false;
 
@@ -15,12 +14,12 @@ const isUserLogin = (): boolean => {
   }
 };
 const getCredentials = (): string => {
-  const storedAuth = localStorage.getItem("authentication");
+ const storedAuth = localStorage.getItem("authentication");
   if (!storedAuth) return "";
-
   try {
-    const authData = JSON.parse(storedAuth);
-    return authData.token || "";
+    
+    const authData: { IdToken: string } = JSON.parse(storedAuth);
+    return authData.IdToken || ""; 
 
   } catch (error) {
     console.error("Lỗi parse JSON:", error);
@@ -28,26 +27,20 @@ const getCredentials = (): string => {
   }
 };
 
+const hasAdminRole = (): boolean => {
+  const storedAuth = localStorage.getItem("authentication");
+  if (!storedAuth) return false;
 
-const getUserInfo = () => {
-  if (localStorage.getItem("user_info") != null) {
-    const userInfo: UserProfile = JSON.parse(localStorage.getItem("user_info") || "");
-    return userInfo;
-  } else {
-    return null;
-  }
-};
-
-const hasAdminRole = () => {
-  const storedUser = localStorage.getItem("user_info");
-  if (!storedUser) return false; 
   try {
-    const user: User = JSON.parse(storedUser);
-    return user.role === "Admin"; 
+    const authData = JSON.parse(storedAuth);
+    const idToken = authData.IdToken;
+    const decoded: any = jwtDecode(idToken);
+    const groups: string[] = decoded["cognito:groups"] || [];
+    return groups.includes("admin");
   } catch (error) {
-    console.error("Lỗi parse JSON:", error);
+    console.error("Lỗi khi decode token:", error);
     return false;
   }
 };
 
-export { isUserLogin, getUserInfo, getCredentials, hasAdminRole };
+export { isUserLogin, getCredentials, hasAdminRole };

@@ -19,8 +19,7 @@ export const resendVerificationCode = async (request: EmailVerificationRequest) 
   return DoCallCognitoAPI("AWSCognitoIdentityProviderService.ResendConfirmationCode", body);
 };
 
-export const verifyEmailCode = async (request: VerifyCodeRequest) => {
-  debugger
+export const verifyEmailCode = async (request: VerifyCodeRequest) => {  
   const body = {
     ClientId: clientId,
     Username: request.userName,

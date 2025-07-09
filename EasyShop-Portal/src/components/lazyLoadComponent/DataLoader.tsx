@@ -6,7 +6,6 @@ interface DataLoaderProps {
   isOpaque?: boolean;
   message?: string;
 }
-
 const DataLoader: React.FC<DataLoaderProps> = ({
   isLoading,
   isOpaque = false,
@@ -25,5 +24,4 @@ const DataLoader: React.FC<DataLoaderProps> = ({
     </div>
   );
 };
-
 export default DataLoader;

@@ -5,10 +5,10 @@ import {
   DELETE_CATEGORY,
 } from "../constants/API";
 import type { Category } from "../model/Category";
-import { DoCallAPIWithOutToken, DoCallAPIWithToken } from "./HttpService";
+import { DoCallAPIWithToken } from "./HttpService";
 
 export const getAllCategories = () => {
-  return DoCallAPIWithOutToken(GET_ALL_CATEGORY, "GET", null);
+  return DoCallAPIWithToken(GET_ALL_CATEGORY, "GET", null);
 };
 
 export const createCategory = (categoryData: Omit<Category, "id">) => {

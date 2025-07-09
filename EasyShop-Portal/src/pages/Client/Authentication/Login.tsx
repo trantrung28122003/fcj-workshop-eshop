@@ -2,18 +2,13 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthenticationShared from "./Shared/AuthenticationShared";
 import styles from "./Shared/AuthenticationShared.module.css";
-import {
-  DoCallAPIWithToken,
-} from "../../../services/HttpService";
-import {
-  GET_USER_INFO_URL,
-} from "../../../constants/API";
 import { HTTP_OK } from "../../../constants/HTTPCode";
 import type { LoginRequest } from "../../../model/Authentication";
 import * as yup from "yup";
 import { Field, Form, Formik } from "formik";
 import DataLoader from "../../../components/lazyLoadComponent/DataLoader";
 import { signIn } from "../../../services/CognitoService";
+import { jwtDecode } from "jwt-decode";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -29,8 +24,14 @@ const Login: React.FC = () => {
     signIn(user)
           .then((response) => {
             if (response.status === HTTP_OK) {
-                 localStorage.setItem("authentication", JSON.stringify(response.data.AuthenticationResult));
+              localStorage.setItem("authentication", JSON.stringify(response.data.AuthenticationResult));
+              const decodedToken: any = jwtDecode(response.data.AuthenticationResult.IdToken);
+              const groups: string[] = decodedToken["cognito:groups"] || [];
+              if (groups.includes("admin")) {
+                navigate("/admin", { replace: true });
+              } else {
                 navigate("/", { replace: true });
+              }
             }
           })
       .catch((error) => {
@@ -38,33 +39,10 @@ const Login: React.FC = () => {
         if (errorType === "UserNotConfirmedException") {
             localStorage.setItem("lastSignUpUsername", user.userName);
             localStorage.setItem("isLogin", "true");
-             
             navigate("/email-verification");
         } else {
           setLoginError("Đăng nhập thất bại. Vui lòng thử lại sau.");
         }
-        setIsLoading(false);
-      });
-  };
-
-  const fetchCurrentUser = () => {
-    console.log("Fetching current user...");
-    setIsLoading(true);
-    DoCallAPIWithToken(GET_USER_INFO_URL, "GET")
-      .then((res) => {
-        if (res.status === HTTP_OK) {
-          localStorage.setItem("user_info", JSON.stringify(res.data.results));
-          navigate("/", { replace: true });
-        } else {
-          console.log("Failed to fetch user info:", res.status);
-          navigate("/login-fail");
-        }
-      })
-      .catch((err) => {
-        console.error("Error fetching user info:", err);
-        navigate("/login-fail");
-      })
-      .finally(() => {
         setIsLoading(false);
       });
   };
@@ -76,6 +54,7 @@ const Login: React.FC = () => {
 
   return (
     <AuthenticationShared>
+  
       <DataLoader isLoading={isLoading} />
       <Formik
         initialValues={{ userName: "", password: "" }}
