@@ -38,7 +38,7 @@ Trong hướng dẫn này, ta sử dụng **Node.js 22.x** – phiên bản mớ
 
 Sau khi nhấn **Create function**, Lambda sẽ chuyển sang giao diện chỉnh sửa mã.
 
-![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/17.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/2-image-upload-and-resize/2.1-upload-original-image/17-fetch.png)
 
 ---
 

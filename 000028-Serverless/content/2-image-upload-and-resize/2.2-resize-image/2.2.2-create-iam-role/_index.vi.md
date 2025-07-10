@@ -55,7 +55,7 @@ Hàm này sẽ thực hiện các thao tác sau:
 }
 ```
 
-![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.2-resize-image/08.png)
+![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.2-resize-image/08-fetch.png)
 
 {{% notice info %}}
 Lưu ý: **your-original-bucket-name** là bucket dùng để lưu ảnh gốc, còn **your-resized-bucket-name** là bucket để lưu ảnh đã được resize.

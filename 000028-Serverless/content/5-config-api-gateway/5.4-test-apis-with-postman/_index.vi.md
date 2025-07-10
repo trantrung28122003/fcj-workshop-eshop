@@ -122,7 +122,7 @@ https://{restapi_id}.execute-api.{region}.amazonaws.com/{stage_name}/{resource_p
 
 - Sau đó nhấn **send** và đợi kết quả trả về ở phần **body** dạng **JSON** chứa các thông tin như
 
-![Ảnh minh họa: gọi API](/images/5-config-api-gateway/5.4-test-apis-with-postman/01.png)
+![Ảnh minh họa: gọi API](/images/5-config-api-gateway/5.4-test-apis-with-postman/08.png)
 
 3. Tiếp theo chuyển sang mục **body**, sau đó chọn **raw** và sao chép đoạn dưới đây bỏ vào:
 ```json
@@ -132,23 +132,33 @@ https://{restapi_id}.execute-api.{region}.amazonaws.com/{stage_name}/{resource_p
 }
 ```
 {{% notice note %}}
-Vì đang kiểm tra trên postman nên bạn nđiền đúng tên ảnh avf thể laoij ảnh bạn muốn tải lên
+Vì đang kiểm tra trên postman nên bạn nđiền đúng tên ảnh và thể loại ảnh bạn muốn tải lên
 {{% /notice %}}
 
 
-![Ảnh minh họa: gọi API](/images/5-config-api-gateway/5.4-test-apis-with-postman/02.png)
 
-4. Mở bảng **Category** trong bảng điều khiển của [DynamoDB Console](https://console.aws.amazon.com/dynamodb/home) để kiểm tra dữ liệu
+4. Trong giao diện **postman** nhập các thông tin sau
+- chọn **Create new requets**,  dấu + trên màn hình 
 
-![Ảnh minh họa: gọi API](/images/5-config-api-gateway/5.4-test-apis-with-postman/03.png)
+- Chọn phương thức **`PUT`** và Nhập URL là **Invoke URL** từ API được tạo wor bước trước
 
-![Ảnh minh họa: gọi API](/images/5-config-api-gateway/5.4-test-apis-with-postman/04.png)
+![Ảnh minh họa: gọi API](/images/5-config-api-gateway/5.4-test-apis-with-postman/09.png)
 
-
-6. Ngoài ra , có thể kiểm tra thêm cập nhập dữ liệu :
-
-Chọn phương thức **`PUT`** và Nhập URL là **Invoke URL** từ API Gateway đã tạo ở bước trước và có dạng:
-
-```bash
-https://{restapi_id}.execute-api.{region}.amazonaws.com/{stage_name}/{resource_path}/{id}
+5. Tiếp theo chuyển sang mục **body**, sau đó chọn **binary** và sao chép đoạn dưới đây bỏ vào:
+```json
+{
+  "fileName": "example.jpg",
+  "fileType": "image/jpeg"
+}
 ```
+![Ảnh minh họa: gọi API](/images/5-config-api-gateway/5.4-test-apis-with-postman/10.png)
+
+{{% notice note %}}
+Nhớ cọn ảnh đúng tên và thể loại cảu tệp ảnh đó nha
+{{% /notice %}}
+
+6. Sau khi chọn **send** bạn cso thểm xem kết quả từ hai bucket:
+
+![Ảnh minh họa: gọi API](/images/5-config-api-gateway/5.4-test-apis-with-postman/13.png)
+
+![Ảnh minh họa: gọi API](/images/5-config-api-gateway/5.4-test-apis-with-postman/15.png)

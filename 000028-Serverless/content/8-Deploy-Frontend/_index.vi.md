@@ -6,74 +6,84 @@ chapter : false
 pre : " <b> 8. </b> "
 ---
 
-**Nội dung:**
-- [Hướng dẫn Tạo tài khoản AWS](#hướng-dẫn-tạo-tài-khoản-aws)
-- [Thêm phương thức thanh toán](#thêm-phương-thức-thanh-toán)
-- [Xác thực số điện thoại của bạn](#xác-thực-số-điện-thoại-của-bạn)
-- [Chọn Support Plan](#chọn-support-plan)
-- [Đợi account của bạn được kích hoạt](#đợi-account-của-bạn-được-kích-hoạt)
+#### Tổng quan
+Tiếp theo, triển khai **frontend** (giao diện người dùng) của ứng dụng web hiện đại lên **AWS S3 và CloudFront**, đảm bảo người dùng cuối có thể truy cập thông qua Internet với tốc độ nhanh, bảo mật và ổn định.
 
-## Hướng dẫn Tạo tài khoản AWS
+Ứng dụng **frontend** ở đây thường là S**ingle Page Application (SPA)** được xây dựng bằng **React**, **Angular** hoặc **Vue**. Sau khi build hoàn tất, mã nguồn tĩnh sẽ được upload lên S3 và sử dụng CloudFront làm CDN để phân phối nội dung hiệu quả toàn cầu.
 
-1. Đi đến trang [Amazon Web Service homepage](https://aws.amazon.com/).
-2. Chọn **Create an AWS Account** ở góc trên bên phải.
-    - ***Ghi Chú:** Nếu bạn không thấy **Create an AWS Account**, chọn **Sign In to the Console** sau đó chọn **Create a new AWS Account**.*
-   
-![Create Account](/images/1/0001.png?featherlight=false&width=90pc)
+#### Nội dung chính
 
-3. Nhập thông tin email và **AWS account name**.
+#### Tạo bucket để tải file web lên
 
-![Create Account](/images/1/0002.png?featherlight=false&width=90pc)
+1. Truy cập vào [AWS S3 Console](https://s3.console.aws.amazon.com/s3/) và nhấn nút **Create bucket**.
 
-4. Hoàn thành thông tin.
+![Ảnh minh họa: Tạo S3 bucket](/images/2-image-upload-and-resize/2.1-upload-original-image/01.png)
 
-![Create Account](/images/1/0003.png?featherlight=false&width=90pc)
+2. Tại phần **General configuration**, nhập các thông tin sau:
 
-5. Xác nhận mã được gửi từ email.
+- **AWS Region**: Nên chọn một khu vực AWS duy nhất để triển khai toàn bộ kiến trúc (Lambda, S3, DynamoDB,...) nhằm giảm độ trễ và đơn giản hóa cấu hình phân quyền(ví dụ: Asia Pacific (Singapore) ap-southeast-1)
 
-![Create Account](/images/1/0004.png?featherlight=false&width=90pc)
-![Create Account](/images/1/0005.png?featherlight=false&width=90pc)
-![Create Account](/images/1/0006.png?featherlight=false&width=90pc)
+- **Bucket type**: General purpose (mặc định)
 
-6. Sau khi xác thực email thành công, bạn hoàn thành thông tin tài khoản.
+- **Bucket name**: `fe-easyshop-fcj`
 
-![Create Account](/images/1/0007.png?featherlight=false&width=90pc)
-![Create Account](/images/1/0008.png?featherlight=false&width=90pc)
+![Ảnh minh họa: Tạo S3 bucket](/images/2-image-upload-and-resize/2.1-upload-original-image/02.png)
 
-7. Thực hiện hoàn thành hồ sơ đăng ký tài khoản.
-   - Bạn có thể chọn tài khoản **Personal** hoặc **Business**.
+{{% notice info %}}
+  **Lưu ý**: Tên bucket phải là **duy nhất trên toàn cầu** và **không chứa khoảng trắng hoặc ký tự đặc biệt**.
+{{% /notice %}}
 
-![Create Account](/images/1/0009.png?featherlight=false&width=90pc)
+3. Ở phần **Block Public Access settings**,
 
----
+- Bỏ chọn **Block all public access**
 
-## Thêm phương thức thanh toán
+- Đánh dấu vào ô **I acknowledge that the current settings might result in this bucket and the objects within becoming public**.
 
-- Nhập thông tin thẻ tín dụng của bạn và chọn **Verify and Add**.
-    - ***Ghi chú**: Bạn có thể chọn 1 địa chỉ khác cho tài khoản của bạn bằng cách chọn **Use a new address** trước khi **Verify and Add**.
+4. Cuối cùng, cuộn xuống và nhấn **Create bucket** để hoàn tất.
 
-![Create Account](/images/1/00010.png?featherlight=false&width=90pc)
+![Ảnh minh họa: Tạo S3 bucket](/images/2-image-upload-and-resize/2.1-upload-original-image/03.png)
 
----
 
-## Xác thực số điện thoại của bạn
+#### up load file forne end len s3
+Upload mã frontend lên S3
+Truy cập vào bucket bạn đã tạo (ví dụ: fe-easyshop-fcj) trong AWS S3 Console.
 
-1. Nhập số điện thoại.
-2. Nhập mã security check sau đó chọn **Call me now**.
-3. AWS sẽ liên hệ và xác thực mở tài khoản.
+Nhấn Upload, chọn:
 
-![Create Account](/images/1/00011.png?featherlight=false&width=90pc)
+File index.html và các file gốc (ví dụ: vite.svg, favicon.ico) từ thư mục dist.
 
----
+Toàn bộ thư mục assets/ hoặc các thư mục con chứa mã tĩnh (CSS, JS, images).
 
-## Chọn Support Plan
+✅ Chú ý:
 
-- Trong trang **Select a support plan**, chọn 1 plan có hiệu lực, để so sánh giữa các plan, bạn hãy xem [Compare AWS Support Plans](https://aws.amazon.com/premiumsupport/plans/).
+Không upload cả thư mục dist, mà chỉ upload nội dung bên trong nó (giữ đúng cấu trúc gốc).
 
----
+Đảm bảo file index.html nằm ở gốc bucket, không nằm trong thư mục con.
 
-## Đợi account của bạn được kích hoạt
+Nhấn Upload để hoàn tất.
 
-- Sau khi chọn **Support plan**, account thường được kích hoạt sau vài phút, nhưng quá trình có thể cần tốn đến 24 tiếng. Bạn vẫn có thể đăng nhập vào account AWS lúc này, Trang chủ AWS có thể sẽ hiển thị một nút “Complete Sign Up” trong thời gian này, cho dù bạn đã hoàn thành tất cả các bước ở phần đăng kí.
-- Sau khi nhận được email xác nhận account của bạn đã được kích hoạt, bạn có thể truy cập vào tất cả dịch vụ của AWS.
+{{% notice info %}}
 
+Kiểm tra lại sau khi upload: vào bucket, bạn phải thấy index.html và thư mục assets/ nằm ngang hàng nhau.
+
+Nếu thiếu index.html ở root, website sẽ báo lỗi 403 hoặc 404 khi truy cập.
+{{% /notice %}}
+
+
+
+````json
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::fe-easyshop-fcj/*"
+    }
+  ]
+}
+
+````
