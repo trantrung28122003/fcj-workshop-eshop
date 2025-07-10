@@ -32,7 +32,7 @@ Tạo các bảng DynamoDB cho `Product` và `Category` để lưu trữ dữ li
 2. Trong trang **Table details**, nhập thông tin:
 
    - **Table name**: `Product`
-   - **Partition key**: `id` (kiểu `string`)
+   - **Partition key**: `Id` (kiểu `string`)
    - Bỏ qua **Sort key** nếu không cần sắp xếp nâng cao.
 
 ![Ảnh minh họa: Tạo bảng trong DynamoDB](/images/3-writing-data-to-amazon-dynamodb/02.png)
@@ -61,9 +61,9 @@ Cách tạo bảng `Category` cũng hoàn toàn tương tự như `Product`. B�
 
 2. Trong phần **Table details**, nhập:
    - **Table name**: `Category`
-   - **Partition key**: `id` (kiểu `string`)
+   - **Partition key**: `Id` (kiểu `string`)
    - Bỏ qua **Sort key**
-![Ảnh minh họa: Tạo bảng trong DynamoDB](/images/3-writing-data-to-amazon-dynamodb/05.png)
+![Ảnh minh họa: Tạo bảng trong DynamoDB](/images/3-writing-data-to-amazon-dynamodb/fetch-05.png)
 
 3. Ở phần **Table settings**, có thể chọn **Default settings** nếu không cần thay đổi gì.
 

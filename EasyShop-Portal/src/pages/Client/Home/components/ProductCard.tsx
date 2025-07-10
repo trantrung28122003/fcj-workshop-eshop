@@ -4,9 +4,10 @@ import styles from "./ProductCard.module.css";
 
 interface ProductCardProps {
   product: Product;
+  categoryMap: Map<string, string>;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, categoryMap  }) => {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("vi-VN", {
       style: "currency",
@@ -22,7 +23,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <img src={imageUrl} alt={product.name} className={styles.cardImage} />
       </div>
       <div className={styles.cardBody}>
-        <span className={styles.cardCategory}>{product.categoryId}</span>
+        <span className={styles.cardCategory}>{categoryMap.get(product.categoryId) || "Không xác định"}</span>
         <h3 className={styles.cardTitle}>{product.name}</h3>
         <p className={styles.cardPrice}>{formatPrice(product.price)}</p>
         <div className={styles.cardActions}>

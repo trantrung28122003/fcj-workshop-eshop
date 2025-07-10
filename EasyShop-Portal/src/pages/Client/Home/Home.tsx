@@ -4,21 +4,31 @@ import ClientShared from "../Shared/ClientShared";
 
 import type { Product } from "../../../model/Product";
 import ProductCard from "./components/ProductCard";
-import { GET_ALL_PRODUCT } from "../../../constants/API";
-import { DoCallAPIWithOutToken } from "../../../services/HttpService";
+import { getAllProducts } from "../../../services/ProductService";
+import { getAllCategories } from "../../../services/CategoryService";
+import type { Category } from "../../../model/Category";
 
 const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const [categoryMap, setCategoryMap] = useState<Map<string, string>>(
+    new Map()
+  );
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const response = await DoCallAPIWithOutToken(GET_ALL_PRODUCT, "GET");
-        setProducts(response.data.slice(0, 8));
-        setError(null);
+        const [productsResponse, categoriesResponse] = await Promise.all([
+          getAllProducts(),
+          getAllCategories(),]);
+        
+          setProducts(productsResponse.data);
+          const newCategoryMap = new Map<string, string>();
+          categoriesResponse.data.forEach((cat: Category) => {
+            newCategoryMap.set(cat.id, cat.name);
+          });
+          setCategoryMap(newCategoryMap);
       } catch (error) {
         console.error("Error fetching products:", error);
         setError("Không thể tải danh sách sản phẩm.");
@@ -57,7 +67,7 @@ const Home = () => {
             className="col-lg-3 col-md-6 wow fadeInUp"
             data-wow-delay="0.1s"
           >
-            <ProductCard product={product} />
+            <ProductCard product={product} categoryMap={categoryMap} />
           </div>
         ))}
       </div>

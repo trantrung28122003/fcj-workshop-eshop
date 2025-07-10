@@ -17,13 +17,23 @@ Sau khi bạn đã cấu hình các tài nguyên và phương thức cho API Gat
 
 1. Vào **API Gateway Console** , chọn API vừa tạo, ví dụ: `eshop-fcj`.
 
+![Ảnh minh họa: Cài đặt hỗ trợ Binary file](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/01-01.png)
+
 2. Chọn API Settings ở menu phía bên trái, sau đó chọn **Binary media types** trong **Binary media types**
+
+![Ảnh minh họa: Cài đặt hỗ trợ Binary file](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/01.png)
 
 3. Trong **Binary media types** nhập thông tin:
 
 - **Binary media type** : `multipart/form-data`
 
-4. Cuối cùng, nhấn **Save changes** để hoàn tất
+- Cuối cùng, nhấn **Save changes** để hoàn tất
+
+![Ảnh minh họa: Cài đặt hỗ trợ Binary file](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/02.png)
+
+4. Sau khio hoàn tất , sẽ hiện phần **multipart/form-data** ở Binary media type
+
+![Ảnh minh họa: Cài đặt hỗ trợ Binary file](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/03.png)
 
 #### Kích hoạt CORS cho từng phương thức
 
@@ -35,11 +45,13 @@ Thực hiện theo các bước sau cho từng **resource** với các method t�
 
 1. Vào **API Gateway Console** → chọn API `eshop-fcj`.
 
-2. Trong sidebar bên trái, chọn một `Resource`, ví dụ `/products`.
+![Ảnh minh họa: Kích hoạt CORS](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/01-01.png)
 
-3. Trong trang **Resource details** → chọn **Enable CORS**.
+2. Trong sidebar bên trái, chọn một `Resource`, ví dụ `/products`. Trong trang **Resource details** → chọn **Enable CORS**.
 
-4. Tại cửa sổ bật lên trong **CORS settings**
+![Ảnh minh họa: Kích hoạt CORS](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/04.png)
+
+3. Tại cửa sổ bật lên trong **CORS settings**
 
 - **Access-Control-Allow-Methods**:  chọn các phương thức `GET`, `POST`, và `OPTIONS`
 
@@ -47,19 +59,27 @@ Thực hiện theo các bước sau cho từng **resource** với các method t�
 
 - **Access-Control-Allow-Origin**:  `*` (cho phép mọi domain truy cập)
 
-5. Nhán **Save** để hoàn tất.
+- Chọn **Save** để hoàn tất.
 
-**Tiếp theo là **resource** con của **products** là `{id}`**
+![Ảnh minh họa: Kích hoạt CORS](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/05.png)
 
-7. Trong trang **Resource details** của resource con product là `id` → chọn **Enable CORS**.
+##### **Tiếp theo là **resource** con của **products** là `{id}`**
 
-8. Tại cửa sổ bật lên trong **CORS settings**
+4. Trong trang **Resource details** của resource con product là `id` → chọn **Enable CORS**.
+
+![Ảnh minh họa: Kích hoạt CORS](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/06.png)
+
+5. Tại cửa sổ bật lên trong **CORS settings**
 
 - **Access-Control-Allow-Methods**:  chọn các phương thức `DELETE`, `PUT`, `DELETE` và `OPTIONS`
 
 - **Access-Control-Allow-Headers**:  `Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token`
 
 - **Access-Control-Allow-Origin**:  `*` (cho phép mọi domain truy cập)
+
+- Chọn **Save** để hoàn tất.
+
+![Ảnh minh họa: Kích hoạt CORS](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/07.png)
 
 ---
 #### Thực hiện tương tự kích hoạt cho các tài nguyên với phương thức tương ứng 
@@ -75,6 +95,15 @@ Thực hiện theo các bước sau cho từng **resource** với các method t�
 Bạn cần thực hiện lại các bước trên cho từng resource còn lại theo bảng trên nếu muốn frontend gọi được API đó!
 {{% /notice %}}
 
+#### Sau khi hoàn thành hết tất cả sẽ có kết quả như ảnh
+
+![Ảnh minh họa: Kích hoạt CORS](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/08.png)
+
+{{% notice info %}}
+Sau khi bật **CORS** cho phương thức (ví dụ `GET`, `POST`, ...) tại các **endpoint**. AWS tự động tạo method **`OPTIONS`** tương ứng.Nhờ đó, frontend có thể gửi request từ domain khác mà không bị lỗi **CORS**.  
+{{% /notice %}}
+
+
 ---
 
 #### Triển khai API Gateway
@@ -83,19 +112,29 @@ Sau khi kích hoạt CORS xong, ta cần deploy lại API để áp dụng thay 
 
 1. Vào **API Gateway Console** , chọn API vừa tạo, ví dụ: `eshop-fcj`.
 
-2. Trong thanh bên trái, chọn Deploy API.
+![Ảnh minh họa: Kích hoạt CORS](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/01-01.png)
 
-3. Trong cửa sổ Deploy API:
+2. Trong thanh bên trái, chọn **Deploy API.**
 
-- Nếu chưa có stage, nhấn [New Stage] để tạo mới.Nhập các thông tin:
+![Ảnh minh họa: riển khai API Gateway](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/09.png)
 
-   - **Stage name**: eshop
+3. Trong cửa sổ **Deploy API**: Nếu chưa có **stage**, nhấn **[New Stage]** để tạo mới.
 
-   - **Deployment description**: Dev environment
+![Ảnh minh họa: riển khai API Gateway](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/10.png)
 
+4. Nhập các thông tin sau: 
 
+- **Stage name**: eshop
 
-3. Bấm **Deploy** để hoàn tất
+- **Deployment description**: Dev environment
+
+- Chọn **Deploy** để hoàn tất
+
+![Ảnh minh họa: riển khai API Gateway](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/11.png)
+
+Sau khi triển khai xong sẽ có kết quả như hình ảnh:
+
+![Ảnh minh họa: riển khai API Gateway](/images/5-config-api-gateway/5.3-enable-cros-and-deloy/12.png)
 
 {{% notice note %}}
 Mỗi khi bạn **chỉnh sửa method hoặc resource**, **bắt buộc phải deploy lại API** để áp dụng thay đổi và nhớ chọn đúng stage bạn đã tạo

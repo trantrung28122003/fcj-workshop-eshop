@@ -44,15 +44,6 @@ export const RoutesConfig: ApplicationRoute[] = [
     isProtected: false,
     isAdmin: false,
   },
-
-
-  {
-    path: "/userProfile",
-    component: LazyLoadComponent(import("../pages/Client/UserSetting/UserSetting")),
-    isProtected: true,
-    isAdmin: false,
-  },
-
   {
     path: "/admin",
     component: LazyLoadComponent(import("../pages/Admin/Dashboard/index")),

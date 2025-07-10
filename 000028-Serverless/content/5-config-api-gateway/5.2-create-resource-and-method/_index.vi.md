@@ -16,20 +16,17 @@ Sau khi bạn đã tạo xong **API Gateway** (**eshop-fcj**), bước tiếp th
 
 ##### **Tạo tài nguyên (resource) cho product để triển khai các lambda về product**
 
-1. Truy cập vào API **eshop-fcj** vừa mới tạo
+1. Mở [API Gateway Console](https://console.aws.amazon.com/apigateway), truy cập vào API **eshop-fcj** vừa mới tạo và sau đó chọn **Create Resource**,
 
-- Mở [API Gateway Console](https://console.aws.amazon.com/apigateway)
-
-- Chọn API tên **eshop-fcj** vừa tạo
-
-- chọn **Create Resource**,
+![Ảnh minh họa: Tạo tài nguyên và phương thức](/images/5-config-api-gateway/5.2-create-resource-and-method/01.png)
 
 2. Trong **Resource details**:
 
 - **Resource Path**: `/`
 
-- **Resource Name**: `Products`
+- **Resource Name**: `products`
    
+![Ảnh minh họa: Tạo tài nguyên và phương thức](/images/5-config-api-gateway/5.2-create-resource-and-method/02.png)
 3. Nhấn **Create Resource**
 
 
@@ -38,13 +35,17 @@ Tương tự, bạn có thể tạo thêm các tài nguyên khác với
 - Đối với category để thao tác với danh mục sản phẩm:
     - **Resource Path** `/`
 
-    - **Resource Name** `category`
+    - **Resource Name** `categories`
+
+![Ảnh minh họa: Tạo tài nguyên và phương thức](/images/5-config-api-gateway/5.2-create-resource-and-method/03.png)
 
 - Đối với upload-image để thao tác với việc tải các tệp ảnh:
     - **Resource Path** `/`
 
-    - **Resource Name** `upload`
+    - **Resource Name** `uploads`
 
+
+![Ảnh minh họa: Tạo tài nguyên và phương thức](/images/5-config-api-gateway/5.2-create-resource-and-method/04.png)
 ---
 
 ##### Thêm phương thức (Method) cho tài nguyên (Resource)
@@ -52,6 +53,8 @@ Tương tự, bạn có thể tạo thêm các tài nguyên khác với
 Ví dụ thêm phương thức **POST** cho `/product`:
 
 1. Chọn resource `/product` trong phần **Resource** trong API, sau đó chọn **Create Method**
+
+![Ảnh minh họa: Tạo tài nguyên và phương thức](/images/5-config-api-gateway/5.2-create-resource-and-method/05.png)
 
 2. Trong **Method details**, nhập các thông tin sau:
 
@@ -63,6 +66,8 @@ Ví dụ thêm phương thức **POST** cho `/product`:
 
 - Bật chế độ **Lambda proxy integration** 
 
+![Ảnh minh họa: Tạo tài nguyên và phương thức](/images/5-config-api-gateway/5.2-create-resource-and-method/06.png)
+
 {{% notice info %}}
 Lưu ý: Trong dự án này, các API nhận dữ liệu dạng **JSON body**, do đó **bắt buộc phải bật Lambda Proxy Integration**.
 {{% /notice %}}
@@ -70,20 +75,28 @@ Lưu ý: Trong dự án này, các API nhận dữ liệu dạng **JSON body**, 
 
 3. Cuộn xuống dưới và hoàn tất chọn **Create method**
 
+![Ảnh minh họa: Tạo tài nguyên và phương thức](/images/5-config-api-gateway/5.2-create-resource-and-method/07.png)
 
 Ví dụ thêm phương thức **GET** cho `/product` nhưng có **ID truyền vào**:
 
 1. Trong API **eshop-fcj** , chọn **Create Resource**,
+
+![Ảnh minh họa: Tạo tài nguyên và phương thức](/images/5-config-api-gateway/5.2-create-resource-and-method/08.png)
 
 2. Trong **Resource details**:
 
 - **Resource Path**: `/products`
 
 - **Resource Name**: `{id}`
-   
-3. Nhấn **Create Resource**
+
+- Cuối cùng, nhấn **Create Resource**
+
+![Ảnh minh họa: Tạo tài nguyên và phương thức](/images/5-config-api-gateway/5.2-create-resource-and-method/09.png)
+
 
 4. Chọn resource `/products` trong phần **Resource** trong API, sau đó chọn Resource con `{id}`, rồi chọn **Create Method**
+
+![Ảnh minh họa: Tạo tài nguyên và phương thức](/images/5-config-api-gateway/5.2-create-resource-and-method/10.png)
 
 5. Trong **Method details**, nhập các thông tin sau:
 
@@ -95,9 +108,13 @@ Ví dụ thêm phương thức **GET** cho `/product` nhưng có **ID truyền v
 
 - **Lambda function** : Chọn vùng chứa lamda đã triển kahi avf chọn lmada tương ứng ,ví dụ: `get-product`
 
+![Ảnh minh họa: Tạo tài nguyên và phương thức](/images/5-config-api-gateway/5.2-create-resource-and-method/11.png)
 
----
-Thực hiện tương tự cho các phương thức và tài nguyên khác tương tự 
+6. Cuộn xuống dưới và hoàn tất chọn **Create method**
+
+![Ảnh minh họa: Tạo tài nguyên và phương thức](/images/5-config-api-gateway/5.2-create-resource-and-method/12.png)
+
+#### Thực hiện tương tự cho các phương thức và tài nguyên khác tương tự 
 
 | Resource Path        | Resource Name     | Method | Mô tả chức năng                | Lambda tương ứng         |
 |----------------------|-------------------|--------|--------------------------------|--------------------------|
@@ -115,5 +132,10 @@ Thực hiện tương tự cho các phương thức và tài nguyên khác tươ
 {{% notice warning %}}
 Bạn cần thực hiện lại các bước trên để tạo từng tài nguyên với các phương thức tưng ứng còn lại theo bảng trên nếu muốn frontend gọi được API đó!
 {{% /notice %}}
+
+
+#### Kết quả cuối cùng sẽ như ảnh dưới đây:
+
+![Ảnh minh họa: Tạo tài nguyên và phương thức](/images/5-config-api-gateway/5.2-create-resource-and-method/12-01.png)
 
 

@@ -31,21 +31,28 @@ Hàm này sẽ thực hiện các thao tác sau:
 
 ```json
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::<your-original-bucket-name>/*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": "s3:PutObject",
-      "Resource": "arn:aws:s3:::<your-resized-bucket-name>/*"
-    }
-  ]
+	"Version": "2012-10-17",
+	"Statement": [
+	    {
+            "Sid": "AllowListAndGetOnSource",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::<your-original-bucket-name>",
+                "arn:aws:s3:::<your-original-bucket-name>/*"
+            ]
+        },
+        {
+            "Sid": "AllowPutOnDestination",
+            "Effect": "Allow",
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::<your-resized-bucket-name>/*"
+        }
+	]
 }
-
 ```
 
 ![Ảnh minh họa: Tạo IAM Policy](/images/2-image-upload-and-resize/2.2-resize-image/08.png)
