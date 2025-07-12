@@ -8,30 +8,168 @@ pre: " <b> 4.1. </b> "
 
 ### Overview
 
-Before deploying any Lambda function, you need to create an **IAM Role** that grants the Lambda function permission to access other AWS services, such as **reading/writing data in DynamoDB**. In this guide, we will assign the necessary permissions for Lambda to interact with DynamoDB.
+Before deploying any Lambda function, you must create an **IAM Role** – which grants permission for the Lambda function to access other AWS services, such as **reading/writing data in DynamoDB**.  
+In this section, we’ll grant appropriate permissions.
 
-IAM (Identity and Access Management) acts as an authorization layer, allowing Lambda to operate securely within your AWS environment.
+**IAM (Identity and Access Management)** acts as a permission layer, allowing Lambda to securely operate in your AWS environment.
 
-### Steps to Create an IAM Role
+---
 
-1. Navigate to the [IAM Console](https://console.aws.amazon.com/iam/home) and select **Roles** in the left-hand menu.  
-2. Click **Create role**.  
-3. Under **Trusted entity type**, choose **AWS service**.  
-4. Under **Use case**, select **Lambda**.  
-5. Click **Next**.  
-6. In the **Permissions policies** section, search for and attach **AmazonDynamoDBFullAccess**.  
-   *(You can also create a custom policy if you want to enforce stricter, more granular permissions.)*  
-7. Click **Next**, then enter a name for your role, for example: `lambda-dynamodb-role`.  
-8. Click **Create role** to finalize.
+### Steps to Create IAM Role for Lambda Functions Working with DynamoDB
 
-### Reusability
+1. Go to the [IAM Console](https://console.aws.amazon.com/iam/home). Select **Roles** from the left menu and click **Create role**.
 
-This IAM Role can be reused for multiple Lambda functions that interact with DynamoDB, such as:
+![Create IAM Role](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/01.png)
 
-- Creating or updating data  
-- Deleting items  
-- Querying items by ID or listing items  
+2. Under **Trusted entity type**, select `AWS service`, and for **Use case**, choose `Lambda`.
+
+![Create IAM Role](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/02.png)
+
+3. In **Permissions policies**, search for and attach the `AmazonDynamoDBFullAccess` policy, then click **Next**.  
+> *(You can also create a custom policy if you want stricter access control.)*
+
+![Attach policy](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/03.png)
+
+4. In the **"Name, review, and create"** section, give your role a name, e.g., `lambda-dynamodb-role`.
+
+![Review role](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/04.png)
+
+5. Click **Create role** to finish.
+
+![Done](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/05.png)
+
+---
+
+### Create IAM Role for Lambda Functions that Interact with Both DynamoDB and S3
+
+Unlike functions that only interact with DynamoDB, some functions (like the delete image function) need permission to delete images from S3.  
+You’ll create a separate IAM Role with access to both **DynamoDB** and **S3**.
+
+1. Again, go to the [IAM Console](https://console.aws.amazon.com/iam/home), choose **Roles** from the left menu and click **Create role**.
+
+![Create IAM Role](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/01.png)
+
+2. Under **Trusted entity type**, select `AWS service`, and for **Use case**, choose `Lambda`.
+
+![Create IAM Role](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/02.png)
+
+3. In **Permissions policies**, attach:
+
+- `AmazonDynamoDBFullAccess`
+- `AmazonS3FullAccess`
+
+![Attach policy](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/03.png)  
+![Attach policy](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/03-01.png)
+
+- Then click **Next**  
+> *(You can also create custom policies to enforce least-privilege access.)*
+
+4. In the **"Name, review, and create"** section, name your role, e.g., `lambda-dynamodb-and-s3-role`.
+
+![Review role](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/04-01.png)
+
+5. Click **Create role** to complete the process.
+
+![Done](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/05.png)
+
+---
+
+### Role Reusability
+
+This IAM Role can be reused across multiple Lambda functions that interact with DynamoDB, including:
+
+- Create or update operations
+- Deleting records
+- Querying detail by ID or listing items
 
 {{% notice tip %}}
-In production environments, follow the principle of least privilege by creating a custom IAM policy that grants only the specific permissions needed (e.g., `PutItem`, `GetItem`, `DeleteItem`) instead of using the full-access policy.
+In a production environment, it’s recommended to apply the **principle of least privilege** by creating custom IAM policies with specific actions only (e.g., `PutItem`, `GetItem`, `DeleteItem`) instead of using full access.
+{{% /notice %}}
+---
+title: "Create IAM Role for Lambda Function"
+date: "`r Sys.Date()`"
+weight: 1
+chapter: false
+pre: " <b> 4.1. </b> "
+---
+
+### Overview
+
+Before deploying any Lambda function, you must create an **IAM Role** – which grants permission for the Lambda function to access other AWS services, such as **reading/writing data in DynamoDB**.  
+In this section, we’ll grant appropriate permissions.
+
+**IAM (Identity and Access Management)** acts as a permission layer, allowing Lambda to securely operate in your AWS environment.
+
+---
+
+### Steps to Create IAM Role for Lambda Functions Working with DynamoDB
+
+1. Go to the [IAM Console](https://console.aws.amazon.com/iam/home). Select **Roles** from the left menu and click **Create role**.
+
+![Create IAM Role](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/01.png)
+
+2. Under **Trusted entity type**, select `AWS service`, and for **Use case**, choose `Lambda`.
+
+![Create IAM Role](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/02.png)
+
+3. In **Permissions policies**, search for and attach the `AmazonDynamoDBFullAccess` policy, then click **Next**.  
+> *(You can also create a custom policy if you want stricter access control.)*
+
+![Attach policy](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/03.png)
+
+4. In the **"Name, review, and create"** section, give your role a name, e.g., `lambda-dynamodb-role`.
+
+![Review role](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/04.png)
+
+5. Click **Create role** to finish.
+
+![Done](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/05.png)
+
+---
+
+### Create IAM Role for Lambda Functions that Interact with Both DynamoDB and S3
+
+Unlike functions that only interact with DynamoDB, some functions (like the delete image function) need permission to delete images from S3.  
+You’ll create a separate IAM Role with access to both **DynamoDB** and **S3**.
+
+1. Again, go to the [IAM Console](https://console.aws.amazon.com/iam/home), choose **Roles** from the left menu and click **Create role**.
+
+![Create IAM Role](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/01.png)
+
+2. Under **Trusted entity type**, select `AWS service`, and for **Use case**, choose `Lambda`.
+
+![Create IAM Role](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/02.png)
+
+3. In **Permissions policies**, attach:
+
+- `AmazonDynamoDBFullAccess`
+- `AmazonS3FullAccess`
+
+![Attach policy](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/03.png)  
+
+![Attach policy](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/03-01.png)
+
+- Then click **Next**  
+> *(You can also create custom policies to enforce least-privilege access.)*
+
+4. In the **"Name, review, and create"** section, name your role, e.g., `lambda-dynamodb-and-s3-role`.
+
+![Review role](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/04-01.png)
+
+5. Click **Create role** to complete the process.
+
+![Done](/images/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/05.png)
+
+---
+
+### Role Reusability
+
+This IAM Role can be reused across multiple Lambda functions that interact with DynamoDB, including:
+
+- Create or update operations
+- Deleting records
+- Querying detail by ID or listing items
+
+{{% notice tip %}}
+In a production environment, it’s recommended to apply the **principle of least privilege** by creating custom IAM policies with specific actions only (e.g., `PutItem`, `GetItem`, `DeleteItem`) instead of using full access.
 {{% /notice %}}

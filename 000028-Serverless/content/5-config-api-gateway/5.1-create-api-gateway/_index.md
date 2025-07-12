@@ -6,14 +6,29 @@ chapter : false
 pre : " <b> 5.1. </b> "
 ---
 
-# Creating your first AWS account
+#### Create API Gateway
 
-#### Overview
+We will now configure **API Gateway** to interact with the Lambda functions created in the previous section:
 
-#### Main Content
+1. Open the [Amazon API Gateway Console](https://console.aws.amazon.com/apigateway/home) and click **Create an API**
 
-1. [Creating a new AWS Account](1-create-new-aws-account/)
-2. [Setting up MFA for the AWS Account root user](2-MFA-Setup-For-AWS-User-(root))
-3. [Creating an Administrator Accounts and Groups](3-create-admin-user-and-group/)
-4. [Getting support for Account Authentication](4-verify-new-account/)
-<!-- need to remove parenthesis for path in Hugo 0.88.1 for Windows-->
+![Illustration: Create API Gateway](/images/5-config-api-gateway/5.1-create-api-gateway/01.png)
+
+2. In the **Choose an API type** section, scroll down and select **REST API**, then click **Build**
+
+![Illustration: Create API Gateway](/images/5-config-api-gateway/5.1-create-api-gateway/02.png)
+
+3. In the **API details** section, provide the following information:
+
+   - **Select**: `New API`
+   - **API name**: `eshop-fcj`
+   - **Description (optional)**: `eshop-fcj`
+   - **API endpoint type**: `Regional`
+   - **IP address type**: `IPv4`
+
+![Illustration: Create API Gateway](/images/5-config-api-gateway/5.1-create-api-gateway/03.png)
+
+4. After clicking **Create API**, you will see the result as shown below:
+
+![Illustration: Create API Gateway](/images/5-config-api-gateway/5.1-create-api-gateway/04.png)
+---

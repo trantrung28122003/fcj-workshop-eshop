@@ -29,5 +29,5 @@ Khi hoàn tất, bạn sẽ có một **hệ thống API hoàn chỉnh** có th�
 
 1. [Tạo API Gateway](5.1-create-api-gateway/)
 2. [Tạo tài nguyên và phương thức](5.2-create-resource-and-method/)
-3. [Kích hoạt CORS](5.3-enable-cros/)
+3. [Kích hoạt CORS](5.3-enable-cros-and-deloy/)
 4. [Kiểm tra các API bằng Postman](5.4-test-apis-with-postman/)

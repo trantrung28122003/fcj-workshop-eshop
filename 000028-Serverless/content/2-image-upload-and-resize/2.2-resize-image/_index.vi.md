@@ -27,6 +27,7 @@ Cách làm này giúp:
 ---
 #### Nội dung chính
 
-1. [Tạo hàm Lambda Resize](2.2.1-create-resize-lambda-function/)
-2. [Tạo S3 Buckets](2.2.2-create-s3-buckets/)
-3. [Tạo IAM Role](2.2.3-create-iam-role/)
+
+1. [Tạo S3 Buckets](2.2.1-create-s3-buckets/)
+2. [Tạo IAM Role](2.2.2-create-iam-role/)
+3. [Tạo hàm Lambda Resize](2.2.3-create-resize-lambda-function/)

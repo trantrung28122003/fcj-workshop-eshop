@@ -15,12 +15,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, categoryMap  }) => {
     }).format(price);
   };
 
-  const imageUrl = `https://picsum.photos/seed/${product.id}/400/400`;
-
   return (
     <div className={styles.productCard}>
       <div className={styles.cardImageContainer}>
-        <img src={imageUrl} alt={product.name} className={styles.cardImage} />
+        <img src={product.imageUrl} alt={product.name} className={styles.cardImage} />
       </div>
       <div className={styles.cardBody}>
         <span className={styles.cardCategory}>{categoryMap.get(product.categoryId) || "Không xác định"}</span>
@@ -35,7 +33,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, categoryMap  }) => {
           </button>
           <button className={`${styles.cardButton} ${styles.addToCart}`}>
             <span>
-              <i className="fa-solid fa-cart-plus"></i>
+              <i className="fas fa-cart-plus"></i>
             </span>
             Thêm
           </button>

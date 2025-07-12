@@ -1,90 +1,144 @@
 ---
-title : "Create GetPresigned Url Lamdba Function"
-date : "`r Sys.Date()`"
-weight : 3
-chapter : false
-pre : " <b> 2.1.3. </b> "
+title : "Create Lambda Function GetPresignedUrl"
+date  : "`r Sys.Date()`"
+weight: 3
+chapter: false
+pre   : " <b> 2.1.3. </b> "
 ---
-
 
 #### Overview
 
-In this step, you will create a Lambda function named **get-presigned-url**, which is responsible for generating a **Presigned URL** so that the frontend(web or mobile app) can upload images directly to the original S3 bucket.  
-This function is written in **Node.js 22.x** and uses S3 access permissions provided by an **IAM Role** created in the previous step.
+In this step, you will deploy a Lambda function named **get-presigned-url**, whose purpose is to generate a **Presigned URL** that allows the frontend to upload images directly to the S3 bucket for original images.  
+This function is written in **Node.js 22.x** and uses an **IAM Role** (created earlier) to access S3.
 
 ---
 
 #### Create the get-presigned-url Lambda Function via AWS Console
 
-1. Go to the [AWS Lambda Console](https://console.aws.amazon.com/lambda/home), click **Functions**, then click **Create function**.
+1. Go to the [AWS Lambda Console](https://console.aws.amazon.com/lambda/home), select **Functions**, then click **Create function**.
 
-   ![Illustration: Create function](images/lambda-create-button.png)
+![Illustration: Create Lambda function](/images/2-image-upload-and-resize/2.1-upload-original-image/14.png)
 
-2. On the **Create function** screen, choose **Author from scratch**.
+2. On the **Create function** screen, choose **Author from scratch**, and in the **Basic information** section, enter:
 
-3. In the **Basic information** section, provide the following details:
+- **Function name**: `get-presigned-url`  
+- **Runtime**: `Node.js 22.x`  
+- **Architecture**: `x86_64`
 
-   - **Function name**: `get-presigned-url`
-   - **Runtime**: `Node.js 22.x`
-   - **Architecture**: `x86_64`
-
-   ![Illustration: Basic configuration](images/lambda-basic-info.png)
+![Illustration: Create Lambda function](/images/2-image-upload-and-resize/2.1-upload-original-image/16.png)
 
 {{% notice note %}}
-AWS Lambda currently supports multiple languages including **Java**, **.NET**, **Python**, and **Node.js**.  
-In this guide, we use **Node.js 22.x**, which offers better performance and more modern syntax than Node.js 18.x.
+Currently, AWS Lambda supports several languages including **Java**, **.NET**, **Python**, **Node.js**,...  
+In this tutorial, we use **Node.js 22.x** — the latest version with higher performance and modern syntax compared to Node.js 18.x.
 {{% /notice %}}
 
-4. Under **Change default execution role**:
+3. In the **Change default execution role** section:
 
-   - Choose: `Use an existing role`
-   - Then select the IAM Role you created earlier, e.g., `lambda-upload-original-role`
+- Choose: `Use an existing role`  
+- Then select the IAM Role created earlier, e.g., `lambda-upload-original-role`  
+- Finally, click **Create function**
 
-   ![Illustration: Select IAM Role](images/lambda-select-role.png)
+Once created, Lambda will redirect to the code editor screen.
+
+![Illustration: Lambda function created](/images/2-image-upload-and-resize/2.1-upload-original-image/17-fetch.png)
 
 ---
 
-#### Deploy the Lambda Source Code
+#### Deploy Lambda Source Code for get-presigned-url
 
-After clicking **Create function**, AWS will redirect you to the function's code editor.
+Once the function is created, Lambda will open the code editor.
 
 {{% notice info %}}
-Currently, **Lambda does not support editing ESM (import/export) code directly in the console for Node.js 22.x**.  
-You need to prepare the source code and dependencies **on your local machine**, then **zip and upload it manually**.
+Currently, **Node.js 22.x does not support direct editing with ESM (import/export) syntax** in the console.  
+Therefore, you need to **prepare the source code and dependencies locally**, then **zip and upload manually**.
 {{% /notice %}}
 
 ---
 
-### Prepare the Source Code and Dependencies
+### Prepare Source Code and Dependencies
 
-5. Download the sample source code here: **[Download sample files](#)** *(replace with actual link)*
+You can choose **one of the following two methods** to deploy the Lambda function:
 
-6. Once extracted, the folder should include:
+---
 
-   - `index.mjs`: contains the Lambda logic
-   - `package.json`: declares required dependencies
+##### **Option 1: Use Pre-built ZIP File (Quick and Easy)**  
+> Recommended for quick deployment without extra setup — this workshop provides a pre-built version.
 
-7. Open a terminal or command prompt in that folder and run:
+1. Download the pre-built `.zip` file here: [**get-presigned-url-lambda.zip**](/attachments/2-image-upload-and-resize/2.1-upload-original-image/get-presigned-url-lambda.zip)
+
+2. After downloading the ZIP file:
+
+- Go to **AWS Lambda**, select the **get-presigned-url** function  
+- In the **Code** section, click **Upload from**, then select **.zip file**
+
+![Illustration: Upload ZIP file](/images/2-image-upload-and-resize/2.1-upload-original-image/22.png)
+
+- Select the downloaded `get-presigned-url-lambda.zip`
+
+![Illustration: Select ZIP file](/images/2-image-upload-and-resize/2.1-upload-original-image/24.png)
+
+3. After uploading, click **Deploy**
+
+![Illustration: Deploy Lambda code](/images/2-image-upload-and-resize/2.1-upload-original-image/25.png)
+
+---
+
+##### **Option 2: Build from Source Code Manually**  
+> For users who want to learn and build from scratch.
+
+1. Download the source code here: [**get-presigned-url-source.zip**](/attachments/2-image-upload-and-resize/2.1-upload-original-image/get-presigned-url-source.zip)
+
+2. After extracting, you’ll see the following files:
+
+- `index.mjs`: contains the Lambda logic  
+- `package.json`: declares required libraries
+
+![Illustration: Source structure](/images/2-image-upload-and-resize/2.1-upload-original-image/18.png)
+
+3. Open a terminal or command prompt inside the folder and run:
 
 ```bash
-npm install @aws-sdk/client-s3 @aws-sdk/s3-request-presigner
+npm install
 ```
 
-### 8. Package the source code to upload to Lambda
+![Illustration: Install dependencies](/images/2-image-upload-and-resize/2.1-upload-original-image/19.png)
 
-- Navigate to the **get-presigned-url** folder.
-- Select all files and folders inside: **`index.mjs`**, **`package.json`**, and **`node_modules/`**.
-- Compress them into a single file named `get-presigned-url-lambda.zip`.
+---
 
-### 9. After creating the ZIP file
+4. Zip the source code for Lambda
 
-- Go to **AWS Lambda** and select the **`get-presigned-url`** function.
-- In the **Code** section, click **Upload from**, then choose **.zip file**.
-- Select the **`get-presigned-url-lambda.zip`** file you just created.
+- Navigate to the **get-presigned-url-source** directory  
+- Select all the following items: **index.mjs**, **package.json**, and **node_modules/**  
+- Compress them into a single ZIP file named `get-presigned-url-lambda.zip`
 
-Make sure the Lambda **handler** is set to: `index.handler`
+![Illustration: Zip source files](/images/2-image-upload-and-resize/2.1-upload-original-image/20.png)
 
+---
+
+5. After creating the ZIP file:
+
+- Go to **AWS Lambda**, and select the **get-presigned-url** function  
+- In the **Code** section, click **Upload from**, then select **.zip file**
+
+![Illustration: Upload ZIP file](/images/2-image-upload-and-resize/2.1-upload-original-image/22.png)
+
+- Select the newly created file: **`get-presigned-url-lambda.zip`**
+
+![Illustration: Select ZIP file](/images/2-image-upload-and-resize/2.1-upload-original-image/24.png)
+
+---
+
+6. Once the file is uploaded, click **Deploy**
+
+![Illustration: Deploy function](/images/2-image-upload-and-resize/2.1-upload-original-image/25.png)
+
+---
+
+##### **Verify Lambda Handler: index.handler**
 {{% notice tip %}}
-The Lambda handler follows the format: <FILE_NAME>.<FUNCTION_NAME>
-In this case, index.handler means the file is index.mjs and it exports a function named handler.
+The Lambda handler must follow the format: `<FILENAME>.<FUNCTION_NAME>`  
+In this case: `index.handler`
 {{% /notice %}}
+
+![Illustration: Confirm handler](/images/2-image-upload-and-resize/2.1-upload-original-image/26.png)
+

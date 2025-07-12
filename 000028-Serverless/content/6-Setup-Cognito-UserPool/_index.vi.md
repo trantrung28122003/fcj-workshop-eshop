@@ -18,6 +18,6 @@ pre : " <b> 6. </b> "
 
 #### Nội dung chính
 
-1. [Tạo user pool](6.1-create-user-pool/)
+1. [Tạo user pool](6.1-create-user-pool-and-setting/)
 2. [Kiểm tra API với postman ](6.2-test-apis-with-postman/)
 

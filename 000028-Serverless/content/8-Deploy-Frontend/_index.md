@@ -1,97 +1,185 @@
 ---
-title : "Deloy Frontend"
-date : "`r Sys.Date()`"
+
+title : "Deploy Frontend"
+date :  "`r Sys.Date()`"
 weight : 8
 chapter : false
 pre : " <b> 8. </b> "
----
+---------------------
 
-**Content:**
-- [Create an AWS account](#create-an-aws-account)
-- [Add payment method](#add-payment-method)
-- [Verify your phone number](#verify-your-phone-number)
-- [Select Support Plan](#select-support-plan)
-- [Wait for your account to be activated](#wait-for-your-account-to-be-activated)
-- [Important](#important)
-- [Warning](#warning)
+#### Overview
 
-#### Create an AWS account
+Next, we deploy the **frontend** (user interface) of the modern web application to **AWS S3 and CloudFront**, ensuring end users can access it via the Internet with high speed, security, and stability.
 
-1. Go to the [Amazon Web Service homepage](https://aws.amazon.com/) page.
-2. Select **Create an AWS Account** in the upper right corner.
-    - ***Note:** If you don't see **Create an AWS Account**, select **Sign In to the Console** then select **Create a new AWS Account**.*
+The **frontend** application is typically a **Single Page Application (SPA)** built with **React**, **Angular**, or **Vue**. After building, the static assets are uploaded to S3 and CloudFront is used as the CDN to distribute content globally.
 
-![Create Account](/images/1/0001.png?featherlight=false&width=90pc)
+#### Main Content
 
-3. Enter email information and **AWS account name**
+#### Create S3 Bucket for Web Files
 
-![Create Account](/images/1/0002.png?featherlight=false&width=90pc)
+1. Go to the [AWS S3 Console](https://s3.console.aws.amazon.com/s3/) and click **Create bucket**.
 
+![S3 Bucket Creation Illustration](/images/8-Deploy-Frontend/01.png)
 
-4. Complete information.
+2. In **General configuration**, enter the following:
 
-![Create Account](/images/1/0003.png?featherlight=false&width=90pc)
+* **AWS Region**: Choose a single AWS region for all resources (Lambda, S3, DynamoDB, etc.) to reduce latency and simplify IAM (e.g., Asia Pacific (Singapore) ap-southeast-1)
+* **Bucket type**: General purpose (default)
+* **Bucket name**: `fe-easyshop-fcj`
 
-5. Confirm the code sent from the email.
+![S3 Bucket Creation Illustration](/images/8-Deploy-Frontend/02.png)
 
-![Create Account](/images/1/0004.png?featherlight=false&width=90pc)
+{{% notice info %}}
+**Note**: The bucket name must be **globally unique** and **cannot contain spaces or special characters**.
+{{% /notice %}}
 
-![Create Account](/images/1/0005.png?featherlight=false&width=90pc)
+3. In **Block Public Access settings**:
 
-![Create Account](/images/1/0006.png?featherlight=false&width=90pc)
+* Uncheck **Block all public access**
+* Check the box **I acknowledge...** to confirm public access
 
-6. After successful email authentication. You complete the account information.
+![S3 Bucket Creation Illustration](/images/8-Deploy-Frontend/03.png)
 
-![Create Account](/images/1/0007.png?featherlight=false&width=90pc)
+4. Scroll down and click **Create bucket** to finish.
 
+![S3 Bucket Creation Illustration](/images/8-Deploy-Frontend/04.png)
 
-![Create Account](/images/1/0008.png?featherlight=false&width=90pc)
+#### Upload Files to S3
 
-7. Complete the account registration documents.
+1. Go to your created bucket (e.g., fe-easyshop-fcj) in the AWS S3 Console.
 
-- You can choose **Personal** or **Business** account
+![Upload Files to S3](/images/8-Deploy-Frontend/05.png)
 
-![Create Account](/images/1/0009.png?featherlight=false&width=90pc)
+2. In the bucket detail page, click **Upload**.
 
-#### Add payment method
+![Upload Files to S3](/images/8-Deploy-Frontend/06.png)
 
-- Enter your credit card information and select **Verify and Add**.
-    - ***Note**: You can choose a different address for your account by selecting **Use a new address** before **Verify and Add**.*
+3. Upload the following items from the `dist` folder:
 
-![Create Account](/images/1/00010.png?featherlight=false&width=90pc)
-#### Verify your phone number
+* `index.html` and root files (e.g., vite.svg, favicon.ico)
+* The entire `assets/` directory or subdirectories with static files (CSS, JS, images)
 
-1. Enter the phone number.
-2. Enter the security check code then select **Call me now**.
-3. AWS will contact and verify account opening.
+![Upload Files to S3](/images/8-Deploy-Frontend/07.png)
+![Upload Files to S3](/images/8-Deploy-Frontend/08.png)
 
-![Create Account](/images/1/00011.png?featherlight=false&width=90pc)
+{{% notice info %}}
+Do not upload the entire `dist` folder, only its contents. Ensure `index.html` is at the bucket root.
+{{% /notice %}}
 
-#### Select Support Plan
+4. Click **Upload** to complete. You will see a result like this:
 
-- In the **Select a support plan** page, select an effective plan, to compare plans, see [Compare AWS Support Plans](https://aws.amazon.com/premiumsupport/plans/ ).
+![Upload Files to S3](/images/8-Deploy-Frontend/09.png)
 
-#### Wait for your account to be activated
+#### Configure Bucket Policy
 
-- After selecting **Support plan**, the account is usually activated after a few minutes, but the process can take up to 24 hours. You will still be able to log in to your AWS account at this time, the AWS Home page may show a “Complete Sign Up” button during this time, even if you have completed all the steps in the registration section.
-- After receiving an email confirming your account has been activated, you can access all AWS services.       
-  
-#### Important
+1. In the S3 bucket, go to the **Permissions** tab.
 
-The following AWS Identity and Access Management (IAM) actions will reach the end of standard support on July 2023: `aws-portal:ModifyAccount` and `aws-portal:ViewAccount`. See the [Using fine-grained AWS Billing actions](link_to_documentation) to replace these actions with fine-grained actions so you have access to AWS Billing, AWS Cost Management, and AWS accounts consoles.
+![S3 Bucket Policy](/images/8-Deploy-Frontend/10.png)
 
-If you created your AWS account or AWS Organizations Management account before March 6, 2023, the fine-grained actions will be effective starting July 2023. We recommend you to add the fine-grained actions, but not remove your existing permissions with `aws-portal` or `purchase-orders` prefixes.
+2. Scroll to **Bucket policy** and click **Edit**.
 
-If you created your AWS account or AWS Organizations Management account on or after March 6, 2023, the fine-grained actions are effective immediately.
+![S3 Bucket Policy](/images/8-Deploy-Frontend/11.png)
 
-AWS assigns the following unique identifiers to each AWS account:
+3. Paste the following JSON policy:
 
-- **AWS account ID**: A 12-digit number, such as `012345678901`, that uniquely identifies an AWS account. Many AWS resources include the account ID in their Amazon Resource Names (ARNs). The account ID portion distinguishes resources in one account from the resources in another account. If you're an AWS Identity and Access Management (IAM) user, you can sign in to the AWS Management Console using either the account ID or account alias. While account IDs, like any identifying information, should be used and shared carefully, they are not considered secret, sensitive, or confidential information.
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::<your-bucket-name>/*"
+    }
+  ]
+}
+```
 
-- **Canonical user ID**: An alpha-numeric identifier, such as `79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be`, that is an obfuscated form of the AWS account ID. You can use this ID to identify an AWS account when granting cross-account access to buckets and objects using Amazon Simple Storage Service (Amazon S3). You can retrieve the canonical user ID for your AWS account as either the root user or an IAM user.
+![S3 Bucket Policy](/images/8-Deploy-Frontend/12.png)
 
-You must be authenticated with AWS to view these identifiers.
+#### Configure Static Website Hosting
 
-#### Warning
+1. Go to the bucket **Properties** tab.
+2. Scroll to **Static website hosting**, click **Edit**.
+3. Enter the following:
 
-**Do not provide your AWS credentials** (including passwords and access keys) to a third party that needs your AWS account identifiers to share AWS resources with you. Doing so would give them the same access to the AWS account that you have.
+* Index document: `index.html`
+* Error document: `index.html` (for SPA)
+* Click **Save changes**
+
+{{% notice tip %}}
+SPA apps use a single HTML file. So, all paths (`/products`, `/cart`, etc.) must return `index.html` to let JavaScript handle routing. Otherwise, S3 returns a 404 error.
+{{% /notice %}}
+
+#### Set Up CloudFront CDN for S3 Website
+
+1. Go to [AWS CloudFront Console](https://console.aws.amazon.com/cloudfront/) and click **Create Distribution**.
+
+![Create CloudFront Distribution](/images/8-Deploy-Frontend/13.png)
+
+2. In **Distribution option**:
+
+* Name: `easyshop-cdn`
+* Choose **Single website or app**
+* Click **Next**
+
+![CloudFront Origin Setup](/images/8-Deploy-Frontend/14.png)
+
+3. In **Specify origin**:
+
+* Origin type: `Amazon S3`
+* S3 origin: Select your S3 bucket (e.g., `fe-easyshop-fcj.s3.ap-southeast-1.amazonaws.com`)
+* Click **Next**
+
+![CloudFront Origin Setup](/images/8-Deploy-Frontend/15.png)
+
+4. In **Enable security**:
+
+* Choose **Do not enable security protections** (to avoid extra cost)
+* Click **Next**
+
+![CloudFront Security](/images/8-Deploy-Frontend/16.png)
+
+5. Click **Create distribution** to finish.
+
+![CloudFront Final Step](/images/8-Deploy-Frontend/17.png)
+
+{{% notice info %}}
+Initially, the selected origin is a **REST API endpoint**, suitable for backend/API access. For static websites, update to use the **website endpoint**.
+{{% /notice %}}
+
+#### Update Origin to Website Endpoint
+
+1. Go to the distribution details, then to the **Origins** tab.
+
+![CloudFront Origins Tab](/images/8-Deploy-Frontend/18.png)
+
+2. Select the origin (e.g., `fe-easyshop-fcj.s3.ap-southeast-1.amazonaws.com`), click **Edit**.
+
+![Edit CloudFront Origin](/images/8-Deploy-Frontend/19-01.png)
+
+3. In the warning message:
+
+> This S3 bucket has static web hosting enabled...
+
+* Click **Use website endpoint**
+
+![Use Website Endpoint](/images/8-Deploy-Frontend/20.png)
+
+4. Scroll down and click **Save changes**
+
+![Save CloudFront Origin](/images/8-Deploy-Frontend/21.png)
+
+{{% notice info %}}
+After creating or editing the **Distribution**, its status will be **"Deploying"**. Wait **3–5 minutes** for the updates to take effect.
+{{% /notice %}}
+
+#### Result
+
+After completing the steps, you’ll get a CloudFront URL like this:
+
+![Deployment Result](/images/8-Deploy-Frontend/22.png)
+
+![CloudFront Domain](/images/8-Deploy-Frontend/23.png)

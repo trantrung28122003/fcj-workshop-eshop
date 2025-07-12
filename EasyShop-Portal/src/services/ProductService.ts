@@ -6,10 +6,10 @@ import {
   PRESIGNED_URL,
 } from "../constants/API";
 import type { Product } from "../model/Product";
-import {  DoCallAPIWithToken } from "./HttpService";
+import {  DoCallAPIWithOutToken, DoCallAPIWithToken } from "./HttpService";
 
 export function getPresignedUrl(fileName: string, fileType: string) {
-  return DoCallAPIWithToken(
+  return DoCallAPIWithOutToken(
     PRESIGNED_URL,
     "POST",
     { fileName, fileType }

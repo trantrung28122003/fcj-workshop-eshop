@@ -75,7 +75,7 @@ Bạn có thể chọn **một trong hai cách sau** để triển khai Lambda:
 
 3. Sau khi tải tệp lên xong , thì chọn **deloy**
 
-![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/06.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/15.png)
 
 
 Sau khi deploy tệp .zip, bạn cần **kiểm tra và cập nhật** lại các biến môi trường (Environment Variables) trong phần cấu hình Lambda:
@@ -155,7 +155,7 @@ Bạn có thể chọn **một trong hai cách sau** để triển khai Lambda:
 
 3. Sau khi tải tệp lên xong , thì chọn **deloy**
 
-![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/12.png)
+![Ảnh minh họa: Tạo hàm lambda](/images/4-deploy-lambda-function/4.2-create-or-update-lambda-function/16.png)
 
 
 Sau khi deploy tệp .zip, bạn cần **kiểm tra và cập nhật** lại các biến môi trường (Environment Variables) trong phần cấu hình Lambda:

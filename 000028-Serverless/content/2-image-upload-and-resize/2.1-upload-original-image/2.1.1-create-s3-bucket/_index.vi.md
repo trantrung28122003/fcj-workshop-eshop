@@ -40,11 +40,40 @@ Trong bước này, bạn sẽ tạo một **S3 Bucket** để lưu trữ ảnh 
 
 ![Ảnh minh họa: Tạo S3 bucket](/images/2-image-upload-and-resize/2.1-upload-original-image/03.png)
 
+
+5. Sau khi tạo xong, vào bucket vừa tạo chọn tab **Permissions**
+
+![Ảnh minh họa: Tạo S3 bucket](/images/2-image-upload-and-resize/2.1-upload-original-image/03-01.png)
+
+6. Sau đó cuộn xuống phần **Cross-origin resource sharing (CORS)** để cấu hình cho phép các **domain** khác có thể truy cập được, chọn **Edit** và dán đoạn sau vào 
+```json 
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "PUT",
+            "GET",
+            "POST"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": [
+            "ETag"
+        ]
+    }
+]
+```
+
+![Illustration: Configure CORS](/images/2-image-upload-and-resize/2.1-upload-original-image/03-02.png)
+
 ---
 
-#### Kết quả
+#### Result
 
-Sau khi hoàn tất, bạn sẽ thấy bucket **upload-originals-fcj** xuất hiện trong danh sách. Bucket này sẽ được sử dụng trong các Lambda function để tạo Presigned URL và xử lý ảnh.
+Once completed, you will see the **upload-originals-fcj** bucket listed. This bucket will be used by Lambda functions to generate Presigned URLs and process images.
 
-![Ảnh minh họa: Tạo S3 bucket](/images/2-image-upload-and-resize/2.1-upload-original-image/04.png)
+![Illustration: S3 bucket created](/images/2-image-upload-and-resize/2.1-upload-original-image/04.png)
 

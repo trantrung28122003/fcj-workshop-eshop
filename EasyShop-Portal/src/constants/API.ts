@@ -5,7 +5,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 /**
  * upload
  */
-const PRESIGNED_URL = "https://2m7zvd8zdb.execute-api.ap-southeast-1.amazonaws.com/easyshop/upload-file/presigned-url";
+const PRESIGNED_URL = BASE_URL + "/uploads";
 /**
  * upload
  */

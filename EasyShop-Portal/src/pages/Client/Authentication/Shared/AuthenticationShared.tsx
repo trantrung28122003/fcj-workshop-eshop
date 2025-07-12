@@ -53,7 +53,7 @@ const AuthenticationShared: React.FC<AuthenSharedProps> = ({
               strokeLinejoin="round"
             />
           </svg>
-          <span className={styles.auth_logo_text}>EASYBLOG</span>
+          <span className={styles.auth_logo_text}>EASYSHOP</span>
         </div>
 
         <div className={styles.auth_content}>

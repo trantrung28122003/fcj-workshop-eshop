@@ -5,6 +5,7 @@ import styles from "./ProductForm.module.css";
 import { DoCallAPIWithOutToken } from "../../../../services/HttpService";
 import { GET_ALL_CATEGORY } from "../../../../constants/API";
 import { getPresignedUrl, UploadFileToS3Buket } from "../../../../services/ProductService";
+import { getAllCategories } from "../../../../services/CategoryService";
 
 interface ProductFormProps {
   product?: Product;
@@ -40,7 +41,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
 
   const fetchCategories = async () => {
     try {
-      const response = await DoCallAPIWithOutToken(GET_ALL_CATEGORY, "GET");
+      const response = await getAllCategories()
       setCategories(response.data);
     } catch {
       console.error("Error fetching categories:");
@@ -75,10 +76,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
     if (errors.file) setErrors(prev => ({ ...prev, file: "" }));
   };
 
-   async function uploadImageAndGetKey(file: File): Promise<string> {
-  
+    async function uploadImageAndGetKey(file: File): Promise<string> {
     const { data } = await getPresignedUrl(file.name, file.type);
-
     const { uploadUrl, key } = data;
     if (!uploadUrl) throw new Error("Không lấy được URL upload");
     await UploadFileToS3Buket(uploadUrl, file);
@@ -91,7 +90,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
 
   try {
     let imageKey = formData.key; 
-    
     if (file) {
       imageKey = await uploadImageAndGetKey(file);
     }

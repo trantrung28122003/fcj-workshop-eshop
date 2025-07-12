@@ -21,6 +21,6 @@ Giai đoạn này **chưa xử lý resize hay metadata** – đây chỉ là bư
 
 #### Các bước chính
 
-1. [Tạo S3 Buckets](2.1.2-create-s3-bucket/)
-2. [Tạo IAM Role](2.1.3-create-iam-role/)
-3. [Tạo hàm Lambda GetPresignedUrl](2.1.1-create-presignedurl-lambda-function/)
+1. [Tạo S3 Buckets](2.1.1-create-s3-bucket/)
+2. [Tạo IAM Role](2.1.2-create-iam-role/)
+3. [Tạo hàm Lambda GetPresignedUrl](2.1.3-create-presignedurl-lambda-function/)

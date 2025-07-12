@@ -43,6 +43,7 @@ Trước khi tạo các hàm Lambda, bạn cần một IAM Role để cấp quy�
 ---
 #### Các bước chính
 
-1. [Hàm Lambda tạo hoặc cập nhập dữ liệu](4.1-create-or-update-lambda-function/)
-2. [Hàm Lambda xóa dữ liệu](4.2-delete-lambda-function/)
-3. [Hàm Lambda lấy dữ liệu](4.3-get-lambda-function/)
+1. [Tạo IAM Role cho Lambda Function](4.1-create-iam-role-for-lambda-function/)
+2. [Hàm Lambda tạo hoặc cập nhập dữ liệu](4.2-create-or-update-lambda-function/)
+3. [Hàm Lambda xóa dữ liệu](4.3-delete-lambda-function/)
+4. [Hàm Lambda lấy dữ liệu](4.4-get-lambda-function/)

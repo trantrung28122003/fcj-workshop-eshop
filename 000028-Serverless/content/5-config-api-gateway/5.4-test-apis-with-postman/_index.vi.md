@@ -135,8 +135,6 @@ https://{restapi_id}.execute-api.{region}.amazonaws.com/{stage_name}/{resource_p
 Vì đang kiểm tra trên postman nên bạn nđiền đúng tên ảnh và thể loại ảnh bạn muốn tải lên
 {{% /notice %}}
 
-
-
 4. Trong giao diện **postman** nhập các thông tin sau
 - chọn **Create new requets**,  dấu + trên màn hình 
 
@@ -145,20 +143,18 @@ Vì đang kiểm tra trên postman nên bạn nđiền đúng tên ảnh và th�
 ![Ảnh minh họa: gọi API](/images/5-config-api-gateway/5.4-test-apis-with-postman/09.png)
 
 5. Tiếp theo chuyển sang mục **body**, sau đó chọn **binary** và sao chép đoạn dưới đây bỏ vào:
-```json
-{
-  "fileName": "example.jpg",
-  "fileType": "image/jpeg"
-}
-```
+
+> **Lưu ý**: Đảm bảo bạn **tải lên đúng tệp hình ảnh** mà bạn đã chỉ định trước đó trong `fileName` và `fileType`, ví dụ:**json**
+
 ![Ảnh minh họa: gọi API](/images/5-config-api-gateway/5.4-test-apis-with-postman/10.png)
 
 {{% notice note %}}
 Nhớ cọn ảnh đúng tên và thể loại cảu tệp ảnh đó nha
 {{% /notice %}}
 
-6. Sau khi chọn **send** bạn cso thểm xem kết quả từ hai bucket:
+6. Sau khi chọn **send** bạn có xem kết quả từ hai bucket:
 
 ![Ảnh minh họa: gọi API](/images/5-config-api-gateway/5.4-test-apis-with-postman/13.png)
+
 
 ![Ảnh minh họa: gọi API](/images/5-config-api-gateway/5.4-test-apis-with-postman/15.png)

@@ -1,78 +1,91 @@
 ---
-title : "Writing Data to Amazon DynamoDB"
-date : "`r Sys.Date()`"
-weight : 3
-chapter : false
-pre : " <b> 3. </b> "
+title : "Writing Data to DynamoDB"
+date  : "`r Sys.Date()`"
+weight: 3
+chapter: false
+pre   : " <b> 3. </b> "
 ---
 
 #### Overview
 
-After the image is successfully uploaded and resized, the next step is to **manage application data** – such as **products** and **categories** – by storing them in a database.
+After successfully uploading and processing the images, the next step is to **manage application data** – such as **products** and **categories** – by storing them in a database system.
 
-In this section, you will use **Amazon DynamoDB** – a fully managed NoSQL database service provided by AWS – to store and query your data efficiently, especially suitable for serverless architectures.
+In this section, you will use **Amazon DynamoDB** – a fully managed NoSQL database service by AWS – to store and query data efficiently. It's especially well-suited for serverless architectures.
 
-The data models will include:
+The product and category data will include:
 
-- **Product**: name, description, price, **resized image URL**, category, etc.
-- **Category**: category name, display image, etc.
-
-#### Objective
-
-Create DynamoDB tables for `Product` and `Category` to store application data.
+- **Product**: name, description, price, **resized image URL**, category, etc.  
+- **Category**: category name, thumbnail image, etc.
 
 ---
 
-#### **Creating the Product Table in DynamoDB**
+#### Objectives
 
-1. Go to the [DynamoDB Console](https://console.aws.amazon.com/dynamodb/home) and select **Create Table** from the left navigation panel.
+Create DynamoDB tables for `Product` and `Category` to store your application data.
 
-   ![Illustration: Create table button in DynamoDB](images/create-table-button.png)
+---
 
-2. In the **Table details** section, enter the following:
+#### **Create the Product Table in DynamoDB**
 
-   - **Table name**: `Product`
-   - **Partition key**: `id` (type: `string`)
-   - Leave **Sort key** empty (unless advanced sorting is needed).
+1. Go to the [DynamoDB Console](https://console.aws.amazon.com/dynamodb/home) and click **Create Table** in the navigation panel.
 
-   ![Illustration: Product table configuration](images/product-table-config.png)
+![Illustration: Create DynamoDB table](/images/3-writing-data-to-amazon-dynamodb/01.png)
 
-3. In the **Table settings** section:
+2. In the **Table details** section, enter:
 
-   - You can click **Customize settings** to configure advanced options like **Table class** and **Capacity mode**.
-   - **Table class**: The default is `Standard` – suitable for most applications. If you need to optimize cost for rarely accessed tables, consider using `Standard-IA`.
-   - **Capacity mode**: The default is `On-demand` – pay only for actual read/write requests without provisioning throughput. Ideal for new apps, MVPs, or unpredictable workloads.
+   - **Table name**: `Product`  
+   - **Partition key**: `Id` (type: `string`)  
+   - Leave the **Sort key** blank unless you need advanced sorting.
+
+![Illustration: Enter table details](/images/3-writing-data-to-amazon-dynamodb/02.png)
+
+3. Under **Table settings**:
+
+   - Click **Customize settings** if you want to adjust advanced options like **Table class** or **Capacity mode**.  
+   - **Table class**: Default is `Standard` – good for most use cases. If the table is rarely accessed, consider `Standard-IA` to reduce cost.  
+   - **Capacity mode**: Default is `On-demand` – pay per request with no need to provision capacity. Perfect for MVPs, prototypes, or unpredictable traffic.
+
+![Illustration: Table settings](/images/3-writing-data-to-amazon-dynamodb/03.png)
 
 {{% notice tip %}}
-If you simply want to create a table quickly, you can keep the default settings without enabling **Customize settings**. These defaults are optimized for beginners and common use cases.
+If you just want to create the table quickly, you can leave the default settings as they are. These defaults are beginner-friendly and suitable for most use cases.
 {{% /notice %}}
 
-4. Scroll down and click **Create table** to finish.
+4. Finally, scroll down and click **Create table** to finish.
 
+![Illustration: Create table](/images/3-writing-data-to-amazon-dynamodb/04.png)
 
-#### **Creating the Category Table in DynamoDB**
+---
 
-The steps to create the **Category** table are similar to the **Product** table:
+#### **Create the Category Table in DynamoDB**
 
-1. Go to the **DynamoDB Console** and click **Create Table**.
+The process for creating the `Category` table is identical to `Product`. You just need to:
 
-2. In the **Table details**, enter:
-   - **Table name**: `Category`
-   - **Partition key**: `id` (type: `string`)
-   - Leave **Sort key** empty
+1. Go back to the **DynamoDB Console** and click **Create Table**.
 
-3. In **Table settings**, you can simply use the **Default settings**.
+2. In the **Table details** section, enter:  
+   - **Table name**: `Category`  
+   - **Partition key**: `Id` (type: `string`)  
+   - Leave the **Sort key** blank
 
-4. Click **Create table** to finish.
+![Illustration: Create Category table](/images/3-writing-data-to-amazon-dynamodb/fetch-05.png)
+
+3. In the **Table settings**, you can choose **Default settings** if no changes are needed.
+
+4. Click **Create table** to complete.
 
 ---
 
 {{% notice note %}}
-**On-demand mode** is a great choice for workloads with **unpredictable or spiky traffic**, making it ideal for **beginners** or **development/test environments**.  
-The **Partition key** is **required** and **cannot be changed** after the table is created.  
-You can **add Global Secondary Indexes (GSI)** after the table has been created.
+**On-demand mode** is great for applications with **unpredictable or uneven traffic patterns**, especially ideal for **beginners** or **experimental systems**.  
+The **Partition key** is **mandatory** when creating a table and **cannot be changed** afterward.  
+You can **add secondary indexes** (Global Secondary Indexes) **after the table is created**.
 {{% /notice %}}
 
-#### Results
+---
 
-Once the `Product` and `Category` tables have been successfully created, they will appear in the DynamoDB Console under the list of available tables.
+#### Result
+
+After creating both **Product** and **Category** tables, you will see them listed in the DynamoDB Console.
+
+![Illustration: Tables created](/images/3-writing-data-to-amazon-dynamodb/06.png)

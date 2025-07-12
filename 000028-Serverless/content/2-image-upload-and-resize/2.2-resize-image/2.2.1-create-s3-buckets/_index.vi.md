@@ -48,9 +48,21 @@ Bucket này sẽ được sử dụng để phân tách ảnh gốc và ảnh đ
 
 ![Ảnh minh họa: Tạo S3 bucket](/images/2-image-upload-and-resize/2.2-resize-image/04.png)
 
+**Sau khi tạo Bucket xong , thì tạo Policy để ai xũng có thể xem ảnh từ S3 lưu ảnh này**
+
+5. Truy cập vào S3 vừa tạo, chọn tab **Permission**, Sau đó chọn **Edit** trong Bucket **Policy**
+![Ảnh minh họa: Tạo S3 bucket](/images/2-image-upload-and-resize/2.2-resize-image/04-01.png)
+
+6. Dán mã dưới đây vào trong ô **Policy** 
+
+![Ảnh minh họa: Tạo S3 bucket](/images/2-image-upload-and-resize/2.2-resize-image/04-02.png)
+
+7. Xuộn xuống chọn **Save Changes** để hoàn tất
+
+![Ảnh minh họa: Tạo S3 bucket](/images/2-image-upload-and-resize/2.2-resize-image/04-03.png)
 ---
 
-#### ✅ Kết quả
+#### Kết quả
 
 Sau khi hoàn tất, bạn sẽ thấy bucket `resize-image-fcj` xuất hiện trong danh sách. Bucket này sẽ được sử dụng trong các Lambda function để xử lý và tối ưu ảnh vừa tải lên.
 
