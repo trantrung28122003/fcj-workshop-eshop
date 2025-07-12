@@ -1,0 +1,123 @@
+/* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  color: #2d3748;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #06bbcc, #4a90e2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #05a5b3, #3a7bc8);
+}
+
+/* Focus styles */
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid #06bbcc;
+  outline-offset: 2px;
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.2s ease;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding-top: 80px; /* Increased padding from navbar */
+  margin-left: 280px; /* Width of left sidebar */
+  margin-right: 280px; /* Width of right sidebar */
+  min-height: 100vh;
+  width: 100%;
+}
+
+.left-sidebar {
+  width: 280px;
+  position: fixed;
+  left: 0;
+  top: 60px; /* Height of navbar */
+  bottom: 0;
+  overflow-y: auto;
+  background: white;
+  border-right: 1px solid #dbdbdb;
+  padding: 20px;
+  padding-top: 80px; /* Thêm padding-top bằng với navbar height + padding */
+}
+
+.right-sidebar {
+  width: 280px;
+  position: fixed;
+  right: 0;
+  top: 60px; /* Height of navbar */
+  bottom: 0;
+  overflow-y: auto;
+  background: white;
+  border-left: 1px solid #dbdbdb;
+  padding: 20px;
+  padding-top: 80px; /* Thêm padding-top bằng với navbar height + padding */
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: white;
+  border-bottom: 1px solid #dbdbdb;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+@media (max-width: 1200px) {
+  .right-sidebar {
+    display: none;
+  }
+  .main-content {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 992px) {
+  .left-sidebar {
+    display: none;
+  }
+  .main-content {
+    margin-left: 0;
+  }
+}
