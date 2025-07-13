@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kích hoạt CORS và triển khai API on Tạo mới tài khoản AWS</title>
+    <link>/vi/5-config-api-gateway/5.3-enable-cros-and-deloy/</link>
+    <description>Recent content in Kích hoạt CORS và triển khai API on Tạo mới tài khoản AWS</description>
+    <generator>Hugo -- gohugo.io</generator><atom:link href="/vi/5-config-api-gateway/5.3-enable-cros-and-deloy/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
