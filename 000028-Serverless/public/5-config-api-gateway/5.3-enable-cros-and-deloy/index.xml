@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Enable CORS and Deploy API on Create a new AWS account.</title>
+    <link>/5-config-api-gateway/5.3-enable-cros-and-deloy/</link>
+    <description>Recent content in Enable CORS and Deploy API on Create a new AWS account.</description>
+    <generator>Hugo -- gohugo.io</generator><atom:link href="/5-config-api-gateway/5.3-enable-cros-and-deloy/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

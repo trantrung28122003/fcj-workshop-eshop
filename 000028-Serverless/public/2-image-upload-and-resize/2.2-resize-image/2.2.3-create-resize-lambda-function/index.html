@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.92.2" />
+    <meta name="description" content="">
+<meta name="author" content="journeyoftheaverageguy@gmail.com">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Create Lambda Function Resize :: Create a new AWS account.</title>
+
+    
+    <link href="/css/nucleus.css?1752320866" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1752320866" rel="stylesheet">
+    <link href="/css/hybrid.css?1752320866" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1752320866" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1752320866" rel="stylesheet">
+    <link href="/css/auto-complete.css?1752320866" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1752320866" rel="stylesheet">
+    <link href="/css/theme.css?1752320866" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1752320866" rel="stylesheet">
+    
+    <link href="/css/theme-workshop.css?1752320866" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1752320866"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/2-image-upload-and-resize/2.2-resize-image/2.2.3-create-resize-lambda-function/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1752320866"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1752320866"></script>
+<script type="text/javascript">
+    
+        var baseurl = "";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1752320866"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/1-introduce/" title="Introduction" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/1-introduce/">
+           <b> 1. </b>Introduction
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-image-upload-and-resize/" title="Image Upload and Optimization" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/2-image-upload-and-resize/">
+           <b> 2. </b> Image Upload and Optimization
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-image-upload-and-resize/2.1-upload-original-image/" title="Upload Original Image" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-image-upload-and-resize/2.1-upload-original-image/">
+           <b> 2.1. </b> Upload Original Image
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-image-upload-and-resize/2.1-upload-original-image/2.1.1-create-s3-bucket/" title="Create S3 Bucket" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-image-upload-and-resize/2.1-upload-original-image/2.1.1-create-s3-bucket/">
+           <b> 2.1.1. </b> Create S3 Bucket
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-image-upload-and-resize/2.1-upload-original-image/2.1.2-create-iam-role/" title="Create IAM Role for Lambda GetPresignedUrl" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-image-upload-and-resize/2.1-upload-original-image/2.1.2-create-iam-role/">
+           <b> 2.1.1. </b> Create IAM Role for Lambda GetPresignedUrl
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-image-upload-and-resize/2.1-upload-original-image/2.1.3-create-presignedurl-lambda-function/" title="Create Lambda Function GetPresignedUrl" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-image-upload-and-resize/2.1-upload-original-image/2.1.3-create-presignedurl-lambda-function/">
+           <b> 2.1.3. </b> Create Lambda Function GetPresignedUrl
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-image-upload-and-resize/2.2-resize-image/" title="Resize Image" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/2-image-upload-and-resize/2.2-resize-image/">
+           <b> 2.2. </b> Resize Image
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-image-upload-and-resize/2.2-resize-image/2.2.1-create-s3-buckets/" title="Create S3 Bucket" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-image-upload-and-resize/2.2-resize-image/2.2.1-create-s3-buckets/">
+           <b> 2.2.1. </b> Create S3 Bucket
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-image-upload-and-resize/2.2-resize-image/2.2.2-create-iam-role/" title="Create IAM Role for Lambda ResizeImage" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-image-upload-and-resize/2.2-resize-image/2.2.2-create-iam-role/">
+           <b> 2.2.2. </b> Create IAM Role for Lambda ResizeImage
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-image-upload-and-resize/2.2-resize-image/2.2.3-create-resize-lambda-function/" title="Create Lambda Function Resize" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/2-image-upload-and-resize/2.2-resize-image/2.2.3-create-resize-lambda-function/">
+           <b> 2.2.3. </b> Create Lambda Function Resize
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3-writing-data-to-amazon-dynamodb/" title="Writing Data to DynamoDB" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/3-writing-data-to-amazon-dynamodb/">
+           <b> 3. </b> Writing Data to DynamoDB
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4-deploy-lambda-function/" title="Deploying Lambda Functions" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/4-deploy-lambda-function/">
+           <b> 4. </b> Deploying Lambda Functions
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/" title="Create IAM Role for Lambda Function" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/4-deploy-lambda-function/4.1-create-iam-role-for-lambda-function/">
+           <b> 4.1. </b> Create IAM Role for Lambda Function
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4-deploy-lambda-function/4.2-create-or-update-lambda-function/" title="Create or Update Lambda Functions" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/4-deploy-lambda-function/4.2-create-or-update-lambda-function/">
+           <b> 4.2. </b> Create or Update Lambda Functions
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4-deploy-lambda-function/4.3-delete-lambda-function/" title="Delete Product Data with Lambda Function" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/4-deploy-lambda-function/4.3-delete-lambda-function/">
+           <b> 4.3. </b> Delete Product Data with Lambda Function
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4-deploy-lambda-function/4.4-get-lambda-function/" title="Lambda Functions to Get Data" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/4-deploy-lambda-function/4.4-get-lambda-function/">
+           <b> 4.4. </b> Lambda Functions to Get Data
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-config-api-gateway/" title="Configure API Gateway" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/5-config-api-gateway/">
+           <b> 5. </b> Configure API Gateway
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-config-api-gateway/5.1-create-api-gateway/" title="Create API Gateway" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/5-config-api-gateway/5.1-create-api-gateway/">
+           <b> 5.1. </b> Create API Gateway
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-config-api-gateway/5.2-create-resource-and-method/" title="Create Resources and Corresponding Methods" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/5-config-api-gateway/5.2-create-resource-and-method/">
+           <b> 5.2. </b> Create Resources and Corresponding Methods
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-config-api-gateway/5.3-enable-cros-and-deloy/" title="Enable CORS and Deploy API" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/5-config-api-gateway/5.3-enable-cros-and-deloy/">
+           <b> 5.3. </b> Enable CORS and Deploy API
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-config-api-gateway/5.4-test-apis-with-postman/" title="Test APIs with Postman" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/5-config-api-gateway/5.4-test-apis-with-postman/">
+           <b> 5.4. </b> Test APIs with Postman
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/6-setup-cognito-userpool/" title="Configure Cognito UserPool" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/6-setup-cognito-userpool/">
+           <b> 6. </b> Configure Cognito UserPool
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/6-setup-cognito-userpool/6.1-create-user-pool-and-setting/" title="Create and Configure User Pool" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/6-setup-cognito-userpool/6.1-create-user-pool-and-setting/">
+           <b> 6.1. </b> Create and Configure User Pool
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/6-setup-cognito-userpool/6.2-test-apis-with-postman/" title="Test API with Postman" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/6-setup-cognito-userpool/6.2-test-apis-with-postman/">
+           <b> 6.2. </b> Test API with Postman
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/7-authentication-and-authorization/" title="Authentication and Authorization" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/7-authentication-and-authorization/">
+           <b> 7. </b> Authentication and Authorization
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/7-authentication-and-authorization/7.1-authenticate-with-cognito-api-gateway/" title="Configure Cognito Authentication in API Gateway" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/7-authentication-and-authorization/7.1-authenticate-with-cognito-api-gateway/">
+           <b> 7.1. </b> Configure Cognito Authentication in API Gateway
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/7-authentication-and-authorization/7.2-authorization-with-cognito-groups/" title="Configure Cognito Group-Based Authorization" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/7-authentication-and-authorization/7.2-authorization-with-cognito-groups/">
+           <b> 7.2. </b> Configure Cognito Group-Based Authorization
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/8-deploy-frontend/" title="Deploy Frontend" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/8-deploy-frontend/">
+           <b> 8. </b> Deploy Frontend
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/9-final-result-verification/" title="Final Frontend Verification" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/9-final-result-verification/">
+           <b> 9. </b> Final Frontend Verification
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/10-clean-up-resources/" title="Clean Up Resources" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/10-clean-up-resources/">
+           <b> 10. </b> Clean Up Resources
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://aws.amazon.com/blogs"><i class='fab fa-aws'></i> AWS Study Group - Blog</a>
+              </li>
+          
+              <li> 
+                  <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj"><i class='fab fa-facebook'></i> AWS Study Group - FB Group</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+          <div class="select-style">
+            <select id="select-language" onchange="location = this.value;">
+          
+          
+          
+              
+              
+                  
+                    
+                    
+                      <option id="en" value="/2-image-upload-and-resize/2.2-resize-image/2.2.3-create-resize-lambda-function/" selected>English</option>
+                    
+                  
+              
+                  
+              
+          
+              
+              
+                  
+              
+                  
+                    
+                    
+                      <option id="vi" value="/vi/2-image-upload-and-resize/2.2-resize-image/2.2.3-create-resize-lambda-function/">Tiếng Việt</option>
+                    
+                  
+              
+          
+        </select>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+          <g>
+            <g id="arrow-drop-down">
+              <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+            </g>
+          </g>
+        </svg>
+        </div>
+        </a>
+        </li>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <left>
+    
+     <b> Workshop</b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830891&style=0038&nbdigits=9&type=page&initCount=0" title="Migrate" Alt="web counter"   border="0" /></a>  <br>
+     <b> <a href="https://cloudjourney.awsstudygroup.com/">Cloud Journey</a></b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830807&style=0038&nbdigits=9&type=page&initCount=0" title="Total CLoud Journey" Alt="web counter"   border="0"   />
+     
+</left>
+<left>
+    <br>
+    <br>
+        <b> Last Updated </b> <br>
+        <i><font color=orange>26-11-2023</font></i>
+    </left>
+    <left>
+        <br>
+        <br>
+            <b> Team </b> <br>
+           
+            <i>
+                <a href="https://www.linkedin.com/in/jotaguy"  style="color:orange">Gia Hưng</a>
+        </i>
+        </left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Serverless Web Application Management System on AWS</a> > <a href='/2-image-upload-and-resize/'>Image Upload and Optimization</a> > <a href='/2-image-upload-and-resize/2.2-resize-image/'>Resize Image</a> > Create Lambda Function Resize
+          
+        
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+        <li><a href="#4-zip-the-source-code-for-lambda">4. Zip the source code for Lambda</a></li>
+        <li><a href="#5-upload-the-zip-file-to-lambda">5. Upload the ZIP file to Lambda</a></li>
+        <li><a href="#6-after-the-upload-is-complete-click-deploy">6. After the upload is complete, click <strong>Deploy</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#configure-s3-trigger-for-lambda-resize-image">Configure S3 Trigger for Lambda <code>resize-image</code></a>
+      <ul>
+        <li><a href="#1-go-to-the-resize-image-lambda-function-page-switch-to-the-configuration-tab--choose-triggers--click-add-trigger">1. Go to the <strong>resize-image</strong> Lambda function page, switch to the <strong>Configuration</strong> tab → choose <strong>Triggers</strong> → click <strong>Add trigger</strong></a></li>
+        <li><a href="#2-in-trigger-configuration-select-the-s3-service">2. In <strong>Trigger configuration</strong>, select the <strong>S3</strong> service</a></li>
+        <li><a href="#3-fill-in-the-configuration-with-the-following-details">3. Fill in the configuration with the following details:</a></li>
+        <li><a href="#in-this-workshop-you-will-create-2-separate-triggers">In this workshop, you will create <strong>2 separate triggers</strong>:</a></li>
+      </ul>
+    </li>
+    <li><a href="#result">Result</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Create Lambda Function Resize
+            </h1>
+          
+
+        
+
+
+
+	<h4 id="overview">Overview</h4>
+<p>In this step, you will deploy a Lambda function named <strong>resize-image</strong>, with the purpose of <strong>automatically resizing and optimizing images</strong> every time a new image is uploaded to S3.<br>
+This helps the frontend load images faster, reduce bandwidth usage, and improve rendering performance.<br>
+The function is written in <strong>Node.js 22.x</strong> and uses an <strong>IAM Role</strong> created in the previous step to access S3.</p>
+<hr>
+<h4 id="create-lambda-function-resize-image-via-aws-console">Create Lambda Function resize-image via AWS Console</h4>
+<ol>
+<li>Go to the <a href="https://console.aws.amazon.com/lambda/home">AWS Lambda Console</a>, then click <strong>Create function</strong>.</li>
+</ol>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/16.png" alt="Illustration: Create Lambda function"></p>
+<ol start="2">
+<li>On the <strong>Create function</strong> screen, choose <strong>Author from scratch</strong>, and fill in the following under <strong>Basic information</strong>:</li>
+</ol>
+<ul>
+<li><strong>Function name</strong>: <code>resize-image</code></li>
+<li><strong>Runtime</strong>: <code>Node.js 22.x</code></li>
+<li><strong>Architecture</strong>: <code>x86_64</code></li>
+</ul>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/17.png" alt="Illustration: Basic info"></p>
+
+<div class="notices note" ><p>AWS Lambda currently supports various runtimes including <strong>Java</strong>, <strong>.NET</strong>, <strong>Python</strong>, <strong>Node.js</strong>,&hellip;<br>
+In this tutorial, we use <strong>Node.js 22.x</strong> — the latest version with better performance and modern syntax compared to Node.js 18.x.</p>
+</div>
+
+<ol start="3">
+<li>Under <strong>Change default execution role</strong>:</li>
+</ol>
+<ul>
+<li>Select: <code>Use an existing role</code></li>
+<li>Then choose the IAM Role you created, e.g., <code>lambda-resize-image-role</code></li>
+<li>Finally, click <strong>Create function</strong></li>
+</ul>
+<p>Lambda will then redirect to the function editor interface.</p>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/18.png" alt="Lambda created"></p>
+<hr>
+<h4 id="deploy-source-code-for-lambda-resize-image">Deploy Source Code for Lambda resize-image</h4>
+<p>You can choose <strong>one of the following two methods</strong> to deploy the Lambda:</p>
+<hr>
+<h5 id="option-1-use-pre-built-zip-file-quick--easy"><strong>Option 1: Use Pre-built ZIP File (Quick &amp; Easy)</strong></h5>
+<blockquote>
+<p>Recommended for quick deployment without setup. The pre-built package is ready for use.</p>
+</blockquote>
+<ol>
+<li>
+<p>Download the pre-built <code>.zip</code> here: <a href="/attachments/2-image-upload-and-resize/2.2-resize-image/resize-image-lambda.zip"><strong>resize-image.zip</strong></a></p>
+</li>
+<li>
+<p>Once downloaded:</p>
+</li>
+</ol>
+<ul>
+<li>Go to <strong>AWS Lambda</strong>, select the <strong>resize-image</strong> function</li>
+<li>In the <strong>Code</strong> section, click <strong>Upload from</strong>, then choose <strong>.zip file</strong></li>
+</ul>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/21.png" alt="Upload ZIP"></p>
+<ul>
+<li>Select the <code>resize-image-lambda.zip</code> you downloaded</li>
+</ul>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/22.png" alt="Select ZIP"></p>
+<ol start="3">
+<li>After uploading, click <strong>Deploy</strong></li>
+</ol>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/23.png" alt="Deploy ZIP"></p>
+<p><strong>Verify the handler is:</strong> <code>index.handler</code><br>
+
+<div class="notices tip" ><p>Lambda handlers follow the format: <code>&lt;FILENAME&gt;.&lt;FUNCTION_NAME&gt;</code></p>
+</div>
+</p>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/24.png" alt="Verify handler"></p>
+<p>Then, scroll down for the section <strong>Configure S3 Trigger for Lambda resize-image</strong></p>
+<hr>
+<h5 id="option-2-manually-build-source-code"><strong>Option 2: Manually Build Source Code</strong></h5>
+<blockquote>
+<p>For those who want to learn by building from scratch.</p>
+</blockquote>
+<ol>
+<li>
+<p>Download the sample source code here: <a href="/attachments/2-image-upload-and-resize/2.2-resize-image/resize-image-source.zip"><strong>resize-image-source.zip</strong></a></p>
+</li>
+<li>
+<p>After extracting, you’ll see:</p>
+</li>
+</ol>
+<ul>
+<li><code>index.mjs</code>: Lambda logic</li>
+<li><code>package.json</code>: Declares required dependencies</li>
+</ul>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/19.png" alt="Source files"></p>
+<p><strong>Note:</strong><br>
+This workshop uses <strong>Sharp</strong> for image processing.<br>
+Since it&rsquo;s a native module, it must be compiled for the target runtime (Amazon Linux 2).</p>
+
+<div class="notices warning" ><p>If you install <code>sharp</code> on Windows/macOS and deploy it to Lambda, it will throw an error like:<br>
+<code>Error: Cannot find module 'sharp'</code><br>
+You <strong>must use Docker with AWS Lambda&rsquo;s official image</strong> to install dependencies.</p>
+</div>
+
+<ol start="3">
+<li>Open <strong>PowerShell</strong> in the source folder and run:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run --rm -v <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>PWD<span style="color:#e6db74">}</span><span style="color:#e6db74">:/app&#34;</span> -w /app node:22 bash -c <span style="color:#e6db74">&#34;npm install sharp&#34;</span>
+</code></pre></div><p>If using <strong>CMD</strong>, run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run --rm -v <span style="color:#e6db74">&#34;%cd%:/var/task&#34;</span> -w /var/task public.ecr.aws/lambda/nodejs20.x bash -c <span style="color:#e6db74">&#34;npm install sharp&#34;</span>
+</code></pre></div><p><img src="/images/2-image-upload-and-resize/2.2-resize-image/19.png" alt="Illustration: Source structure"></p>
+<hr>
+<h3 id="4-zip-the-source-code-for-lambda">4. Zip the source code for Lambda</h3>
+<ul>
+<li>Go to the <strong>resize-image-source</strong> directory</li>
+<li>Select all files and folders: <strong>index.mjs</strong>, <strong>package.json</strong>, <strong>node_modules/</strong></li>
+<li>Compress them into a file named <code>resize-image-lambda.zip</code></li>
+</ul>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/21-01.png" alt="Illustration: Zip files"></p>
+<hr>
+<h3 id="5-upload-the-zip-file-to-lambda">5. Upload the ZIP file to Lambda</h3>
+<ul>
+<li>Go to <strong>AWS Lambda</strong>, select the <strong>resize-image</strong> function</li>
+<li>In the <strong>Code</strong> section, click <strong>Upload from</strong>, then select <strong>.zip file</strong></li>
+</ul>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/21.png" alt="Upload step"></p>
+<ul>
+<li>Select the <code>resize-image-lambda.zip</code> file you just created</li>
+</ul>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/22.png" alt="ZIP selected"></p>
+<hr>
+<h3 id="6-after-the-upload-is-complete-click-deploy">6. After the upload is complete, click <strong>Deploy</strong></h3>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/23.png" alt="Deploy function"></p>
+<p><strong>Verify the Lambda handler is:</strong> <code>index.handler</code></p>
+
+<div class="notices tip" ><p>The Lambda handler must follow the format: <code>&lt;FILENAME&gt;.&lt;FUNCTION_NAME&gt;</code></p>
+</div>
+
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/24.png" alt="Handler confirmation"></p>
+<hr>
+<h2 id="configure-s3-trigger-for-lambda-resize-image">Configure S3 Trigger for Lambda <code>resize-image</code></h2>
+<p>After uploading the source code and setting up the <code>resize-image</code> Lambda function, you need to configure a <strong>S3 Trigger</strong> so that whenever a new image is uploaded, the Lambda function is <strong>automatically invoked</strong> to perform resizing.</p>
+<hr>
+<h3 id="1-go-to-the-resize-image-lambda-function-page-switch-to-the-configuration-tab--choose-triggers--click-add-trigger">1. Go to the <strong>resize-image</strong> Lambda function page, switch to the <strong>Configuration</strong> tab → choose <strong>Triggers</strong> → click <strong>Add trigger</strong></h3>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/25.png" alt="Add S3 trigger"></p>
+<hr>
+<h3 id="2-in-trigger-configuration-select-the-s3-service">2. In <strong>Trigger configuration</strong>, select the <strong>S3</strong> service</h3>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/26.png" alt="Select S3 service"></p>
+<hr>
+<h3 id="3-fill-in-the-configuration-with-the-following-details">3. Fill in the configuration with the following details:</h3>
+<ul>
+<li>
+<p><strong>Bucket</strong>: Name of the bucket that stores original images, e.g. <code>upload-originals</code></p>
+</li>
+<li>
+<p><strong>Event types</strong>: <code>All object create events</code></p>
+</li>
+<li>
+<p><strong>Prefix</strong> (optional): Only trigger when files are uploaded under a folder, e.g. <code>images/originals/</code></p>
+</li>
+<li>
+<p><strong>Suffix</strong> (optional): Restrict the trigger to specific file extensions</p>
+</li>
+<li>
+<p>Check the box:<br>
+<strong>“I acknowledge that using the same S3 bucket for both input and output is not recommended and that this configuration can cause recursive invocations, increased Lambda usage, and increased costs.”</strong></p>
+</li>
+<li>
+<p>Finally, click <strong>Add</strong> to complete.</p>
+</li>
+</ul>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/27.png" alt="Trigger settings"></p>
+<hr>
+<h3 id="in-this-workshop-you-will-create-2-separate-triggers">In this workshop, you will create <strong>2 separate triggers</strong>:</h3>
+<ul>
+<li><strong>Trigger 1</strong>: <code>Suffix = .jpg</code></li>
+<li><strong>Trigger 2</strong>: <code>Suffix = .png</code></li>
+</ul>
+<p>Repeat the same steps to create <strong>Trigger 2</strong>:</p>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/28.png" alt="Create second trigger"></p>
+
+<div class="notices info" ><p>Each S3 trigger can only specify <strong>one Suffix</strong>.<br>
+That’s why in this workshop, you need to create <strong>two separate triggers</strong>: one for <code>.jpg</code> and one for <code>.png</code>.</p>
+</div>
+
+<blockquote>
+<p>Clearly specifying <code>Suffix</code> ensures that Lambda only processes <strong>image files</strong>, avoiding errors and reducing unnecessary cost.</p>
+</blockquote>
+<hr>
+<h2 id="result">Result</h2>
+<p>Once the triggers are configured, you can verify them from the S3 bucket UI:</p>
+<ol>
+<li>Go to the <strong>S3 Console</strong>, select the <strong>bucket</strong> that stores original images (e.g. <code>upload-originals-fcj</code>), then switch to the <strong>Properties</strong> tab</li>
+</ol>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/29.png" alt="S3 bucket properties"></p>
+<ol start="2">
+<li>
+<p>Scroll down to the <strong>Event notifications</strong> section — you’ll see a list of <strong>event triggers</strong><br>
+Each trigger corresponds to a file <strong>suffix</strong> like <code>.jpg</code> or <code>.png</code></p>
+</li>
+<li>
+<p>You will see the <strong>event notifications</strong> associated with the <strong>resize-image Lambda function</strong></p>
+</li>
+</ol>
+<p><img src="/images/2-image-upload-and-resize/2.2-resize-image/30.png" alt="Event notification list"></p>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/2-image-upload-and-resize/2.2-resize-image/2.2.2-create-iam-role/" title="Create IAM Role for Lambda ResizeImage"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/3-writing-data-to-amazon-dynamodb/" title="Writing Data to DynamoDB" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1752320866"></script>
+    <script src="/js/perfect-scrollbar.min.js?1752320866"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1752320866"></script>
+    <script src="/js/jquery.sticky.js?1752320866"></script>
+    <script src="/js/featherlight.min.js?1752320866"></script>
+    <script src="/js/highlight.pack.js?1752320866"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1752320866"></script>
+    <script src="/js/learn.js?1752320866"></script>
+    <script src="/js/hugo-learn.js?1752320866"></script>
+
+    <link href="/mermaid/mermaid.css?1752320866" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1752320866"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-158079754-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>
